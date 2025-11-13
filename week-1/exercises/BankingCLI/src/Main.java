@@ -9,14 +9,24 @@ public class Main {
     private static int userChoice;
     private static String[] options = {"Deposit", "Check Balance", "Withdraw"};
 
-    public static void main (String[] args) {
+    public static void main(String[] args) {
         scanner = new Scanner(System.in);
-        userChoice = 0;
         account1 = new BankAccount(INITIAL_BALANCE);
 
         displayWelcomeMessage();
-        getUserChoice();
+
+        boolean running = true;
+        while (running) {
+            getUserChoice();
+            if (userChoice == 0) { // 0 indicates quit
+                running = false;
+            } else {
+                navigateUser();
+            }
+        }
+
         scanner.close();
+        System.out.println("Thank you for banking with us!");
     }
 
     private static void displayWelcomeMessage() {
@@ -71,7 +81,6 @@ public class Main {
                 }
             }
         }
-        navigateUser();
     }
 
     private static void navigateUser () {
@@ -103,15 +112,11 @@ public class Main {
             System.out.println("Invalid amount entered");
             scanner.nextLine();
         }
-
-        getUserChoice();
     }
 
     private static void checkBalance() {
         double balance = account1.getBalance();
         System.out.println("Your current balance is: " + balance);
-
-        getUserChoice();
     }
 
     private static void makewithdrawal() {
@@ -127,7 +132,5 @@ public class Main {
         } else {
             System.out.println("Invalid amount entered");
         }
-
-        getUserChoice();
     }
 }
