@@ -21,9 +21,19 @@ public class Main {
     }
 
 
-    private static void getUserChoice() {
+    public static boolean isInteger(String input) {
+        try {
+            Integer.parseInt(input);
+            return true;
+        } catch(Exception e) {
+            return false;
+        }
+    }
 
+
+    private static void getUserChoice() {
         boolean validInput = false;
+        String inputValue = "";
         userChoice=0;
 
         // Output options
@@ -34,14 +44,25 @@ public class Main {
 
         // Gather and validate user input
         while (!validInput) {
-            System.out.print("\nPlease enter an option number: ");
-            if (scanner.hasNextInt()) { // Check is input value is of type int
-                userChoice = scanner.nextInt();
-                if (userChoice >= 1 && userChoice <= options.length + 1) { // Ensure input is a valid option
-                    validInput = true;
-                } else {
-                    System.out.println("Invalid input! Please enter one of the option numbers.");
-                    scanner.next(); // Clear the invalid input
+            System.out.print("\nPlease enter an option number or enter 'quit': ");
+            if (scanner.hasNextLine()) { // Check is input value is of type int
+                inputValue = scanner.nextLine();
+
+                // Check if input can be parsed to intger
+                if(isInteger(inputValue)) {
+                    userChoice = Integer.parseInt(inputValue);
+
+                    if (userChoice >= 1 && userChoice <= options.length) { // Fixed: removed + 1
+                        validInput = true;
+                    } else {
+                        System.out.println("\nInvalid input! Please enter one of the option numbers.");
+                    }
+                // Check if input is "quit"
+                } else if(inputValue.equalsIgnoreCase("quit")) {
+                    break;
+                }
+                else {
+                    System.out.println("\nInvalid input! Please enter one of the option numbers.");
                 }
             }
         }
