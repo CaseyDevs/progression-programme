@@ -18,6 +18,7 @@ public class Main {
         );
 
         getUserChoice();
+        scanner.close();
     }
 
 
@@ -84,8 +85,6 @@ public class Main {
             default:
                 break;
         }
-
-        scanner.close();
     }
 
 
