@@ -1,0 +1,72 @@
+# What is JDK ?
+JDK (Java Development Kit) is a tool used to run Java Code. The JDK includes the Java interpreter,
+Java classes, and Java development tools--compiler, debugger, dissssembler, appletviewer, stub file generator,
+and documentation generator. 
+
+Esentially, it is software that allows us to compile, debug, and run Java programs.
+
+# Variables
+
+There are 2 types of variables in Java. Primitive and Reference variables.
+
+Primitive variables are simple values that are stored directly in memory on the stack.
+
+### Primitive Types:
+1. int
+2. char
+3. bool
+4. double
+5. float
+6. long double
+
+Reference variables are more complex values which store memory addresses on the stack that point to the heap;.
+
+### Reference Types:
+1. Array
+2. Vector
+3. Object
+4. String
+5. Class
+6. Interface
+
+# The Stack and Heap
+
+## Stack
+Stack memory is used for static memory allocation and the execution of a thread. It contains primitive values that are specific to a method and references to objects referred from the method that are in a heap.
+
+Access to stacks is LIFO (Last in first out), so the last values to be added to the stack will be the first values to exit. When a new method is called, a new block is created on the top of the stack, containing values specific that method--primitive variables, references to objects.
+
+When the method finishes execution, its corresponding stack frame is flushed, the flow goes back to the calling method, and space becomes available for the next method.
+
+### Key Features of Stack
+- Grows and shrinks as methods are called and returned respectively.
+- Variables in the stack only exist while their corresponding method is running.
+- Automatically allocated and deallocated when the method finishes execution.
+- If this memory is full, Java throws java.lang.StackOverFlowError.
+- Access to this memory is much faster than accessing heap memory.
+- Threadsafe, as each thread runs on its own stack--the fields of an object or class always maintain a valid state, as observed by other objects and classes, even when used concurrently by multiple threads. 
+
+## Heap
+Heap space is used for dynamic memory allocation of Java Objects and JRE classes at runtime. New objects are always created in heap space, and the references to these objects are stored in stack memory.
+
+Due to the nature of heap memory, these objects can be access globally--from anywhere in the application.
+
+We can break this memory model down into smaller parts, called generations, which are:
+
+Young Generation – this is where all new objects are allocated and aged. A minor Garbage collection occurs when this fills up.
+
+Old or Tenured Generation – this is where long surviving objects are stored. When objects are stored in the Young Generation, a threshold for the object’s age is set, and when that threshold is reached, the object is moved to the old generation.
+
+Permanent Generation – this consists of JVM metadata for the runtime classes and application methods.
+
+### Key Features of Heap
+- Accessed via complex memory management techniques-- Young generation, Old or tenured generation, Permanent generation.
+- If heap space is full, Java throws java.lang.OutOfMemoryError.
+- Access to heap memory is comparitively slower than stack memory.
+- This memory, in contrast to stack, isn’t automatically deallocated. It needs Garbage Collector to free up unused objects so as to keep the efficiency of the memory usage.
+- Unlike stack, a heap isn’t threadsafe and needs to be guarded by properly synchronizing the code.
+
+
+![](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*TRrCTXjuOzGE17rKqLXP4Q.png)
+
+
