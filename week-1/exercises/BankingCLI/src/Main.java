@@ -3,25 +3,33 @@ import java.util.Scanner;
 public class Main {
     private static BankAccount account1;
     private static Scanner scanner;
+    private static int userChoice;
+    private static String[] options = {"Deposit", "Check Balance", "Withdraw"};
 
     public static void main (String[] args) {
         scanner = new Scanner(System.in);
-        boolean validInput = false;
-        int userChoice = 0;
-
-        String[] options = {"Deposit", "Check Balance", "Withdraw"};
+        userChoice = 0;
         account1 = new BankAccount(1000);
 
         System.out.println(
                 "\n##############################\n" +
-                "### WELCOME TO CLI BANKING ###\n" +
-                "##############################\n"
+                        "### WELCOME TO CLI BANKING ###\n" +
+                        "##############################"
         );
 
+        getUserChoice();
+    }
+
+
+    private static void getUserChoice() {
+
+        boolean validInput = false;
+        userChoice=0;
+
         // Output options
-        System.out.println("Options:");
-        for(int i = 0; i < options.length; i++) {
-            System.out.println(i+1 + ": " + options[i]);
+        System.out.println("\nOptions:");
+        for (int i = 0; i < options.length; i++) {
+            System.out.println(i + 1 + ": " + options[i]);
         }
 
         // Gather and validate user input
@@ -37,9 +45,12 @@ public class Main {
                 }
             }
         }
+        navigateUser();
+    }
 
 
-        switch(userChoice) {
+    private static void navigateUser () {
+        switch (userChoice) {
             case 1:
                 makeDeposit();
                 break;
@@ -56,6 +67,7 @@ public class Main {
         scanner.close();
     }
 
+
     private static void makeDeposit() {
         double amount;
 
@@ -67,12 +79,18 @@ public class Main {
         } else {
             System.out.println("Invalid amount entered");
         }
+
+        getUserChoice();
     }
+
 
     private static void checkBalance() {
         double balance = account1.getBalance();
         System.out.println("Your current balance is: " + balance);
+
+        getUserChoice();
     }
+
 
     private static void makeWidthdrawal() {
         double amount;
@@ -87,5 +105,7 @@ public class Main {
         } else {
             System.out.println("Invalid amount entered");
         }
+
+        getUserChoice();
     }
 }
