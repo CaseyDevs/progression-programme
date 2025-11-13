@@ -1,7 +1,21 @@
+# The Compiler & JVM
+The compiler takes the interpreted Java source code and compiles it into bytecode. The process of converting
+the source code enables the Java Virtual Machine (JVM) to significantly improve the execution time of a Java
+program. It checks the entire program for syntax violations, valid variable values based on their typing,
+prevents access violations.
+
+The JVM works at runtime, making Java code actually run. It is responsive for throwing exceptions such as
+ClassCastExeptions for example. It also recognises when incorrect types are stored in an array, and acts as
+a second line of defense.
+
 # What is JDK ?
 JDK (Java Development Kit) is a tool used to run Java Code. The JDK includes the Java interpreter,
 Java classes, and Java development tools--compiler, debugger, dissssembler, appletviewer, stub file generator,
 and documentation generator. 
+
+JDK = allows you to develop Java (compiler, debugger)
+
+JRE = allows you to run Java
 
 Esentially, it is software that allows us to compile, debug, and run Java programs.
 
@@ -10,6 +24,7 @@ Esentially, it is software that allows us to compile, debug, and run Java progra
 There are 2 types of variables in Java. Primitive and Reference variables.
 
 Primitive variables are simple values that are stored directly in memory on the stack.
+They store actual values.
 
 ### Primitive Types:
 1. int
@@ -19,8 +34,8 @@ Primitive variables are simple values that are stored directly in memory on the 
 5. float
 6. long double
 
-Reference variables are more complex values which store memory addresses on the stack that point to the heap;.
-
+Reference variables are more complex values which store memory addresses on the stack that point to the heap.
+They store a pointer to an object on the heap.
 ### Reference Types:
 1. Array
 2. Vector
@@ -66,6 +81,11 @@ Permanent Generation – this consists of JVM metadata for the runtime classes a
 - This memory, in contrast to stack, isn’t automatically deallocated. It needs Garbage Collector to free up unused objects so as to keep the efficiency of the memory usage.
 - Unlike stack, a heap isn’t threadsafe and needs to be guarded by properly synchronizing the code.
 
+Stack → stores primitive values + references + method calls.
+Fast, automatic, short-lived.
+
+Heap → stores actual objects created with new.
+Slower, shared, long-lived.
 
 ![](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*TRrCTXjuOzGE17rKqLXP4Q.png)
 
