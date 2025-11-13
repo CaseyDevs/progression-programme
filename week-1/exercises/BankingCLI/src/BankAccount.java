@@ -13,14 +13,12 @@ public class BankAccount {
         balance += amount;
     }
 
-    public boolean widthdraw(double amount) {
+    public boolean withdraw(double amount) {
         if (balance - amount < 0) {
             return false;
-            // System.out.println("You do not have enough funds to widthdraw: " + amount);
         } else {
             balance -= amount;
             return true;
-            // System.out.println("Success! Your new balance is: " + balance);
         }
     }
 }

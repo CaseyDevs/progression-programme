@@ -80,7 +80,7 @@ public class Main {
                 checkBalance();
                 break;
             case 3:
-                makeWidthdrawal();
+                makewithdrawal();
                 break;
             default:
                 break;
@@ -94,10 +94,12 @@ public class Main {
         System.out.println("How much would you like to deposit ?: ");
         if(scanner.hasNextDouble()) {
             amount = scanner.nextDouble();
+            scanner.nextLine();
             account1.deposit(amount);
             System.out.println("Success! Your new balance is: " + account1.getBalance());
         } else {
             System.out.println("Invalid amount entered");
+            scanner.nextLine();
         }
 
         getUserChoice();
@@ -112,13 +114,13 @@ public class Main {
     }
 
 
-    private static void makeWidthdrawal() {
+    private static void makewithdrawal() {
         double amount;
-        System.out.println("How much would you like to widthdraw ?: ");
+        System.out.println("How much would you like to withdraw ?: ");
         if(scanner.hasNextDouble()) {
             amount = scanner.nextDouble();
-            if (!account1.widthdraw(amount)) {
-                System.out.println("You do not have enough funds to widthdraw: " + amount);
+            if (!account1.withdraw(amount)) {
+                System.out.println("You do not have enough funds to withdraw: " + amount);
             } else {
                 System.out.println("Success! Your new balance is: " + account1.getBalance());
             }
