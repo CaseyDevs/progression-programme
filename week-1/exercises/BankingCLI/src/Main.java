@@ -1,6 +1,9 @@
 import java.util.Scanner;
 
 public class Main {
+    private static final String QUIT_COMMAND = "quit";
+    private static final double INITIAL_BALANCE = 0.0;
+
     private static BankAccount account1;
     private static Scanner scanner;
     private static int userChoice;
@@ -9,18 +12,20 @@ public class Main {
     public static void main (String[] args) {
         scanner = new Scanner(System.in);
         userChoice = 0;
-        account1 = new BankAccount(1000);
+        account1 = new BankAccount(INITIAL_BALANCE);
 
+        displayWelcomeMessage();
+        getUserChoice();
+        scanner.close();
+    }
+
+    private static void displayWelcomeMessage() {
         System.out.println(
                 "\n##############################\n" +
                         "### WELCOME TO CLI BANKING ###\n" +
                         "##############################"
         );
-
-        getUserChoice();
-        scanner.close();
     }
-
 
     public static boolean isInteger(String input) {
         try {
@@ -30,7 +35,6 @@ public class Main {
             return false;
         }
     }
-
 
     private static void getUserChoice() {
         boolean validInput = false;
@@ -59,7 +63,7 @@ public class Main {
                         System.out.println("\nInvalid input! Please enter one of the option numbers.");
                     }
                 // Check if input is "quit"
-                } else if(inputValue.equalsIgnoreCase("quit")) {
+                } else if(inputValue.equalsIgnoreCase(QUIT_COMMAND)) {
                     break;
                 }
                 else {
@@ -69,7 +73,6 @@ public class Main {
         }
         navigateUser();
     }
-
 
     private static void navigateUser () {
         switch (userChoice) {
@@ -86,7 +89,6 @@ public class Main {
                 break;
         }
     }
-
 
     private static void makeDeposit() {
         double amount;
@@ -105,14 +107,12 @@ public class Main {
         getUserChoice();
     }
 
-
     private static void checkBalance() {
         double balance = account1.getBalance();
         System.out.println("Your current balance is: " + balance);
 
         getUserChoice();
     }
-
 
     private static void makewithdrawal() {
         double amount;
