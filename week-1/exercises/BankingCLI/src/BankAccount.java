@@ -3,15 +3,16 @@ import java.util.List;
 
 public class BankAccount {
     private double balance;
-    private List<String> transactionHistory;
+    private final List<String> transactionHistory;
     private String TRANSACTION_TYPE;
+    private String transactionItem;
 
     public BankAccount(double balance) {
         if (balance < 0) {
             throw new IllegalArgumentException("Initial balance cannot be negative");
         }
         this.balance = balance;
-        this.transactionHistory = new ArrayList<String>();
+        this.transactionHistory = new ArrayList<>();
     }
 
     public double getBalance() {
@@ -20,27 +21,30 @@ public class BankAccount {
 
     public void deposit(double amount) {
         TRANSACTION_TYPE = "DEPOSIT";
-        String transactionItem;
+        transactionItem = TRANSACTION_TYPE + ": " + amount;
 
         if (amount <= 0) {
             throw new IllegalArgumentException("Deposit amount must be positive");
         }
-        balance += amount;
-        transactionItem = TRANSACTION_TYPE + ": " + amount;
 
+        balance += amount;
         addToTransactionHistory(transactionItem);
     }
 
     public boolean withdraw(double amount) {
+        TRANSACTION_TYPE = "WITHDRAW";
+        transactionItem = TRANSACTION_TYPE + ": " + amount;
+
         if (amount <= 0) {
             throw new IllegalArgumentException("Withdrawal amount must be positive");
         }
         if (balance - amount < 0) {
             return false;
-        } else {
-            balance -= amount;
-            return true;
         }
+
+        balance -= amount;
+        addToTransactionHistory(transactionItem);
+        return true;
     }
 
     public void addToTransactionHistory(String transactionItem) {
