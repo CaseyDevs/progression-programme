@@ -47,9 +47,15 @@ public class BankAccount {
         transactionHistory.add(transactionHistory.size(), transactionItem);
     }
 
-    public void getTransactionHistory() {
+    public boolean getTransactionHistory() {
+        if(transactionHistory.isEmpty()) {
+            return false;
+        }
+
         for(String s : transactionHistory) {
             System.out.println(s);
         }
+
+        return true;
     }
 }

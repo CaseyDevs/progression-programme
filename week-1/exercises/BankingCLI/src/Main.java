@@ -7,7 +7,7 @@ public class Main {
     private static BankAccount account1;
     private static Scanner scanner;
     private static int userChoice;
-    private static String[] options = {"Deposit", "Check Balance", "Withdraw"};
+    private static String[] options = {"Deposit", "Check Balance", "Withdraw", "Transaction History"};
 
     public static void main(String[] args) {
         scanner = new Scanner(System.in);
@@ -94,6 +94,8 @@ public class Main {
             case 3:
                 makewithdrawal();
                 break;
+            case 4:
+                getTransactionHistory();
             default:
                 break;
         }
@@ -131,6 +133,16 @@ public class Main {
             }
         } else {
             System.out.println("Invalid amount entered");
+        }
+    }
+
+    private static void getTransactionHistory() {
+        if (account1.getTransactionHistory()) {
+            System.out.println("\n######## TRANSACTION HISTORY ########\n");
+            account1.getTransactionHistory();
+            System.out.println("\n#####################################");
+        } else {
+            System.out.println("No tranaction history found. Make a deposit / withdrawal!");
         }
     }
 }
