@@ -65,11 +65,19 @@ public class BankAccount {
         return true;
     }
 
-    public void setSavingsGoal(int savingsGoal) {
+    public void setSavingsGoal(double savingsGoal) {
         this.savingsGoal = savingsGoal;
     }
 
     public double getSavingsGoal() {
         return savingsGoal;
+    }
+
+    public double calculateGoalProgress() {
+        double goalProgress;
+        // double savingsGoal = getSavingsGoal();
+
+        goalProgress = (balance / savingsGoal) * 100;
+        return goalProgress;
     }
 }

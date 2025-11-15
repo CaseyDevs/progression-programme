@@ -7,7 +7,7 @@ public class Main {
     private static BankAccount account1;
     private static Scanner scanner;
     private static int userChoice;
-    private static String[] options = {"Deposit", "Check Balance", "Withdraw", "Set Goal"};
+    private static String[] options = {"Deposit", "Check Balance", "Withdraw",  "Transaction History", "Set Goal", "Check Progress"};
 
     public static void main(String[] args) {
         scanner = new Scanner(System.in);
@@ -98,6 +98,8 @@ public class Main {
                 getTransactionHistory();
             case 5:
                 setGoal();
+            case 6:
+                checkProgress();
             default:
                 break;
         }
@@ -149,14 +151,22 @@ public class Main {
     }
 
     private static void setGoal() {
-        double goal;
+        double savingsGoal;
         System.out.println("How much would you like to save ?");
         if (scanner.hasNextDouble()) {
-            goal = scanner.nextDouble();
+            savingsGoal = scanner.nextDouble();
+            account1.setSavingsGoal(savingsGoal);
             System.out.println("Goal set!");
         } else {
             System.out.println("Please input a valid number!");
             setGoal();
         }
+    }
+
+    private static void checkProgress() {
+        double progress;
+
+        progress = account1.calculateGoalProgress();
+        System.out.println("Your goal is: " + account1.getSavingsGoal() + "\nYou are " + progress + "% there!");
     }
 }
