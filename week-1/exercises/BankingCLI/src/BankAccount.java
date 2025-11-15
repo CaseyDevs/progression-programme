@@ -3,9 +3,11 @@ import java.util.List;
 
 public class BankAccount {
     private double balance;
+    private double savingsGoal;
     private final List<String> transactionHistory;
     private String TRANSACTION_TYPE;
     private String transactionItem;
+
 
     public BankAccount(double balance) {
         if (balance < 0) {
@@ -61,5 +63,13 @@ public class BankAccount {
         }
 
         return true;
+    }
+
+    public void setSavingsGoal(int savingsGoal) {
+        this.savingsGoal = savingsGoal;
+    }
+
+    public double getSavingsGoal() {
+        return savingsGoal;
     }
 }

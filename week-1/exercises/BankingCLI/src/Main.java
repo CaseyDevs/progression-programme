@@ -7,7 +7,7 @@ public class Main {
     private static BankAccount account1;
     private static Scanner scanner;
     private static int userChoice;
-    private static String[] options = {"Deposit", "Check Balance", "Withdraw", "Transaction History"};
+    private static String[] options = {"Deposit", "Check Balance", "Withdraw", "Set Goal"};
 
     public static void main(String[] args) {
         scanner = new Scanner(System.in);
@@ -96,6 +96,8 @@ public class Main {
                 break;
             case 4:
                 getTransactionHistory();
+            case 5:
+                setGoal();
             default:
                 break;
         }
@@ -143,6 +145,18 @@ public class Main {
             System.out.println("\n#####################################");
         } else {
             System.out.println("No tranaction history found. Make a deposit / withdrawal!");
+        }
+    }
+
+    private static void setGoal() {
+        double goal;
+        System.out.println("How much would you like to save ?");
+        if (scanner.hasNextDouble()) {
+            goal = scanner.nextDouble();
+            System.out.println("Goal set!");
+        } else {
+            System.out.println("Please input a valid number!");
+            setGoal();
         }
     }
 }
