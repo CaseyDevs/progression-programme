@@ -44,6 +44,13 @@ They store a pointer to an object on the heap.
 5. Class
 6. Interface
 
+# Pass-by Value
+Java is a pass-by-value-only language. This means that when say a variable is passed as an argument to a method, a copy
+of the variable (its bits) are sent to the method, rather than a reference to the variable. This essentially created
+another variable in memory.
+
+Remember - pass-by-value is pass-by copy.
+
 # The Stack and Heap
 
 ## Stack
@@ -98,4 +105,5 @@ On the other hand, if there is a method called MilesPerGallonToLitresPer100Km() 
 for it to make sense - it can be static, operating within the class, but not on any concrete object belonging to that 
 class.
 
-
+- Use static for variables that are shared by all objects of the class.
+- Don't use static for values that are unique for each object (instance variables).

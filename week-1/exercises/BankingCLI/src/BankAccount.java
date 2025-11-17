@@ -80,11 +80,10 @@ public class BankAccount {
     }
 
     public void setMonthlyInterest(double interestRatePercent) {
-        TRANSACTION_TYPE = "INTEREST (" + interestRatePercent + "%)";
-        transactionItem = TRANSACTION_TYPE + ": " + balance;
-
-        double interest = balance *= (interestRatePercent / 100);
-        balance += interest;
-        addToTransactionHistory(transactionItem);
-    }
+    double interest = balance * (interestRatePercent / 100);
+    balance += interest;
+    TRANSACTION_TYPE = "INTEREST (" + interestRatePercent + "%)";
+    transactionItem = TRANSACTION_TYPE + ": " + interest; // Log only interest, not total balance
+    addToTransactionHistory(transactionItem);
+}
 }
