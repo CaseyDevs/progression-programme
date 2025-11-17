@@ -7,7 +7,10 @@ public class Main {
     private static BankAccount account1;
     private static Scanner scanner;
     private static int userChoice;
-    private static String[] options = {"Deposit", "Check Balance", "Withdraw",  "Transaction History", "Set Goal", "Check Progress"};
+    private static final String[] options = {
+            "Deposit", "Check Balance", "Withdraw",  "Transaction History", "Set Goal", "Check Progress",
+            "Apply Monthly Interest"
+    };
 
     public static void main(String[] args) {
         scanner = new Scanner(System.in);
@@ -67,7 +70,7 @@ public class Main {
                 if(isInteger(inputValue)) {
                     userChoice = Integer.parseInt(inputValue);
 
-                    if (userChoice >= 1 && userChoice <= options.length) { // Fixed: removed + 1
+                    if (userChoice >= 1 && userChoice <= options.length) {
                         validInput = true;
                     } else {
                         System.out.println("\nInvalid input! Please enter one of the option numbers.");
@@ -95,11 +98,13 @@ public class Main {
                 makewithdrawal();
                 break;
             case 4:
-                getTransactionHistory();
+                printTransactionHistory();
             case 5:
                 setGoal();
             case 6:
                 checkProgress();
+            case 7:
+                selectInterestRate();
             default:
                 break;
         }
@@ -130,6 +135,7 @@ public class Main {
         System.out.println("How much would you like to withdraw ?: ");
         if(scanner.hasNextDouble()) {
             amount = scanner.nextDouble();
+            scanner.nextLine();
             if (!account1.withdraw(amount)) {
                 System.out.println("You do not have enough funds to withdraw: " + amount);
             } else {
@@ -140,26 +146,28 @@ public class Main {
         }
     }
 
-    private static void getTransactionHistory() {
-        if (account1.getTransactionHistory()) {
+    private static void printTransactionHistory() {
+        if (!account1.getTransactionHistory()) {
+            System.out.println("No transaction history found. Make a deposit / withdrawal!");
+        } else {
             System.out.println("\n######## TRANSACTION HISTORY ########\n");
             account1.getTransactionHistory();
             System.out.println("\n#####################################");
-        } else {
-            System.out.println("No tranaction history found. Make a deposit / withdrawal!");
         }
     }
 
     private static void setGoal() {
         double savingsGoal;
+
         System.out.println("How much would you like to save ?");
         if (scanner.hasNextDouble()) {
             savingsGoal = scanner.nextDouble();
+            scanner.nextLine();
             account1.setSavingsGoal(savingsGoal);
+
             System.out.println("Goal set!");
         } else {
             System.out.println("Please input a valid number!");
-            setGoal();
         }
     }
 
@@ -168,5 +176,17 @@ public class Main {
 
         progress = account1.calculateGoalProgress();
         System.out.println("Your goal is: " + account1.getSavingsGoal() + "\nYou are " + progress + "% there!");
+    }
+
+    private static void selectInterestRate() {
+        System.out.println("What would you like your interest percent rate to be ?");
+        if (scanner.hasNextDouble()) {
+            double interestRate = scanner.nextDouble();
+            scanner.nextLine();
+            System.out.println(interestRate + "% interest applied!");
+        } else {
+            System.out.println("Oops... Something went wrong.");
+        }
+
     }
 }

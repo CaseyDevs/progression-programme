@@ -27,3 +27,10 @@ etc.
 new class type.
 -  class can inherit instance variables and methods from a more abstract superclass.
 - At runtime, a Java program is nothing more than objects ‘talking’ to other objects.
+
+## OOP benefits
+
+- Encapsulation → Hide data
+- Abstraction → Hide complexity
+- Inheritance → Reuse behaviour
+- Polymorphism → Interchangeable objects

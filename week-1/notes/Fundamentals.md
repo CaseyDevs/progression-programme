@@ -89,4 +89,13 @@ Slower, shared, long-lived.
 
 ![](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*TRrCTXjuOzGE17rKqLXP4Q.png)
 
+## Static Keyword
+The static keyword is a non-access modifier used for methods and attributes, enabling them to be accessed without the
+initialisation of an object of a class. If you have a Car class and an OpenDoor() method then you have to have an 
+instance of the Car class in order to be able to call OpenDoor() on it.
+
+On the other hand, if there is a method called MilesPerGallonToLitresPer100Km() you don't have to have a Car object 
+for it to make sense - it can be static, operating within the class, but not on any concrete object belonging to that 
+class.
+
 

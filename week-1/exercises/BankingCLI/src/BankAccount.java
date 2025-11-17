@@ -56,13 +56,13 @@ public class BankAccount {
     public boolean getTransactionHistory() {
         if(transactionHistory.isEmpty()) {
             return false;
-        }
+        } else {
+            for(String s : transactionHistory) {
+                System.out.println(s);
+            }
 
-        for(String s : transactionHistory) {
-            System.out.println(s);
+            return true;
         }
-
-        return true;
     }
 
     public void setSavingsGoal(double savingsGoal) {
@@ -79,5 +79,14 @@ public class BankAccount {
 
         goalProgress = (balance / savingsGoal) * 100;
         return goalProgress;
+    }
+
+    public void setMonthlyInterest(double interestRatePercent) {
+        TRANSACTION_TYPE = "INTEREST";
+        transactionItem = TRANSACTION_TYPE + ": " + balance;
+
+        double interest = balance *= (interestRatePercent / 100);
+        balance += interest;
+        addToTransactionHistory(transactionItem);
     }
 }
