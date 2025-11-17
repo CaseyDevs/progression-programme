@@ -54,14 +54,12 @@ public class BankAccount {
     }
 
     public boolean getTransactionHistory() {
-        if(transactionHistory.isEmpty()) {
-            return false;
-        } else {
-            for(String s : transactionHistory) {
-                System.out.println(s);
-            }
+        return !transactionHistory.isEmpty();
+    }
 
-            return true;
+    public void printTransactionHistory() {
+        for(String transaction : transactionHistory) {
+            System.out.println(transaction);
         }
     }
 

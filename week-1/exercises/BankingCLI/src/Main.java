@@ -98,7 +98,7 @@ public class Main {
                 makewithdrawal();
                 break;
             case 4:
-                printTransactionHistory();
+                displayTransactionHistory();
             case 5:
                 setGoal();
             case 6:
@@ -146,12 +146,12 @@ public class Main {
         }
     }
 
-    private static void printTransactionHistory() {
+    private static void displayTransactionHistory() {
         if (!account1.getTransactionHistory()) {
             System.out.println("No transaction history found. Make a deposit / withdrawal!");
         } else {
             System.out.println("\n######## TRANSACTION HISTORY ########\n");
-            account1.getTransactionHistory();
+            account1.printTransactionHistory();
             System.out.println("\n#####################################");
         }
     }
