@@ -66,7 +66,7 @@ public class Main {
             if (scanner.hasNextLine()) { // Check is input value is of type int
                 inputValue = scanner.nextLine();
 
-                // Check if input can be parsed to intger
+                // Check if input can be parsed to integer
                 if(isInteger(inputValue)) {
                     userChoice = Integer.parseInt(inputValue);
 
@@ -188,6 +188,8 @@ public class Main {
         if (scanner.hasNextDouble()) {
             double interestRate = scanner.nextDouble();
             scanner.nextLine();
+
+            account1.setMonthlyInterest(interestRate);
             System.out.println(interestRate + "% interest applied!");
         } else {
             System.out.println("Oops... Something went wrong.");
