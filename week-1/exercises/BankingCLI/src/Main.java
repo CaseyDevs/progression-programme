@@ -99,12 +99,16 @@ public class Main {
                 break;
             case 4:
                 displayTransactionHistory();
+                break;
             case 5:
                 setGoal();
+                break;
             case 6:
                 checkProgress();
+                break;
             case 7:
                 selectInterestRate();
+                break;
             default:
                 break;
         }
@@ -168,6 +172,7 @@ public class Main {
             System.out.println("Goal set!");
         } else {
             System.out.println("Please input a valid number!");
+            scanner.nextLine();
         }
     }
 
@@ -186,6 +191,7 @@ public class Main {
             System.out.println(interestRate + "% interest applied!");
         } else {
             System.out.println("Oops... Something went wrong.");
+            scanner.nextLine();
         }
 
     }
