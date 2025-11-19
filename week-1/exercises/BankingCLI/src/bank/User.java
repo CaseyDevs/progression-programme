@@ -26,4 +26,8 @@ public class User {
     public List<BankAccount> getAccountList() {
         return new ArrayList<>(accounts);
     }
+
+    public void addAccount(BankAccount newAccount) {
+        accounts.add(newAccount);
+    }
 }

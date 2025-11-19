@@ -10,7 +10,7 @@ public class BankAccount {
     private String TRANSACTION_TYPE;
     private String transactionItem;
     private final User user;
-    private String accountType;
+    private final String accountType;
 
 
     public BankAccount(double balance, User user, String accountType) {

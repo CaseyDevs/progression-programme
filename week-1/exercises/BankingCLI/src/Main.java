@@ -16,7 +16,8 @@ public class Main {
             "Set Goal",
             "Check Progress",
             "Apply Monthly Interest",
-            "View Accounts"
+            "View Accounts",
+            "Create a new account"
     };
 
     private static User user;
@@ -145,6 +146,10 @@ public class Main {
                 break;
             case 8:
                 viewAccounts();
+                break;
+            case 9:
+                createNewAccount();
+                break;
             default:
                 break;
         }
@@ -239,6 +244,20 @@ public class Main {
     private static void viewAccounts(){
         for (BankAccount account: user.getAccountList()) {
             System.out.println(account.getAccountType());
+        }
+    }
+
+    private static void createNewAccount() {
+        String accountType;
+
+        System.out.println("Choose and account type: ");
+        if (scanner.hasNextLine()) {
+            accountType = scanner.nextLine();
+            System.out.println("Perfect! Creating a " + accountType + " account");
+
+            BankAccount newAccount = new BankAccount(INITIAL_BALANCE, user, accountType);
+            accounts.add(newAccount);
+            user.addAccount(newAccount);
         }
     }
 
