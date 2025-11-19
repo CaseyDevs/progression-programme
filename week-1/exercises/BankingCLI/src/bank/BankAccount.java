@@ -27,13 +27,8 @@ public class BankAccount {
         return user;
     }
 
-    public boolean setAccountType(String type) {
-        if(type.equals("savings") || type.equals("current")) {
-            accountType = type;
-            return true;
-        }
-
-        return false;
+    public String getAccountType() {
+        return accountType;
     }
 
     public double getBalance() {

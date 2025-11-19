@@ -15,14 +15,15 @@ public class Main {
             "Transaction History",
             "Set Goal",
             "Check Progress",
-            "Apply Monthly Interest"
+            "Apply Monthly Interest",
+            "View Accounts"
     };
 
     private static User user;
     private static BankAccount account;
     private static Scanner scanner;
     private static int userChoice;
-    private static List<BankAccount> accounts = new ArrayList<>();
+    private static final List<BankAccount> accounts = new ArrayList<>();
 
 
     public static void main(String[] args) {
@@ -142,6 +143,8 @@ public class Main {
             case 7:
                 selectInterestRate();
                 break;
+            case 8:
+                viewAccounts();
             default:
                 break;
         }
@@ -232,4 +235,11 @@ public class Main {
         }
 
     }
+
+    private static void viewAccounts(){
+        for (BankAccount account: user.getAccountList()) {
+            System.out.println(account.getAccountType());
+        }
+    }
+
 }
