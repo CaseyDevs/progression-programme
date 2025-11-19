@@ -185,7 +185,7 @@ public class Main {
     private static void setGoal() {
         double savingsGoal;
 
-        System.out.println("How much would you like to save ?");
+        System.out.println("How much would you like to save " + user.getName() + "?");
         if (scanner.hasNextDouble()) {
             savingsGoal = scanner.nextDouble();
             scanner.nextLine();
@@ -202,11 +202,13 @@ public class Main {
         double progress;
 
         progress = account.calculateGoalProgress();
-        System.out.println("Your goal is: " + account.getSavingsGoal() + "\nYou are " + progress + "% there!");
+        System.out.println("Your goal is: " + account.getSavingsGoal() +
+                "\nYou are " + progress + "% there " + user.getName() + "!"
+        );
     }
 
     private static void selectInterestRate() {
-        System.out.println("What would you like your interest percent rate to be ?");
+        System.out.println(user.getName() + "what would you like your interest percent rate to be ?");
         if (scanner.hasNextDouble()) {
             double interestRate = scanner.nextDouble();
             scanner.nextLine();

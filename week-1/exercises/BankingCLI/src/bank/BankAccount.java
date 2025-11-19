@@ -9,7 +9,7 @@ public class BankAccount {
     private final List<String> transactionHistory;
     private String TRANSACTION_TYPE;
     private String transactionItem;
-    private User user;
+    private final User user;
 
 
     public BankAccount(double balance, User user) {
