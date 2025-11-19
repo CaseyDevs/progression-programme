@@ -1,6 +1,8 @@
 import bank.BankAccount;
 import bank.User;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -20,12 +22,12 @@ public class Main {
     private static BankAccount account;
     private static Scanner scanner;
     private static int userChoice;
+    private static List<BankAccount> accounts = new ArrayList<>();
 
 
     public static void main(String[] args) {
         scanner = new Scanner(System.in);
         user = createUser();
-        account = new BankAccount(INITIAL_BALANCE, user);
 
         displayWelcomeMessage();
 
@@ -47,7 +49,16 @@ public class Main {
         System.out.print("What is your name ?: ");
         if (scanner.hasNextLine()) {
             String name = scanner.nextLine();
-            user = new User(name);
+
+            System.out.print("Choose your account type: ");
+            if (scanner.hasNextLine()) {
+                String type = scanner.nextLine();
+                account = new BankAccount(INITIAL_BALANCE, user, type);
+                accounts.add(account);
+                user = new User(name, accounts);
+            }
+
+
             return user;
         } else {
             return null;

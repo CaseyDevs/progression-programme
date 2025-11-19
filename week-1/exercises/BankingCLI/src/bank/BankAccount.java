@@ -10,19 +10,30 @@ public class BankAccount {
     private String TRANSACTION_TYPE;
     private String transactionItem;
     private final User user;
+    private String accountType;
 
 
-    public BankAccount(double balance, User user) {
+    public BankAccount(double balance, User user, String accountType) {
         if (balance < 0) {
             throw new IllegalArgumentException("Initial balance cannot be negative");
         }
         this.balance = balance;
         this.transactionHistory = new ArrayList<>();
         this.user = user;
+        this.accountType = accountType;
     }
 
     public User getUser() {
         return user;
+    }
+
+    public boolean setAccountType(String type) {
+        if(type.equals("savings") || type.equals("current")) {
+            accountType = type;
+            return true;
+        }
+
+        return false;
     }
 
     public double getBalance() {
