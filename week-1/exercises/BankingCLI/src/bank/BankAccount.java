@@ -9,14 +9,20 @@ public class BankAccount {
     private final List<String> transactionHistory;
     private String TRANSACTION_TYPE;
     private String transactionItem;
+    private User user;
 
 
-    public BankAccount(double balance) {
+    public BankAccount(double balance, User user) {
         if (balance < 0) {
             throw new IllegalArgumentException("Initial balance cannot be negative");
         }
         this.balance = balance;
         this.transactionHistory = new ArrayList<>();
+        this.user = user;
+    }
+
+    public User getUser() {
+        return user;
     }
 
     public double getBalance() {

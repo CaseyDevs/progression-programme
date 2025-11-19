@@ -1,4 +1,5 @@
 import bank.BankAccount;
+import bank.User;
 
 import java.util.Scanner;
 
@@ -6,6 +7,7 @@ public class Main {
     private static final String QUIT_COMMAND = "quit";
     private static final double INITIAL_BALANCE = 0.0;
 
+    private static User user;
     private static BankAccount account1;
     private static Scanner scanner;
     private static int userChoice;
@@ -16,7 +18,10 @@ public class Main {
 
     public static void main(String[] args) {
         scanner = new Scanner(System.in);
-        account1 = new BankAccount(INITIAL_BALANCE);
+        user = new User("Casey", 21);
+        account1 = new BankAccount(INITIAL_BALANCE, user);
+
+        User owner = account1.getUser();
 
         displayWelcomeMessage();
 
@@ -124,7 +129,7 @@ public class Main {
             amount = scanner.nextDouble();
             scanner.nextLine();
             account1.deposit(amount);
-            System.out.println("Success! Your new balance is: " + account1.getBalance());
+            System.out.println("Success! " + user.getName() + ", Your new balance is: " + account1.getBalance());
         } else {
             System.out.println("Invalid amount entered");
             scanner.nextLine();
