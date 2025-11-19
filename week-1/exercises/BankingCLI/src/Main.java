@@ -6,20 +6,25 @@ import java.util.Scanner;
 public class Main {
     private static final String QUIT_COMMAND = "quit";
     private static final double INITIAL_BALANCE = 0.0;
-
-    private static User user;
-    private static BankAccount account
-;
-    private static Scanner scanner;
-    private static int userChoice;
-    private static final String[] options = {
-            "Deposit", "Check Balance", "Withdraw",  "Transaction History", "Set Goal", "Check Progress",
+    private static final String[] OPTIONS = {
+            "Deposit",
+            "Check Balance",
+            "Withdraw",
+            "Transaction History",
+            "Set Goal",
+            "Check Progress",
             "Apply Monthly Interest"
     };
 
+    private static User user;
+    private static BankAccount account;
+    private static Scanner scanner;
+    private static int userChoice;
+
+
     public static void main(String[] args) {
         scanner = new Scanner(System.in);
-        user = new User("Casey");
+        user = createUser();
         account = new BankAccount(INITIAL_BALANCE, user);
 
         displayWelcomeMessage();
@@ -36,6 +41,17 @@ public class Main {
 
         scanner.close();
         System.out.println("Thank you for banking with us!");
+    }
+
+    static private User createUser() {
+        System.out.print("What is your name ?: ");
+        if (scanner.hasNextLine()) {
+            String name = scanner.nextLine();
+            user = new User(name);
+            return user;
+        } else {
+            return null;
+        }
     }
 
     private static void displayWelcomeMessage() {
@@ -61,9 +77,9 @@ public class Main {
         userChoice=0;
 
         // Output options
-        System.out.println("\nOptions:");
-        for (int i = 0; i < options.length; i++) {
-            System.out.println(i + 1 + ": " + options[i]);
+        System.out.println("\nOPTIONS:");
+        for (int i = 0; i < OPTIONS.length; i++) {
+            System.out.println(i + 1 + ": " + OPTIONS[i]);
         }
 
         // Gather and validate user input
@@ -76,7 +92,7 @@ public class Main {
                 if(isInteger(inputValue)) {
                     userChoice = Integer.parseInt(inputValue);
 
-                    if (userChoice >= 1 && userChoice <= options.length) {
+                    if (userChoice >= 1 && userChoice <= OPTIONS.length) {
                         validInput = true;
                     } else {
                         System.out.println("\nInvalid input! Please enter one of the option numbers.");
