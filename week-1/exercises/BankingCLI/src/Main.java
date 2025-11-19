@@ -8,7 +8,8 @@ public class Main {
     private static final double INITIAL_BALANCE = 0.0;
 
     private static User user;
-    private static BankAccount account1;
+    private static BankAccount account
+;
     private static Scanner scanner;
     private static int userChoice;
     private static final String[] options = {
@@ -18,10 +19,8 @@ public class Main {
 
     public static void main(String[] args) {
         scanner = new Scanner(System.in);
-        user = new User("Casey", 21);
-        account1 = new BankAccount(INITIAL_BALANCE, user);
-
-        User owner = account1.getUser();
+        user = new User("Casey");
+        account = new BankAccount(INITIAL_BALANCE, user);
 
         displayWelcomeMessage();
 
@@ -42,7 +41,7 @@ public class Main {
     private static void displayWelcomeMessage() {
         System.out.println(
                 "\n##############################\n" +
-                        "### WELCOME TO CLI BANKING ###\n" +
+                        " WELCOME TO CLI BANKING " + user.getName().toUpperCase() + "\n" +
                         "##############################"
         );
     }
@@ -58,7 +57,7 @@ public class Main {
 
     private static void getUserChoice() {
         boolean validInput = false;
-        String inputValue = "";
+        String inputValue;
         userChoice=0;
 
         // Output options
@@ -128,8 +127,8 @@ public class Main {
         if(scanner.hasNextDouble()) {
             amount = scanner.nextDouble();
             scanner.nextLine();
-            account1.deposit(amount);
-            System.out.println("Success! " + user.getName() + ", Your new balance is: " + account1.getBalance());
+            account.deposit(amount);
+            System.out.println("Success! Your new balance is: " + account.getBalance());
         } else {
             System.out.println("Invalid amount entered");
             scanner.nextLine();
@@ -137,7 +136,7 @@ public class Main {
     }
 
     private static void checkBalance() {
-        double balance = account1.getBalance();
+        double balance = account.getBalance();
         System.out.println("Your current balance is: " + balance);
     }
 
@@ -147,10 +146,10 @@ public class Main {
         if(scanner.hasNextDouble()) {
             amount = scanner.nextDouble();
             scanner.nextLine();
-            if (!account1.withdraw(amount)) {
+            if (!account.withdraw(amount)) {
                 System.out.println("You do not have enough funds to withdraw: " + amount);
             } else {
-                System.out.println("Success! Your new balance is: " + account1.getBalance());
+                System.out.println("Success! Your new balance is: " + account.getBalance());
             }
         } else {
             System.out.println("Invalid amount entered");
@@ -158,11 +157,11 @@ public class Main {
     }
 
     private static void displayTransactionHistory() {
-        if (!account1.getTransactionHistory()) {
+        if (!account.getTransactionHistory()) {
             System.out.println("No transaction history found. Make a deposit / withdrawal!");
         } else {
             System.out.println("\n######## TRANSACTION HISTORY ########\n");
-            account1.printTransactionHistory();
+            account.printTransactionHistory();
             System.out.println("\n#####################################");
         }
     }
@@ -174,7 +173,7 @@ public class Main {
         if (scanner.hasNextDouble()) {
             savingsGoal = scanner.nextDouble();
             scanner.nextLine();
-            account1.setSavingsGoal(savingsGoal);
+            account.setSavingsGoal(savingsGoal);
 
             System.out.println("Goal set!");
         } else {
@@ -186,8 +185,8 @@ public class Main {
     private static void checkProgress() {
         double progress;
 
-        progress = account1.calculateGoalProgress();
-        System.out.println("Your goal is: " + account1.getSavingsGoal() + "\nYou are " + progress + "% there!");
+        progress = account.calculateGoalProgress();
+        System.out.println("Your goal is: " + account.getSavingsGoal() + "\nYou are " + progress + "% there!");
     }
 
     private static void selectInterestRate() {
@@ -196,7 +195,7 @@ public class Main {
             double interestRate = scanner.nextDouble();
             scanner.nextLine();
 
-            account1.setMonthlyInterest(interestRate);
+            account.setMonthlyInterest(interestRate);
             System.out.println(interestRate + "% interest applied!");
         } else {
             System.out.println("Oops... Something went wrong.");
