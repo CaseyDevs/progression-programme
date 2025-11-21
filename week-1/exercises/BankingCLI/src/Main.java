@@ -25,6 +25,7 @@ public class Main {
     private static Scanner scanner;
     private static int userChoice;
     private static final List<BankAccount> accounts = new ArrayList<>();
+    private static BankAccount currentAccount;
 
 
     public static void main(String[] args) {
@@ -56,6 +57,7 @@ public class Main {
             if (scanner.hasNextLine()) {
                 String type = scanner.nextLine();
                 account = new BankAccount(INITIAL_BALANCE, user, type);
+                currentAccount = account;
                 accounts.add(account);
                 user = new User(name, accounts);
             }
@@ -202,19 +204,24 @@ public class Main {
     }
 
     private static void setGoal() {
-        double savingsGoal;
+        if(currentAccount.getAccountType().equals("savings")) {
+            double savingsGoal;
 
-        System.out.println("How much would you like to save " + user.getName() + "?");
-        if (scanner.hasNextDouble()) {
-            savingsGoal = scanner.nextDouble();
-            scanner.nextLine();
-            account.setSavingsGoal(savingsGoal);
+            System.out.println("How much would you like to save " + user.getName() + "?");
+            if (scanner.hasNextDouble()) {
+                savingsGoal = scanner.nextDouble();
+                scanner.nextLine();
+                account.setSavingsGoal(savingsGoal);
 
-            System.out.println("Goal set!");
+                System.out.println("Goal set!");
+            } else {
+                System.out.println("Please input a valid number!");
+                scanner.nextLine();
+            }
         } else {
-            System.out.println("Please input a valid number!");
-            scanner.nextLine();
+            System.out.println("You can only set a savings goal using a savings account!");
         }
+
     }
 
     private static void checkProgress() {
@@ -256,6 +263,8 @@ public class Main {
             System.out.println("Perfect! Creating a " + accountType + " account");
 
             BankAccount newAccount = new BankAccount(INITIAL_BALANCE, user, accountType);
+            currentAccount = newAccount;
+            System.out.println(currentAccount);
             accounts.add(newAccount);
             user.addAccount(newAccount);
         }
