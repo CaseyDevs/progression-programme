@@ -19,18 +19,15 @@ public class Main {
             "View Accounts",
             "Create a new account"
     };
+
     private static final String[] ACCOUNT_TYPE_OPTIONS = {
             "Current",
             "Savings"
     };
 
     private static User user;
-    private static BankAccount account;
     private static Scanner scanner;
     private static int userChoice;
-    private static final List<BankAccount> accounts = new ArrayList<>();
-    private static BankAccount currentAccount;
-
 
     public static void main(String[] args) {
         scanner = new Scanner(System.in);
@@ -53,17 +50,33 @@ public class Main {
     }
 
     static private User createUser() {
-        String name;
-
         System.out.print("What is your name ?: ");
-        if (scanner.hasNextLine()) {
-            name = scanner.nextLine();
-            createNewAccount();
-            user = new User(name, accounts);
-
-            return user;
-        } else {
+        if (!scanner.hasNextLine()) {
             return null;
+        }
+        String name = scanner.nextLine().trim();
+        String type = promptForAccountType();
+        User newUser = new User(name);
+        newUser.createAccount(INITIAL_BALANCE, type);
+        return newUser;
+    }
+
+    private static String promptForAccountType() {
+        int choice = 0;
+        while (true) {
+            System.out.println("Choose your account type: ");
+            for (int i = 0; i < ACCOUNT_TYPE_OPTIONS.length; i++) {
+                System.out.println((i + 1) + ": " + ACCOUNT_TYPE_OPTIONS[i]);
+            }
+            if (scanner.hasNextInt()) {
+                choice = scanner.nextInt();
+                scanner.nextLine();
+                if (choice == 1) return "current";
+                if (choice == 2) return "savings";
+            } else {
+                scanner.nextLine();
+            }
+            System.out.println("Please enter one of the displayed option numbers!");
         }
     }
 
@@ -89,19 +102,16 @@ public class Main {
         String inputValue;
         userChoice=0;
 
-        // Output MENU_OPTIONS
         System.out.println("\nMENU_OPTIONS:");
         for (int i = 0; i < MENU_OPTIONS.length; i++) {
             System.out.println(i + 1 + ": " + MENU_OPTIONS[i]);
         }
 
-        // Gather and validate user input
         while (!validInput) {
             System.out.print("\nPlease enter an option number or enter 'quit': ");
-            if (scanner.hasNextLine()) { // Check is input value is of type int
+            if (scanner.hasNextLine()) {
                 inputValue = scanner.nextLine();
 
-                // Check if input can be parsed to integer
                 if(isInteger(inputValue)) {
                     userChoice = Integer.parseInt(inputValue);
 
@@ -110,7 +120,6 @@ public class Main {
                     } else {
                         System.out.println("\nInvalid input! Please enter one of the option numbers.");
                     }
-                // Check if input is "quit"
                 } else if(inputValue.equalsIgnoreCase(QUIT_COMMAND)) {
                     break;
                 }
@@ -155,15 +164,17 @@ public class Main {
         }
     }
 
-    private static void makeDeposit() {
-        double amount;
+    private static BankAccount activeAccount() {
+        return user.getActiveAccount();
+    }
 
+    private static void makeDeposit() {
         System.out.println("How much would you like to deposit ?: ");
         if(scanner.hasNextDouble()) {
-            amount = scanner.nextDouble();
+            double amount = scanner.nextDouble();
             scanner.nextLine();
-            account.deposit(amount);
-            System.out.println("Success! Your new balance is: " + account.getBalance());
+            activeAccount().deposit(amount);
+            System.out.println("Success! Your new balance is: " + activeAccount().getBalance());
         } else {
             System.out.println("Invalid amount entered");
             scanner.nextLine();
@@ -171,46 +182,42 @@ public class Main {
     }
 
     private static void checkBalance() {
-        double balance = account.getBalance();
-        System.out.println("Your current balance is: " + balance);
+        System.out.println("Your current balance is: " + activeAccount().getBalance());
     }
 
     private static void makewithdrawal() {
-        double amount;
         System.out.println("How much would you like to withdraw ?: ");
         if(scanner.hasNextDouble()) {
-            amount = scanner.nextDouble();
+            double amount = scanner.nextDouble();
             scanner.nextLine();
-            if (!account.withdraw(amount)) {
+            if (!activeAccount().withdraw(amount)) {
                 System.out.println("You do not have enough funds to withdraw: " + amount);
             } else {
-                System.out.println("Success! Your new balance is: " + account.getBalance());
+                System.out.println("Success! Your new balance is: " + activeAccount().getBalance());
             }
         } else {
             System.out.println("Invalid amount entered");
+            scanner.nextLine();
         }
     }
 
     private static void displayTransactionHistory() {
-        if (!account.getTransactionHistory()) {
+        if (!activeAccount().getTransactionHistory()) {
             System.out.println("No transaction history found. Make a deposit / withdrawal!");
         } else {
             System.out.println("\n######## TRANSACTION HISTORY ########\n");
-            account.printTransactionHistory();
+            activeAccount().printTransactionHistory();
             System.out.println("\n#####################################");
         }
     }
 
     private static void setGoal() {
-        if(currentAccount.getAccountType().equals("savings")) {
-            double savingsGoal;
-
+        if(activeAccount().getAccountType().equals("savings")) {
             System.out.println("How much would you like to save " + user.getName() + "?");
             if (scanner.hasNextDouble()) {
-                savingsGoal = scanner.nextDouble();
+                double savingsGoal = scanner.nextDouble();
                 scanner.nextLine();
-                account.setSavingsGoal(savingsGoal);
-
+                activeAccount().setSavingsGoal(savingsGoal);
                 System.out.println("Goal set!");
             } else {
                 System.out.println("Please input a valid number!");
@@ -219,75 +226,55 @@ public class Main {
         } else {
             System.out.println("You can only set a savings goal using a savings account!");
         }
-
     }
 
     private static void checkProgress() {
-        double progress;
-
-        progress = account.calculateGoalProgress();
-        System.out.println("Your goal is: " + account.getSavingsGoal() +
+        double progress = activeAccount().calculateGoalProgress();
+        System.out.println("Your goal is: " + activeAccount().getSavingsGoal() +
                 "\nYou are " + progress + "% there " + user.getName() + "!"
         );
     }
 
     private static void selectInterestRate() {
-        System.out.println(user.getName() + "what would you like your interest percent rate to be ?");
+        System.out.println(user.getName() + " what would you like your interest percent rate to be ?");
         if (scanner.hasNextDouble()) {
             double interestRate = scanner.nextDouble();
             scanner.nextLine();
 
-            account.setMonthlyInterest(interestRate);
+            activeAccount().setMonthlyInterest(interestRate);
             System.out.println(interestRate + "% interest applied!");
         } else {
             System.out.println("Oops... Something went wrong.");
             scanner.nextLine();
         }
-
     }
 
     private static void viewAccounts(){
-        for (BankAccount account: user.getAccountList()) {
-            System.out.println(account.getAccountType());
+        List<BankAccount> list = user.getAccountList();
+        if (list.isEmpty()) {
+            System.out.println("No accounts found.");
+            return;
+        }
+        System.out.println("Your accounts:");
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println((i + 1) + ": " + list.get(i).getAccountType());
+        }
+        System.out.print("Select an account number to make it current (or press Enter to keep current): ");
+        String sel = scanner.nextLine();
+        if (!sel.isEmpty() && isInteger(sel)) {
+            int idx = Integer.parseInt(sel) - 1;
+            try {
+                user.setActiveAccount(idx);
+                System.out.println("Switched to " + user.getActiveAccount().getAccountType() + " account.");
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("Invalid selection.");
+            }
         }
     }
 
     private static void createNewAccount() {
-        String type = null;
-        userChoice = 0;
-        boolean flag = true;
-
-        while(flag) {
-            System.out.println("Choose your account type: ");
-            for (int i = 0; i < ACCOUNT_TYPE_OPTIONS.length; i++) {
-                System.out.println((i + 1) + ": " + ACCOUNT_TYPE_OPTIONS[i]);
-            }
-
-            if (scanner.hasNextInt()) {
-                userChoice = scanner.nextInt();
-
-                switch (userChoice) {
-                    case 1:
-                        type = "current";
-                        break;
-                    case 2:
-                        type = "savings";
-                        break;
-                    default:
-                        break;
-                }
-
-                if (userChoice > ACCOUNT_TYPE_OPTIONS.length || userChoice < 1) {
-                    System.out.println("Please enter one of the displayed option numbers!");
-                } else {
-                    flag = false;
-                }
-            }
-        }
-        scanner.nextLine();
-
-        account = new BankAccount(INITIAL_BALANCE, user, type);
-        currentAccount = account;
-        accounts.add(account);
+        String type = promptForAccountType();
+        user.createAccount(INITIAL_BALANCE, type);
+        System.out.println("Created new " + type + " account and set as current.");
     }
 }
