@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class Main {
     private static final String QUIT_COMMAND = "quit";
     private static final double INITIAL_BALANCE = 0.0;
-    private static final String[] OPTIONS = {
+    private static final String[] MENU_OPTIONS = {
             "Deposit",
             "Check Balance",
             "Withdraw",
@@ -18,6 +18,10 @@ public class Main {
             "Apply Monthly Interest",
             "View Accounts",
             "Create a new account"
+    };
+    private static final String[] ACCOUNT_TYPE_OPTIONS = {
+            "Current",
+            "Savings"
     };
 
     private static User user;
@@ -36,7 +40,7 @@ public class Main {
 
         boolean running = true;
         while (running) {
-            getUserChoice();
+            getUserMenuChoice();
             if (userChoice == 0) { // 0 indicates quit
                 running = false;
             } else {
@@ -49,19 +53,13 @@ public class Main {
     }
 
     static private User createUser() {
+        String name;
+
         System.out.print("What is your name ?: ");
         if (scanner.hasNextLine()) {
-            String name = scanner.nextLine();
-
-            System.out.print("Choose your account type: ");
-            if (scanner.hasNextLine()) {
-                String type = scanner.nextLine();
-                account = new BankAccount(INITIAL_BALANCE, user, type);
-                currentAccount = account;
-                accounts.add(account);
-                user = new User(name, accounts);
-            }
-
+            name = scanner.nextLine();
+            createNewAccount();
+            user = new User(name, accounts);
 
             return user;
         } else {
@@ -86,15 +84,15 @@ public class Main {
         }
     }
 
-    private static void getUserChoice() {
+    private static void getUserMenuChoice() {
         boolean validInput = false;
         String inputValue;
         userChoice=0;
 
-        // Output options
-        System.out.println("\nOPTIONS:");
-        for (int i = 0; i < OPTIONS.length; i++) {
-            System.out.println(i + 1 + ": " + OPTIONS[i]);
+        // Output MENU_OPTIONS
+        System.out.println("\nMENU_OPTIONS:");
+        for (int i = 0; i < MENU_OPTIONS.length; i++) {
+            System.out.println(i + 1 + ": " + MENU_OPTIONS[i]);
         }
 
         // Gather and validate user input
@@ -107,7 +105,7 @@ public class Main {
                 if(isInteger(inputValue)) {
                     userChoice = Integer.parseInt(inputValue);
 
-                    if (userChoice >= 1 && userChoice <= OPTIONS.length) {
+                    if (userChoice >= 1 && userChoice <= MENU_OPTIONS.length) {
                         validInput = true;
                     } else {
                         System.out.println("\nInvalid input! Please enter one of the option numbers.");
@@ -255,19 +253,41 @@ public class Main {
     }
 
     private static void createNewAccount() {
-        String accountType;
+        String type = null;
+        userChoice = 0;
+        boolean flag = true;
 
-        System.out.println("Choose and account type: ");
-        if (scanner.hasNextLine()) {
-            accountType = scanner.nextLine();
-            System.out.println("Perfect! Creating a " + accountType + " account");
+        while(flag) {
+            System.out.println("Choose your account type: ");
+            for (int i = 0; i < ACCOUNT_TYPE_OPTIONS.length; i++) {
+                System.out.println((i + 1) + ": " + ACCOUNT_TYPE_OPTIONS[i]);
+            }
 
-            BankAccount newAccount = new BankAccount(INITIAL_BALANCE, user, accountType);
-            currentAccount = newAccount;
-            System.out.println(currentAccount);
-            accounts.add(newAccount);
-            user.addAccount(newAccount);
+            if (scanner.hasNextInt()) {
+                userChoice = scanner.nextInt();
+
+                switch (userChoice) {
+                    case 1:
+                        type = "current";
+                        break;
+                    case 2:
+                        type = "savings";
+                        break;
+                    default:
+                        break;
+                }
+
+                if (userChoice > ACCOUNT_TYPE_OPTIONS.length || userChoice < 1) {
+                    System.out.println("Please enter one of the displayed option numbers!");
+                } else {
+                    flag = false;
+                }
+            }
         }
-    }
+        scanner.nextLine();
 
+        account = new BankAccount(INITIAL_BALANCE, user, type);
+        currentAccount = account;
+        accounts.add(account);
+    }
 }
