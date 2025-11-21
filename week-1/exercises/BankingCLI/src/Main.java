@@ -102,7 +102,7 @@ public class Main {
         String inputValue;
         userChoice=0;
 
-        System.out.println("\nMENU_OPTIONS:");
+        System.out.println("\nMENU OPTIONS:");
         for (int i = 0; i < MENU_OPTIONS.length; i++) {
             System.out.println(i + 1 + ": " + MENU_OPTIONS[i]);
         }
@@ -139,7 +139,7 @@ public class Main {
                 checkBalance();
                 break;
             case 3:
-                makewithdrawal();
+                makeWithdrawal();
                 break;
             case 4:
                 displayTransactionHistory();
@@ -185,7 +185,7 @@ public class Main {
         System.out.println("Your current balance is: " + activeAccount().getBalance());
     }
 
-    private static void makewithdrawal() {
+    private static void makeWithdrawal() {
         System.out.println("How much would you like to withdraw ?: ");
         if(scanner.hasNextDouble()) {
             double amount = scanner.nextDouble();
