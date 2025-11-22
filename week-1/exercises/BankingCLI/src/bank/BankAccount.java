@@ -76,17 +76,12 @@ public abstract class BankAccount {
         }
     }
 
-    public void setMonthlyInterest() {
-        double interest = balance * (2.5 / 100);
-        balance += interest;
-        TRANSACTION_TYPE = "INTEREST (" + 2.5 + "%)";
-        transactionItem = TRANSACTION_TYPE + ": " + interest; // Log only interest, not total balance
-        addToTransactionHistory(transactionItem);
-    }
+
 
     // Abstract methods
     public abstract double getInterestRate();
     public abstract String getInterestRateDescription();
     public abstract boolean canSetSavingsGoal();
     public abstract String getAccountDisplayName();
+    public abstract void setMonthlyInterest();
 }

@@ -7,6 +7,15 @@ public class CurrentAccount extends BankAccount {
     }
 
     @Override
+    public void setMonthlyInterest() {
+        double interest = balance * (2.5 / 100);
+        balance += interest;
+        TRANSACTION_TYPE = "INTEREST (" + 2.5 + "%)";
+        transactionItem = TRANSACTION_TYPE + ": " + interest; // Log only interest, not total balance
+        addToTransactionHistory(transactionItem);
+    }
+
+    @Override
     public double getInterestRate() {
         return 2.5;
     }
