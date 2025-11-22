@@ -3,11 +3,11 @@ package bank;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BankAccount {
+public abstract class BankAccount {
     protected double balance;
-    private final List<String> transactionHistory;
-    private String TRANSACTION_TYPE;
-    private String transactionItem;
+    protected final List<String> transactionHistory;
+    protected String TRANSACTION_TYPE;
+    protected String transactionItem;
     private final User user;
     private final String accountType;
 
@@ -76,11 +76,13 @@ public class BankAccount {
         }
     }
 
-    public void setMonthlyInterest(double interestRatePercent) {
-        double interest = balance * (interestRatePercent / 100);
+    public void setMonthlyInterest() {
+        double interest = balance * (2.5 / 100);
         balance += interest;
-        TRANSACTION_TYPE = "INTEREST (" + interestRatePercent + "%)";
+        TRANSACTION_TYPE = "INTEREST (" + 2.5 + "%)";
         transactionItem = TRANSACTION_TYPE + ": " + interest; // Log only interest, not total balance
         addToTransactionHistory(transactionItem);
     }
+
+    public abstract void setMonthlyInterest(double interestRatePercent);
 }

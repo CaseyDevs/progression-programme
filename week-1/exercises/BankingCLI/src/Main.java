@@ -152,7 +152,7 @@ public class Main {
                 checkProgress();
                 break;
             case 7:
-                selectInterestRate();
+                applyInterestRate();
                 break;
             case 8:
                 viewAccounts();
@@ -242,17 +242,12 @@ public class Main {
         }
     }
 
-    private static void selectInterestRate() {
-        System.out.println(user.getName() + " what would you like your interest percent rate to be ?");
-        if (scanner.hasNextDouble()) {
-            double interestRate = scanner.nextDouble();
-            scanner.nextLine();
+    private static void applyInterestRate() {
+        if(currentAccount().getAccountType().equals("SAVINGS")) {
 
-            currentAccount().setMonthlyInterest(interestRate);
-            System.out.println(interestRate + "% interest applied!");
+            System.out.println("Savings rate applied (4.5%)");
         } else {
-            System.out.println("Oops... Something went wrong.");
-            scanner.nextLine();
+            System.out.println("Standard rate applied (2.5%)");
         }
     }
 
