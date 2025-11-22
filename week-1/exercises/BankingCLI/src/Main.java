@@ -1,5 +1,6 @@
 import bank.BankAccount;
 import bank.User;
+import bank.SavingsAccount;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,7 @@ public class Main {
     };
 
     private static final String[] ACCOUNT_TYPE_OPTIONS = {
-            "Current",
+            "Standard",
             "Savings"
     };
 
@@ -71,8 +72,8 @@ public class Main {
             if (scanner.hasNextInt()) {
                 choice = scanner.nextInt();
                 scanner.nextLine();
-                if (choice == 1) return "current";
-                if (choice == 2) return "savings";
+                if (choice == 1) return "STANDARD";
+                if (choice == 2) return "SAVINGS";
             } else {
                 scanner.nextLine();
             }
@@ -164,8 +165,8 @@ public class Main {
         }
     }
 
-    private static BankAccount activeAccount() {
-        return user.getActiveAccount();
+    private static BankAccount currentAccount() {
+        return user.getCurrentAccount();
     }
 
     private static void makeDeposit() {
@@ -173,8 +174,8 @@ public class Main {
         if(scanner.hasNextDouble()) {
             double amount = scanner.nextDouble();
             scanner.nextLine();
-            activeAccount().deposit(amount);
-            System.out.println("Success! Your new balance is: " + activeAccount().getBalance());
+            currentAccount().deposit(amount);
+            System.out.println("Success! Your new balance is: " + currentAccount().getBalance());
         } else {
             System.out.println("Invalid amount entered");
             scanner.nextLine();
@@ -182,7 +183,7 @@ public class Main {
     }
 
     private static void checkBalance() {
-        System.out.println("Your current balance is: " + activeAccount().getBalance());
+        System.out.println("Your current balance is: " + currentAccount().getBalance());
     }
 
     private static void makeWithdrawal() {
@@ -190,10 +191,10 @@ public class Main {
         if(scanner.hasNextDouble()) {
             double amount = scanner.nextDouble();
             scanner.nextLine();
-            if (!activeAccount().withdraw(amount)) {
+            if (!currentAccount().withdraw(amount)) {
                 System.out.println("You do not have enough funds to withdraw: " + amount);
             } else {
-                System.out.println("Success! Your new balance is: " + activeAccount().getBalance());
+                System.out.println("Success! Your new balance is: " + currentAccount().getBalance());
             }
         } else {
             System.out.println("Invalid amount entered");
@@ -202,22 +203,23 @@ public class Main {
     }
 
     private static void displayTransactionHistory() {
-        if (!activeAccount().getTransactionHistory()) {
+        if (!currentAccount().getTransactionHistory()) {
             System.out.println("No transaction history found. Make a deposit / withdrawal!");
         } else {
             System.out.println("\n######## TRANSACTION HISTORY ########\n");
-            activeAccount().printTransactionHistory();
+            currentAccount().printTransactionHistory();
             System.out.println("\n#####################################");
         }
     }
 
     private static void setGoal() {
-        if(activeAccount().getAccountType().equals("savings")) {
+        if(currentAccount().getAccountType().equals("SAVINGS")) {
             System.out.println("How much would you like to save " + user.getName() + "?");
             if (scanner.hasNextDouble()) {
                 double savingsGoal = scanner.nextDouble();
                 scanner.nextLine();
-                activeAccount().setSavingsGoal(savingsGoal);
+                SavingsAccount sa = (SavingsAccount) currentAccount();
+                sa.setSavingsGoal(savingsGoal);
                 System.out.println("Goal set!");
             } else {
                 System.out.println("Please input a valid number!");
@@ -229,10 +231,15 @@ public class Main {
     }
 
     private static void checkProgress() {
-        double progress = activeAccount().calculateGoalProgress();
-        System.out.println("Your goal is: " + activeAccount().getSavingsGoal() +
-                "\nYou are " + progress + "% there " + user.getName() + "!"
-        );
+        if (currentAccount().getAccountType().equals("SAVINGS")) {
+            SavingsAccount sa = (SavingsAccount) currentAccount();
+            double progress = sa.calculateGoalProgress();
+            System.out.println("Your goal is: " + sa.getSavingsGoal() +
+                    "\nYou are " + progress + "% there " + user.getName() + "!"
+            );
+        } else {
+            System.out.println("No goal available: current account is not a savings account.");
+        }
     }
 
     private static void selectInterestRate() {
@@ -241,7 +248,7 @@ public class Main {
             double interestRate = scanner.nextDouble();
             scanner.nextLine();
 
-            activeAccount().setMonthlyInterest(interestRate);
+            currentAccount().setMonthlyInterest(interestRate);
             System.out.println(interestRate + "% interest applied!");
         } else {
             System.out.println("Oops... Something went wrong.");
@@ -264,8 +271,8 @@ public class Main {
         if (!sel.isEmpty() && isInteger(sel)) {
             int idx = Integer.parseInt(sel) - 1;
             try {
-                user.setActiveAccount(idx);
-                System.out.println("Switched to " + user.getActiveAccount().getAccountType() + " account.");
+                user.setCurrentAccount(idx);
+                System.out.println("Switched to " + user.getCurrentAccount().getAccountType() + " account.");
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("Invalid selection.");
             }

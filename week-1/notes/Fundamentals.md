@@ -4,8 +4,8 @@ the source code enables the Java Virtual Machine (JVM) to significantly improve 
 program. It checks the entire program for syntax violations, valid variable values based on their typing,
 prevents access violations.
 
-The JVM works at runtime, making Java code actually run. It is responsive for throwing exceptions such as
-ClassCastExeptions for example. It also recognises when incorrect types are stored in an array, and acts as
+The JVM works at runtime, making Java code actually run. It is responsible for throwing exceptions such as
+ClassCastExceptions for example. It also recognises when incorrect types are stored in an array, and acts as
 a second line of defense.
 
 # What is JDK ?
@@ -46,7 +46,7 @@ They store a pointer to an object on the heap.
 
 # Pass-by Value
 Java is a pass-by-value-only language. This means that when say a variable is passed as an argument to a method, a copy
-of the variable (its bits) are sent to the method, rather than a reference to the variable. This essentially created
+of the variable (its bits) are sent to the method, rather than a reference to the variable. This essentially creates
 another variable in memory.
 
 Remember - pass-by-value is pass-by copy.

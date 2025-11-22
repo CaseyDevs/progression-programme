@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BankAccount {
-    private double balance;
-    private double savingsGoal;
+    protected double balance;
     private final List<String> transactionHistory;
     private String TRANSACTION_TYPE;
     private String transactionItem;
@@ -77,27 +76,11 @@ public class BankAccount {
         }
     }
 
-    public void setSavingsGoal(double savingsGoal) {
-        this.savingsGoal = savingsGoal;
-    }
-
-    public double getSavingsGoal() {
-        return savingsGoal;
-    }
-
-    public double calculateGoalProgress() {
-        double goalProgress;
-        // double savingsGoal = getSavingsGoal();
-
-        goalProgress = (balance / savingsGoal) * 100;
-        return goalProgress;
-    }
-
     public void setMonthlyInterest(double interestRatePercent) {
-    double interest = balance * (interestRatePercent / 100);
-    balance += interest;
-    TRANSACTION_TYPE = "INTEREST (" + interestRatePercent + "%)";
-    transactionItem = TRANSACTION_TYPE + ": " + interest; // Log only interest, not total balance
-    addToTransactionHistory(transactionItem);
-}
+        double interest = balance * (interestRatePercent / 100);
+        balance += interest;
+        TRANSACTION_TYPE = "INTEREST (" + interestRatePercent + "%)";
+        transactionItem = TRANSACTION_TYPE + ": " + interest; // Log only interest, not total balance
+        addToTransactionHistory(transactionItem);
+    }
 }

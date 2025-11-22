@@ -32,29 +32,33 @@ public class User {
             throw new IllegalArgumentException("Account cannot be null");
         }
         accounts.add(newAccount);
-        // If no current account is set for some reason, set it.
         if (currentAccount == null) {
             currentAccount = newAccount;
         }
     }
 
-    public BankAccount getActiveAccount() {
+    public BankAccount getCurrentAccount() {
         if (currentAccount == null) {
             throw new IllegalStateException("No current account selected.");
         }
         return currentAccount;
-
     }
 
-    public void setActiveAccount(int index){
+    public void setCurrentAccount(int index){
         if (index < 0 || index >= accounts.size()) {
             throw new IndexOutOfBoundsException("Invalid account index");
         }
         this.currentAccount = accounts.get(index);
     }
 
+    // Create either a standard BankAccount or a SavingsAccount based on type
     public BankAccount createAccount(double initialBalance, String type) {
-        BankAccount acc = new BankAccount(initialBalance, this, type);
+        BankAccount acc;
+        if ("SAVINGS".equalsIgnoreCase(type)) {
+            acc = new SavingsAccount(initialBalance, this, "SAVINGS");
+        } else {
+            acc = new BankAccount(initialBalance, this, "STANDARD");
+        }
         addAccount(acc);
         this.currentAccount = acc;
         return acc;
