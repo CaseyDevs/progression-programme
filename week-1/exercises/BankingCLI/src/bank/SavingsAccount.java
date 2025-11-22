@@ -5,7 +5,6 @@ public class SavingsAccount extends BankAccount {
 
     public SavingsAccount(double balance, User user, String accountType) {
         super(balance, user, "SAVINGS");  // Inherit constructor param values from BankAccount
-
     }
 
     public void setSavingsGoal(double savingsGoal) {

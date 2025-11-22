@@ -1,4 +1,5 @@
 import bank.BankAccount;
+import bank.CurrentAccount;
 import bank.User;
 import bank.SavingsAccount;
 
@@ -244,9 +245,12 @@ public class Main {
 
     private static void applyInterestRate() {
         if(currentAccount().getAccountType().equals("SAVINGS")) {
-
+            SavingsAccount sa = (SavingsAccount) currentAccount();
+            sa.setMonthlyInterest();
             System.out.println("Savings rate applied (4.5%)");
         } else {
+            CurrentAccount ca = (CurrentAccount) currentAccount();
+            ca.setMonthlyInterest();
             System.out.println("Standard rate applied (2.5%)");
         }
     }
