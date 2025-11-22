@@ -26,7 +26,7 @@ public class SavingsAccount extends BankAccount {
     }
 
     @Override
-    public void setMonthlyInterest(double interestRatePercent) {
+    public void setMonthlyInterest() {
         double interest = balance * (4.5 / 100);
         balance += interest;
         TRANSACTION_TYPE = "INTEREST (" + 4.5 + "%)";

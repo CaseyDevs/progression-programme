@@ -83,6 +83,4 @@ public abstract class BankAccount {
         transactionItem = TRANSACTION_TYPE + ": " + interest; // Log only interest, not total balance
         addToTransactionHistory(transactionItem);
     }
-
-    public abstract void setMonthlyInterest(double interestRatePercent);
 }
