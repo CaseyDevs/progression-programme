@@ -213,13 +213,21 @@ public class Main {
         }
     }
 
+    private static void applyInterestRate() {
+        BankAccount account = currentAccount();
+        account.setMonthlyInterest();
+        System.out.println(account.getInterestRateDescription());
+    }
+
     private static void setGoal() {
-        if(currentAccount().getAccountType().equals("SAVINGS")) {
+        BankAccount account = currentAccount();
+
+        if (account.canSetSavingsGoal()) {
             System.out.println("How much would you like to save " + user.getName() + "?");
             if (scanner.hasNextDouble()) {
                 double savingsGoal = scanner.nextDouble();
                 scanner.nextLine();
-                SavingsAccount sa = (SavingsAccount) currentAccount();
+                SavingsAccount sa = (SavingsAccount) account; // Safe cast since we know it can set goals
                 sa.setSavingsGoal(savingsGoal);
                 System.out.println("Goal set!");
             } else {
@@ -232,26 +240,16 @@ public class Main {
     }
 
     private static void checkProgress() {
-        if (currentAccount().getAccountType().equals("SAVINGS")) {
-            SavingsAccount sa = (SavingsAccount) currentAccount();
+        BankAccount account = currentAccount();
+
+        if (account.canSetSavingsGoal()) {
+            SavingsAccount sa = (SavingsAccount) account; // Safe cast
             double progress = sa.calculateGoalProgress();
             System.out.println("Your goal is: " + sa.getSavingsGoal() +
                     "\nYou are " + progress + "% there " + user.getName() + "!"
             );
         } else {
             System.out.println("No goal available: current account is not a savings account.");
-        }
-    }
-
-    private static void applyInterestRate() {
-        if(currentAccount().getAccountType().equals("SAVINGS")) {
-            SavingsAccount sa = (SavingsAccount) currentAccount();
-            sa.setMonthlyInterest();
-            System.out.println("Savings rate applied (4.5%)");
-        } else {
-            CurrentAccount ca = (CurrentAccount) currentAccount();
-            ca.setMonthlyInterest();
-            System.out.println("Standard rate applied (2.5%)");
         }
     }
 
@@ -263,7 +261,8 @@ public class Main {
         }
         System.out.println("Your accounts:");
         for (int i = 0; i < list.size(); i++) {
-            System.out.println((i + 1) + ": " + list.get(i).getAccountType());
+            // Use the new polymorphic method instead of getAccountType()
+            System.out.println((i + 1) + ": " + list.get(i).getAccountDisplayName());
         }
         System.out.print("Select an account number to make it current (or press Enter to keep current): ");
         String sel = scanner.nextLine();
@@ -271,7 +270,7 @@ public class Main {
             int idx = Integer.parseInt(sel) - 1;
             try {
                 user.setCurrentAccount(idx);
-                System.out.println("Switched to " + user.getCurrentAccount().getAccountType() + " account.");
+                System.out.println("Switched to " + user.getCurrentAccount().getAccountDisplayName() + ".");
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("Invalid selection.");
             }

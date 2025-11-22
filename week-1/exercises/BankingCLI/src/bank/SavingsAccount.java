@@ -33,4 +33,23 @@ public class SavingsAccount extends BankAccount {
         addToTransactionHistory(transactionItem);
     }
 
+    @Override
+    public double getInterestRate() {
+        return 4.5;
+    }
+
+    @Override
+    public String getInterestRateDescription() {
+        return "Savings rate applied (4.5%)";
+    }
+
+    @Override
+    public boolean canSetSavingsGoal() {
+        return true;
+    }
+
+    @Override
+    public String getAccountDisplayName() {
+        return "Savings Account";
+    }
 }

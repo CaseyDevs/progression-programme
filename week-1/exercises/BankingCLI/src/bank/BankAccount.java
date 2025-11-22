@@ -83,4 +83,10 @@ public abstract class BankAccount {
         transactionItem = TRANSACTION_TYPE + ": " + interest; // Log only interest, not total balance
         addToTransactionHistory(transactionItem);
     }
+
+    // Abstract methods
+    public abstract double getInterestRate();
+    public abstract String getInterestRateDescription();
+    public abstract boolean canSetSavingsGoal();
+    public abstract String getAccountDisplayName();
 }
