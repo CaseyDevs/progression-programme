@@ -1,6 +1,7 @@
 package bank;
 
 public class SavingsAccount extends BankAccount {
+    private static final double SAVINGS_INTEREST_RATE = 4.5;
     private double savingsGoal;
 
     public SavingsAccount(double balance, User user, String accountType) {
@@ -16,31 +17,29 @@ public class SavingsAccount extends BankAccount {
     }
 
     public double calculateGoalProgress() {
-        double goalProgress;
-        // double savingsGoal = getSavingsGoal();
-
-        goalProgress = (this.balance / savingsGoal) * 100;
-        return goalProgress;
-
+        if (savingsGoal <= 0) {
+            return 0;
+        }
+        return (this.balance / savingsGoal) * 100;
     }
 
     @Override
     public void setMonthlyInterest() {
-        double interest = balance * (4.5 / 100);
+        double interest = balance * (SAVINGS_INTEREST_RATE / 100);
         balance += interest;
-        TRANSACTION_TYPE = "INTEREST (" + 4.5 + "%)";
+        TRANSACTION_TYPE = "INTEREST (" + SAVINGS_INTEREST_RATE + "%)";
         transactionItem = TRANSACTION_TYPE + ": " + interest; // Log only interest, not total balance
         addToTransactionHistory(transactionItem);
     }
 
     @Override
     public double getInterestRate() {
-        return 4.5;
+        return SAVINGS_INTEREST_RATE;
     }
 
     @Override
     public String getInterestRateDescription() {
-        return "Savings rate applied (4.5%)";
+        return "Savings rate applied (" + SAVINGS_INTEREST_RATE + "%)";
     }
 
     @Override
