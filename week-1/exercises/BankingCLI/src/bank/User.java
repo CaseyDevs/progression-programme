@@ -55,7 +55,7 @@ public class User {
     public BankAccount createAccount(double initialBalance, String type) {
         BankAccount acc;
         if ("SAVINGS".equalsIgnoreCase(type)) {
-            acc = new SavingsAccount(initialBalance, this, "SAVINGS");
+            acc = new SavingsAccount(initialBalance, this);
         } else {
             acc = new CurrentAccount(initialBalance, this, "STANDARD");
         }

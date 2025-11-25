@@ -4,18 +4,21 @@ public class SavingsAccount extends BankAccount {
     private static final double SAVINGS_INTEREST_RATE = 4.5;
     private double savingsGoal;
 
-    public SavingsAccount(double balance, User user, String accountType) {
+    public SavingsAccount(double balance, User user) {
         super(balance, user, "SAVINGS");  // Inherit constructor param values from BankAccount
     }
 
+    @Override
     public void setSavingsGoal(double savingsGoal) {
         this.savingsGoal = savingsGoal;
     }
 
+    @Override
     public double getSavingsGoal() {
         return savingsGoal;
     }
 
+    @Override
     public double calculateGoalProgress() {
         if (savingsGoal <= 0) {
             return 0;

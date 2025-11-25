@@ -227,8 +227,7 @@ public class Main {
             if (scanner.hasNextDouble()) {
                 double savingsGoal = scanner.nextDouble();
                 scanner.nextLine();
-                SavingsAccount sa = (SavingsAccount) account; // Safe cast since we know it can set goals
-                sa.setSavingsGoal(savingsGoal);
+                account.setSavingsGoal(savingsGoal); // NO CASTING NEEDED!
                 System.out.println("Goal set!");
             } else {
                 System.out.println("Please input a valid number!");
@@ -241,12 +240,11 @@ public class Main {
 
     private static void checkProgress() {
         BankAccount account = currentAccount();
-
+    
         if (account.canSetSavingsGoal()) {
-            SavingsAccount sa = (SavingsAccount) account; // Safe cast
-            double progress = sa.calculateGoalProgress();
-            System.out.println("Your goal is: " + sa.getSavingsGoal() +
-                    "\nYou are " + progress + "% there " + user.getName() + "!"
+            double progress = account.calculateGoalProgress();
+            System.out.println("Your goal is: " + account.getSavingsGoal() +
+                "\nYou are " + progress + "% there " + user.getName() + "!"
             );
         } else {
             System.out.println("No goal available: current account is not a savings account.");

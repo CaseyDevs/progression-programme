@@ -34,5 +34,21 @@ public class CurrentAccount extends BankAccount {
     public String getAccountDisplayName() {
         return "Current Account";
     }
+
+    // Current accounts can't have savings goals, so these methods do nothing or throw exceptions
+    @Override
+    public void setSavingsGoal(double goal) {
+        throw new UnsupportedOperationException("Current accounts cannot have savings goals");
+    }
+
+    @Override
+    public double getSavingsGoal() {
+        return 0; // No goal for current accounts
+    }
+
+    @Override
+    public double calculateGoalProgress() {
+        return 0; // No progress since no goals allowed
+    }
 }
 
