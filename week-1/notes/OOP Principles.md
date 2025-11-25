@@ -95,6 +95,41 @@ public class Student extends Person {
 
 ## Polymorphism
 
+Polymorphism is a principle that allows sub-classes to be treated as instances of their parent class, supporting
+flexibility and providing the ability to define methods in multiple forms, primarily achieved through overlridding and
+overloading. 
+
+"Polymorphism is used to perform a single action in different ways. It allows for the implementation of dynamic method 
+dispatch, where the method to be executed is determined at runtime. This is beneficial for implementing a cleaner and 
+more maintainable codebase."
+
+When you declare a reference variable, any object that passes the IS-A test for the declared type of the reference 
+variable can be assigned to that reference. This lets you do things like make polymorphic arrays.
+
+### Example
+```java
+Animal[] animals = new Animal[5];
+animals[0] = new Dog();
+animals[1] = new Cat();
+
+for (int i = 0; i <= animals.length; i++) {
+    animals[i].eat();
+        }
+
+```
+
+In the given example, the Dog and Cat classes inherit Animal. Despite not being of type animal, their IS-A relationship
+allows them to be added to the Animal type array. This behaviour is an example of polymorphism.
+
+### Types of Polymorphism
+1. Compile-time Polymorphism (Method Overloading): Achieved by defining multiple methods with the same name but
+different parameters within the same class.
+
+2. Runtime Polymorphism (Method Overriding): Achieved when a subclass provides a specific implementation of a method
+already defined in its superclass.
+
+
+
 # Overriding & Overloading
 
 ## What is Overriding ?
