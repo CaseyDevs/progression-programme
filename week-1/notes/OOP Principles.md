@@ -1,6 +1,16 @@
 # The 4 OOP Principles
 
 ## Abstraction
+Abstraction is a principle that involves the process of hiding implementation details and showing only the essential
+features. 
+
+In java we use the `abstract` keywork to define abstract classes and methods. 
+
+Abstract classes can to be instantiated directly, so are accessed through classes they have a relationship with. That
+being said, abstract classes can contain abstract methods which must be implemented, as well as concrete methods which
+are inherited. So, concrete methods can be shared by all subclasses of a superclass, whereas abstract methods are used
+within certain subclasses that the method is shared, but implemented differently. Therefor, we typically implement
+polymorphism with abstraction by commonly using the `@Override` method.
 
 ## Encapsulation
 
