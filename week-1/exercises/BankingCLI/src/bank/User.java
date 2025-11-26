@@ -57,7 +57,7 @@ public class User {
         if ("SAVINGS".equalsIgnoreCase(type)) {
             acc = new SavingsAccount(initialBalance, this);
         } else {
-            acc = new CurrentAccount(initialBalance, this, "STANDARD");
+            acc = new CurrentAccount(initialBalance, this);
         }
         addAccount(acc);
         this.currentAccount = acc;

@@ -77,12 +77,6 @@ public abstract class BankAccount {
     }
 
     // Abstract methods
-    public abstract double getInterestRate();
-    public abstract String getInterestRateDescription();
     public abstract boolean canSetSavingsGoal();
     public abstract String getAccountDisplayName();
-    public abstract void setMonthlyInterest();
-    public abstract void setSavingsGoal(double goal);
-    public abstract double getSavingsGoal();
-    public abstract double calculateGoalProgress();
 }
