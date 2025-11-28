@@ -9,7 +9,8 @@ Interfaces are very similar to abstract classes, and it many cases where they ov
 
 ## Key Differences (Interface vs Abstract Class)
 1. Supports multiple inheritance-like behaviour - Typically a class can have a single parent, but with interfaces, a
-class can have multiple parents.
+class can have multiple parents. Interfaces can act as contracts, where certain criteria must be met in order for an
+implementation of an interface to be valid and useable.
 
 ## Creating an Interface
 `File -> New -> Interface`
