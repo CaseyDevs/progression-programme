@@ -105,9 +105,14 @@ public class Student extends Person {
 
 ## Polymorphism
 
+**Polymorphism = "Many shapes"**
+
 Polymorphism is a principle that allows sub-classes to be treated as instances of their parent class, supporting
-flexibility and providing the ability to define methods in multiple forms, primarily achieved through overlridding and
+flexibility and providing the ability to define methods in multiple forms, primarily achieved through overridding and
 overloading. 
+
+Essentially, polymorphism is achieved when an object can identify as other objects, such as a dog being able to
+identify as an animal, species, or object. 
 
 "Polymorphism is used to perform a single action in different ways. It allows for the implementation of dynamic method 
 dispatch, where the method to be executed is determined at runtime. This is beneficial for implementing a cleaner and 
@@ -136,8 +141,52 @@ allows them to be added to the Animal type array. This behaviour is an example o
 different parameters within the same class.
 
 2. Runtime Polymorphism (Method Overriding): Achieved when a subclass provides a specific implementation of a method
-already defined in its superclass.
+already defined in its superclass. It can also be defined when the method that gets executed is decided at runtime
+by the actual type of the object.
 
+```java
+public abstract class Animal {
+    
+    abstract void speak();
+}
+
+public class Dog extends Animal {
+     
+    @Override
+    void speak() {
+        System.out.println("The dog goes woof!");
+    }
+}
+
+public class Cat extends Animal {
+
+    @Override
+    void speak() {
+        System.out.println("The cat goes meow!");
+    }
+}
+
+public class Main() {
+    public static void main(String[] args) {
+        Animal animal;
+        
+        Scanner scanner = new Scanner(System.in);
+        System.out.printlm("Would you like a dog or a cat?");
+        
+        String choice = scanner.nextLine();
+        
+        // runtime polymorphism
+        if(choice.equals("dog")) {
+            animal = new Dog();    
+        } else {
+            animal = new Cat();
+        }
+        
+        System.out.println(animal.speak());
+    }
+}
+
+```
 
 
 # Overriding & Overloading
