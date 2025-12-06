@@ -30,11 +30,11 @@ public abstract class BankAccount {
         return accountType;
     }
 
-    public double getBalance() {
+    public final double getBalance() {
         return this.balance;
     }
 
-    public void deposit(double amount) {
+    public final void deposit(double amount) {
         TRANSACTION_TYPE = "DEPOSIT";
         transactionItem = TRANSACTION_TYPE + ": " + amount;
 
@@ -46,7 +46,7 @@ public abstract class BankAccount {
         addToTransactionHistory(transactionItem);
     }
 
-    public boolean withdraw(double amount) {
+    public final boolean withdraw(double amount) {
         TRANSACTION_TYPE = "WITHDRAW";
         transactionItem = TRANSACTION_TYPE + ": " + amount;
 
@@ -62,15 +62,15 @@ public abstract class BankAccount {
         return true;
     }
 
-    public void addToTransactionHistory(String transactionItem) {
+    public final void addToTransactionHistory(String transactionItem) {
         transactionHistory.add(transactionHistory.size(), transactionItem);
     }
 
-    public boolean getTransactionHistory() {
+    public final boolean getTransactionHistory() {
         return !transactionHistory.isEmpty();
     }
 
-    public void printTransactionHistory() {
+    public final void printTransactionHistory() {
         for(String transaction : transactionHistory) {
             System.out.println(transaction);
         }
