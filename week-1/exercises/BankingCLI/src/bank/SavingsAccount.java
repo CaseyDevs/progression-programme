@@ -8,14 +8,17 @@ public class SavingsAccount extends BankAccount {
         super(balance, user, "SAVINGS");  // Inherit constructor param values from BankAccount
     }
 
+    @Override
     public void setSavingsGoal(double savingsGoal) {
         this.savingsGoal = savingsGoal;
     }
 
+    @Override
     public double getSavingsGoal() {
         return savingsGoal;
     }
 
+    @Override
     public double calculateGoalProgress() {
         if (savingsGoal <= 0) {
             return 0;
@@ -23,6 +26,8 @@ public class SavingsAccount extends BankAccount {
         return (this.balance / savingsGoal) * 100;
     }
 
+
+    @Override
     public void setMonthlyInterest() {
         double interest = balance * (SAVINGS_INTEREST_RATE / 100);
         balance += interest;
@@ -31,10 +36,7 @@ public class SavingsAccount extends BankAccount {
         addToTransactionHistory(transactionItem);
     }
 
-    public double getInterestRate() {
-        return SAVINGS_INTEREST_RATE;
-    }
-
+    @Override
     public String getInterestRateDescription() {
         return "Savings rate applied (" + SAVINGS_INTEREST_RATE + "%)";
     }

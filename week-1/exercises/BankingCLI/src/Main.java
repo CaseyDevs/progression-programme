@@ -1,9 +1,5 @@
 import bank.BankAccount;
-import bank.CurrentAccount;
 import bank.User;
-import bank.SavingsAccount;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -214,25 +210,21 @@ public class Main {
     }
 
     private static void applyInterestRate() {
-        BankAccount account = currentAccount();
-        if (account instanceof SavingsAccount savingsAccount) {
-            savingsAccount.setMonthlyInterest();
-            System.out.println(savingsAccount.getInterestRateDescription());
+        if (currentAccount().canSetSavingsGoal()) {
+            System.out.println(currentAccount().getInterestRateDescription());
+            currentAccount().setMonthlyInterest();
         } else {
             System.out.println("Interest rates only apply to savings accounts.");
         }
     }
 
     private static void setGoal() {
-        BankAccount account = currentAccount();
-
-        if (account.canSetSavingsGoal()) {
-            SavingsAccount savingsAccount = (SavingsAccount) account;
+        if (currentAccount().canSetSavingsGoal()) {
             System.out.println("How much would you like to save " + user.getName() + "?");
             if (scanner.hasNextDouble()) {
                 double savingsGoal = scanner.nextDouble();
                 scanner.nextLine();
-                savingsAccount.setSavingsGoal(savingsGoal);
+                currentAccount().setSavingsGoal(savingsGoal);
                 System.out.println("Goal set!");
             } else {
                 System.out.println("Please input a valid number!");
@@ -244,12 +236,9 @@ public class Main {
     }
 
     private static void checkProgress() {
-        BankAccount account = currentAccount();
-    
-        if (account.canSetSavingsGoal()) {
-            SavingsAccount savingsAccount = (SavingsAccount) account;
-            double progress = savingsAccount.calculateGoalProgress();
-            System.out.println("Your goal is: " + savingsAccount.getSavingsGoal() +
+        if (currentAccount().canSetSavingsGoal()) {
+            double progress = currentAccount().calculateGoalProgress();
+            System.out.println("Your goal is: " + currentAccount().getSavingsGoal() +
                 "\nYou are " + progress + "% there " + user.getName() + "!"
             );
         } else {

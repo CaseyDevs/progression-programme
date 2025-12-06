@@ -76,6 +76,26 @@ public abstract class BankAccount {
         }
     }
 
+    public void setSavingsGoal(double savingsGoal) {
+        throw new UnsupportedOperationException();
+    }
+
+    public String getInterestRateDescription() {
+        throw new UnsupportedOperationException();
+    }
+
+    public double calculateGoalProgress() {
+        throw new UnsupportedOperationException();
+    }
+
+    public double getSavingsGoal() {
+        throw new UnsupportedOperationException();
+    }
+
+    public void setMonthlyInterest() {
+        throw new UnsupportedOperationException();
+    }
+
     // Abstract methods
     public abstract boolean canSetSavingsGoal();
     public abstract String getAccountDisplayName();
