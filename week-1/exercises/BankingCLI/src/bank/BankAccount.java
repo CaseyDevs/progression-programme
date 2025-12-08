@@ -10,6 +10,7 @@ public abstract class BankAccount {
     protected String transactionItem;
     private final User user;
     private final String accountType;
+    protected String accountName;
 
 
     public BankAccount(double balance, User user, String accountType) {
@@ -20,6 +21,7 @@ public abstract class BankAccount {
         this.transactionHistory = new ArrayList<>();
         this.user = user;
         this.accountType = accountType;
+        this.accountName = accountType;
     }
 
     public User getUser() {
@@ -28,6 +30,10 @@ public abstract class BankAccount {
 
     public String getAccountType() {
         return accountType;
+    }
+
+    public void setAccountName(String newAccountName) {
+        this.accountName = newAccountName;
     }
 
     public final double getBalance() {
@@ -76,6 +82,11 @@ public abstract class BankAccount {
         }
     }
 
+    public String getAccountDisplayName() {
+        return this.accountName;
+    }
+
+
     public void setSavingsGoal(double savingsGoal) {
         throw new UnsupportedOperationException();
     }
@@ -98,5 +109,4 @@ public abstract class BankAccount {
 
     // Abstract methods
     public abstract boolean canSetSavingsGoal();
-    public abstract String getAccountDisplayName();
 }

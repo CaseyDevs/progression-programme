@@ -58,9 +58,4 @@ public class SavingsAccount extends BankAccount {
     public boolean canSetSavingsGoal() {
         return true;
     }
-
-    @Override
-    public String getAccountDisplayName() {
-        return "Savings Account";
-    }
 }

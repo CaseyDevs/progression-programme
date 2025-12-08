@@ -15,7 +15,8 @@ public class Main {
             "Check Progress",
             "Apply Monthly Interest",
             "View Accounts",
-            "Create a new account"
+            "Create a new account",
+            "Change account name"
     };
 
     private static final String[] ACCOUNT_TYPE_OPTIONS = {
@@ -163,6 +164,9 @@ public class Main {
             case 9:
                 createNewAccount();
                 break;
+            case 10:
+                changeAccountName();
+                break;
             default:
                 break;
         }
@@ -294,7 +298,9 @@ public class Main {
         System.out.println("Your accounts:");
         for (int i = 0; i < list.size(); i++) {
             // Use the new polymorphic method instead of getAccountType()
-            System.out.println((i + 1) + ": " + list.get(i).getAccountDisplayName());
+            System.out.println((i + 1) + ": "
+                    + list.get(i).getAccountDisplayName() + " ("
+                    + currentAccount().getAccountType() + ")");
         }
         System.out.print("Select an account number to make it current (or press Enter to keep current): ");
         String sel = scanner.nextLine();
@@ -302,7 +308,10 @@ public class Main {
             int idx = Integer.parseInt(sel) - 1;
             try {
                 user.setCurrentAccount(idx);
-                System.out.println("Switched to " + user.getCurrentAccount().getAccountDisplayName() + ".");
+                System.out.println("Switched to "
+                        + currentAccount().getAccountDisplayName()
+                        + "(" + currentAccount().getAccountType() + ")"
+                );
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("Invalid selection.");
             }
@@ -313,5 +322,18 @@ public class Main {
         String type = promptForAccountType();
         user.createAccount(INITIAL_BALANCE, type);
         System.out.println("Created new " + type + " account and set as current.");
+    }
+
+    private static void changeAccountName() {
+        String newAccountName;
+
+        System.out.println("What would you like to name this account?");
+            if (scanner.hasNextLine()) {
+                newAccountName = scanner.nextLine();
+                currentAccount().setAccountName(newAccountName);
+                System.out.println("Account name set to: " + newAccountName);
+            } else {
+                System.out.println("No input found");
+            }
     }
 }

@@ -10,10 +10,5 @@ public class CurrentAccount extends BankAccount {
     public boolean canSetSavingsGoal() {
         return false;
     }
-
-    @Override
-    public String getAccountDisplayName() {
-        return "Current Account";
-    }
 }
 
