@@ -16,7 +16,8 @@ public class Main {
             "Apply Monthly Interest",
             "View Accounts",
             "Create a new account",
-            "Change account name"
+            "Change account name",
+            "View account info"
     };
 
     private static final String[] ACCOUNT_TYPE_OPTIONS = {
@@ -166,6 +167,9 @@ public class Main {
                 break;
             case 10:
                 changeAccountName();
+                break;
+            case 11:
+                viewAccountInfo();
                 break;
             default:
                 break;
@@ -335,5 +339,9 @@ public class Main {
             } else {
                 System.out.println("No input found");
             }
+    }
+
+    private static void viewAccountInfo() {
+        System.out.println(currentAccount().toString());
     }
 }

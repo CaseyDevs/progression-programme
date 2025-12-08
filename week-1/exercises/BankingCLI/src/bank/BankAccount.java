@@ -86,6 +86,14 @@ public abstract class BankAccount {
         return this.accountName;
     }
 
+    @Override
+    public String toString() {
+        return "### ACCOUNT INFO ###" +
+                "\nName: " + this.accountName +
+                "\nType: " + accountType +
+                "\nOwner: " + user.getName();
+
+    }
 
     public void setSavingsGoal(double savingsGoal) {
         throw new UnsupportedOperationException();
