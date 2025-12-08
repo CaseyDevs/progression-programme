@@ -1,7 +1,6 @@
 package bank;
 
 public class SavingsAccount extends BankAccount {
-    private static final double SAVINGS_INTEREST_RATE = 4.5;
     private double savingsGoal;
 
     public SavingsAccount(double balance, User user) {
@@ -28,17 +27,31 @@ public class SavingsAccount extends BankAccount {
 
 
     @Override
-    public void setMonthlyInterest() {
-        double interest = balance * (SAVINGS_INTEREST_RATE / 100);
+    public void setMonthlyInterest(double interestValue) {
+        double interest = balance * (interestValue / 100);
         balance += interest;
-        TRANSACTION_TYPE = "INTEREST (" + SAVINGS_INTEREST_RATE + "%)";
+        TRANSACTION_TYPE = "INTEREST (" + interestValue + "%)";
         transactionItem = TRANSACTION_TYPE + ": " + interest; // Log only interest, not total balance
         addToTransactionHistory(transactionItem);
     }
 
+    public double getInterestValue(String rate) {
+        double interest;
+
+        if (rate.equals("low")) {
+            interest = 2.5;
+        } else if (rate.equals("medium")){
+            interest = 4.5;
+        } else {
+            interest = 6.0;
+        }
+
+        return interest;
+    }
+
     @Override
     public String getInterestRateDescription() {
-        return "Savings rate applied (" + SAVINGS_INTEREST_RATE + "%)";
+        return "Choose one of the following interest rate options: \n2.5\n4.5\n6.5";
     }
 
     @Override

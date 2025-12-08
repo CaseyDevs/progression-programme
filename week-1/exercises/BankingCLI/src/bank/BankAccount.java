@@ -92,7 +92,7 @@ public abstract class BankAccount {
         throw new UnsupportedOperationException();
     }
 
-    public void setMonthlyInterest() {
+    public void setMonthlyInterest(double rate) {
         throw new UnsupportedOperationException();
     }
 

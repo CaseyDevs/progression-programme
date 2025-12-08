@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class Main {
     private static final String QUIT_COMMAND = "quit";
-    private static final double INITIAL_BALANCE = 0.0;
+    private static final Double INITIAL_BALANCE = 0.0;
     private static final String[] MENU_OPTIONS = {
             "Deposit",
             "Check Balance",
@@ -21,6 +21,12 @@ public class Main {
     private static final String[] ACCOUNT_TYPE_OPTIONS = {
             "Standard",
             "Savings"
+    };
+
+    private static final double[] INTEREST_RATE_OPTIONS = {
+            2.5,
+            4.5,
+            6.5
     };
 
     private static User user;
@@ -210,12 +216,45 @@ public class Main {
     }
 
     private static void applyInterestRate() {
+        double rate;
+
         if (currentAccount().canSetSavingsGoal()) {
             System.out.println(currentAccount().getInterestRateDescription());
-            currentAccount().setMonthlyInterest();
+
+            while (true) {
+                boolean valid = false;
+
+                System.out.print("Enter an interest rate option: ");
+
+                if (scanner.hasNextDouble()) {
+                    rate = scanner.nextDouble();
+
+                    // Check if the rate is one of the allowed options
+                    for (double interestRateOption : INTEREST_RATE_OPTIONS) {
+                        if (rate == interestRateOption) {
+                            currentAccount().setMonthlyInterest(rate);
+                            valid = true;
+                            break;
+                        }
+                    }
+
+                    if (valid) {
+                        System.out.println("Interest rate applied.");
+                        break;
+                    } else {
+                        System.out.println("Invalid rate. Please choose one of the available options.");
+                    }
+
+                } else {
+                    System.out.println("Please enter a valid number.");
+                    scanner.nextLine();
+                }
+            }
         } else {
-            System.out.println("Interest rates only apply to savings accounts.");
+            System.out.println("This account type cannot modify its savings goal or interest rate.");
         }
+
+        scanner.nextLine();
     }
 
     private static void setGoal() {
