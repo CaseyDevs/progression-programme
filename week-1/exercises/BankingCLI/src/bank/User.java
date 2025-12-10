@@ -46,9 +46,9 @@ public class User {
         return currentAccount;
     }
 
-    public void setCurrentAccount(int index) throws InvalidUserInputException{
+    public void setCurrentAccount(int index) throws IndexOutOfBoundsException {
         if (index < 0 || index >= accounts.size()) {
-            throw new InvalidUserInputException("Account index out of range.");
+            throw new IndexOutOfBoundsException("Account index out of range.");
         }
         this.currentAccount = accounts.get(index);
     }

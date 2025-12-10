@@ -53,7 +53,7 @@ public abstract class BankAccount {
         addToTransactionHistory(transactionItem);
     }
 
-    public final boolean withdraw(double amount) throws InvalidUserInputException {
+    public final void withdraw(double amount) throws InvalidUserInputException {
         TRANSACTION_TYPE = "WITHDRAW";
         transactionItem = TRANSACTION_TYPE + ": " + amount;
 
@@ -61,12 +61,11 @@ public abstract class BankAccount {
             throw new InvalidUserInputException("Withdrawal amount must be positive");
         }
         if (balance - amount < 0) {
-            return false;
+            throw new InvalidUserInputException("Insufficient funds");
         }
 
         balance -= amount;
         addToTransactionHistory(transactionItem);
-        return true;
     }
 
     public final void addToTransactionHistory(String transactionItem) {

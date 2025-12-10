@@ -1,5 +1,7 @@
 import bank.BankAccount;
 import bank.User;
+import bank.exceptions.InvalidUserInputException;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -63,7 +65,12 @@ public class Main {
         String name = scanner.nextLine().trim();
         String type = promptForAccountType();
         User newUser = new User(name);
-        newUser.createAccount(INITIAL_BALANCE, type);
+
+        try {
+            newUser.createAccount(INITIAL_BALANCE, type);
+        } catch (InvalidUserInputException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
         return newUser;
     }
 
@@ -181,17 +188,20 @@ public class Main {
     }
 
     private static void makeDeposit() {
-        System.out.println("How much would you like to deposit ?: ");
-        if(scanner.hasNextDouble()) {
-            double amount = scanner.nextDouble();
-            scanner.nextLine();
+        System.out.print("How much would you like to deposit?: ");
+        String input = scanner.nextLine();
+
+        try {
+            double amount = Double.parseDouble(input);
             currentAccount().deposit(amount);
             System.out.println("Success! Your new balance is: " + currentAccount().getBalance());
-        } else {
-            System.out.println("Invalid amount entered");
-            scanner.nextLine();
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input! Please enter a valid number.");
+        } catch (InvalidUserInputException e) {
+            System.out.println("Error: " + e.getMessage());
         }
     }
+
 
     private static void checkBalance() {
         System.out.println("Your current balance is: " + currentAccount().getBalance());
@@ -199,17 +209,16 @@ public class Main {
 
     private static void makeWithdrawal() {
         System.out.println("How much would you like to withdraw ?: ");
-        if(scanner.hasNextDouble()) {
-            double amount = scanner.nextDouble();
-            scanner.nextLine();
-            if (!currentAccount().withdraw(amount)) {
-                System.out.println("You do not have enough funds to withdraw: " + amount);
-            } else {
-                System.out.println("Success! Your new balance is: " + currentAccount().getBalance());
-            }
-        } else {
-            System.out.println("Invalid amount entered");
-            scanner.nextLine();
+        String input = scanner.nextLine();
+
+        try {
+            double amount = Double.parseDouble(input);
+            currentAccount().withdraw(amount);
+            System.out.println("Success! New balance: " + currentAccount().getBalance());
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input! Please enter a valid number.");
+        } catch (InvalidUserInputException e) {
+            System.out.println("Error: " + e.getMessage());
         }
     }
 
@@ -316,16 +325,21 @@ public class Main {
                         + currentAccount().getAccountDisplayName()
                         + "(" + currentAccount().getAccountType() + ")"
                 );
-            } catch (IndexOutOfBoundsException e) {
-                System.out.println("Invalid selection.");
+            } catch (IndexOutOfBoundsException e){
+                System.out.println("Error: " + e.getMessage());
             }
         }
     }
 
     private static void createNewAccount() {
         String type = promptForAccountType();
-        user.createAccount(INITIAL_BALANCE, type);
-        System.out.println("Created new " + type + " account and set as current.");
+
+        try {
+            user.createAccount(INITIAL_BALANCE, type);
+            System.out.println("Created new " + type + " account and set as current.");
+        } catch (InvalidUserInputException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
     }
 
     private static void changeAccountName() {
