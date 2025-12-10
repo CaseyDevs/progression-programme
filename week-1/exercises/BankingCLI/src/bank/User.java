@@ -1,5 +1,7 @@
 package bank;
 
+import bank.exceptions.InvalidUserInputException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,9 +29,9 @@ public class User {
         return accounts.size();
     }
 
-    public void addAccount(BankAccount newAccount) {
+    public void addAccount(BankAccount newAccount) throws InvalidUserInputException {
         if (newAccount == null) {
-            throw new IllegalArgumentException("Account cannot be null");
+            throw new InvalidUserInputException("Account cannot be null");
         }
         accounts.add(newAccount);
         if (currentAccount == null) {
@@ -44,15 +46,15 @@ public class User {
         return currentAccount;
     }
 
-    public void setCurrentAccount(int index){
+    public void setCurrentAccount(int index) throws InvalidUserInputException{
         if (index < 0 || index >= accounts.size()) {
-            throw new IndexOutOfBoundsException("Invalid account index");
+            throw new InvalidUserInputException("Account index out of range.");
         }
         this.currentAccount = accounts.get(index);
     }
 
     // Create either a standard BankAccount or a SavingsAccount based on type
-    public BankAccount createAccount(double initialBalance, String type) {
+    public void createAccount(double initialBalance, String type) throws InvalidUserInputException {
         BankAccount acc;
         if ("SAVINGS".equalsIgnoreCase(type)) {
             acc = new SavingsAccount(initialBalance, this);
@@ -61,6 +63,5 @@ public class User {
         }
         addAccount(acc);
         this.currentAccount = acc;
-        return acc;
     }
 }

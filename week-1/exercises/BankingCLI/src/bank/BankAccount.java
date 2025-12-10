@@ -1,5 +1,6 @@
 package bank;
 
+import bank.exceptions.InvalidUserInputException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,24 +41,24 @@ public abstract class BankAccount {
         return this.balance;
     }
 
-    public final void deposit(double amount) {
+    public final void deposit(double amount) throws InvalidUserInputException {
         TRANSACTION_TYPE = "DEPOSIT";
         transactionItem = TRANSACTION_TYPE + ": " + amount;
 
         if (amount <= 0) {
-            throw new IllegalArgumentException("Deposit amount must be positive");
+            throw new InvalidUserInputException("Deposit amount must be positive");
         }
 
         balance += amount;
         addToTransactionHistory(transactionItem);
     }
 
-    public final boolean withdraw(double amount) {
+    public final boolean withdraw(double amount) throws InvalidUserInputException {
         TRANSACTION_TYPE = "WITHDRAW";
         transactionItem = TRANSACTION_TYPE + ": " + amount;
 
         if (amount <= 0) {
-            throw new IllegalArgumentException("Withdrawal amount must be positive");
+            throw new InvalidUserInputException("Withdrawal amount must be positive");
         }
         if (balance - amount < 0) {
             return false;
