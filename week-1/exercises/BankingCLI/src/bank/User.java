@@ -2,6 +2,7 @@ package bank;
 
 import bank.exceptions.InvalidUserInputException;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +10,7 @@ public class User {
     private final String name;
     private BankAccount currentAccount;
     private final List<BankAccount> accounts = new ArrayList<>();
+    private final List<Goal> goals = new ArrayList<>();
 
     public User(String name) {
         if (name == null) {
@@ -63,5 +65,10 @@ public class User {
         }
         addAccount(acc);
         this.currentAccount = acc;
+    }
+
+    public void createGoal(String name, double target, LocalDate startDate) {
+        Goal newGoal = new Goal(name, target, startDate);
+        goals.add(newGoal);
     }
 }
