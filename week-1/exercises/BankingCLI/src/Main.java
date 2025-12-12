@@ -2,6 +2,7 @@ import bank.BankAccount;
 import bank.User;
 import bank.exceptions.InvalidUserInputException;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
@@ -274,18 +275,32 @@ public class Main {
         scanner.nextLine();
     }
 
+
+    // SPAGHETTI CODE, REFACTOR NEXT
+    // ADD ACCOUNT NAME TO GOAL
     private static void setGoal() {
+        String goalName;
+        double savingsGoal = 0;
+        LocalDate startDate = LocalDate.now();
+
         if (currentAccount().canSetSavingsGoal()) {
-            System.out.println("How much would you like to save " + user.getName() + "?");
-            if (scanner.hasNextDouble()) {
-                double savingsGoal = scanner.nextDouble();
-                scanner.nextLine();
-                currentAccount().setSavingsGoal(savingsGoal);
-                System.out.println("Goal set!");
-            } else {
-                System.out.println("Please input a valid number!");
-                scanner.nextLine();
+            System.out.println("Name your goal: ");
+            if(scanner.hasNextLine()) {
+                goalName = scanner.nextLine();
+                System.out.println("How much would you like to save " + user.getName() + "?");
+                if (scanner.hasNextDouble()) {
+                    savingsGoal = scanner.nextDouble();
+                    scanner.nextLine();
+                    user.createGoal(goalName, savingsGoal, startDate);
+                    System.out.println("Goal Created");
+                } else {
+                    System.out.println("Please input a valid number!");
+                    scanner.nextLine();
+
+                }
             }
+
+
         } else {
             System.out.println("You can only set a savings goal using a savings account!");
         }
