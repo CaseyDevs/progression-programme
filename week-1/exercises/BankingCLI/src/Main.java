@@ -310,6 +310,7 @@ public class Main {
 
         System.out.println("######## GOALS ########");
         for(Goal goal: goals) {
+            double progress = currentAccount().calculateGoalProgress();
             System.out.println("Goal " + i + ": " + goal.toString());
             i++;
         }

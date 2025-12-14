@@ -1,28 +1,16 @@
 package bank;
 
 public class SavingsAccount extends BankAccount {
-    private double savingsGoal;
-
     public SavingsAccount(double balance, User user) {
         super(balance, user, "SAVINGS");  // Inherit constructor param values from BankAccount
     }
 
     @Override
-    public void setSavingsGoal(double savingsGoal) {
-        this.savingsGoal = savingsGoal;
-    }
-
-    @Override
-    public double getSavingsGoal() {
-        return savingsGoal;
-    }
-
-    @Override
-    public double calculateGoalProgress() {
-        if (savingsGoal <= 0) {
+    public double calculateGoalProgress(double goal) {
+        if (goal <= 0) {
             return 0;
         }
-        return (this.balance / savingsGoal) * 100;
+        return (this.balance / goal) * 100;
     }
 
 
