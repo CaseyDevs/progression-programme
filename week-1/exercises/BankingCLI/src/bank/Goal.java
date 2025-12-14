@@ -32,4 +32,9 @@ public class Goal {
     public void setStartDate() {
         this.startDate = LocalDate.now();
     }
+
+    @Override
+    public String toString() {
+        return "\n- Name: " + getGoalName() + "\n- Savings Target: " + getGoalTarget() + "\n- Start date: " + getStartDate();
+    }
 }

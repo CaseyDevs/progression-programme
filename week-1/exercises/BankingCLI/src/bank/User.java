@@ -71,4 +71,9 @@ public class User {
         Goal newGoal = new Goal(name, target, startDate, accountName);
         goals.add(newGoal);
     }
+
+    public List<Goal> getGoals() {
+        return goals;
+    }
+
 }

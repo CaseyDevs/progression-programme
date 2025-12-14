@@ -1,4 +1,5 @@
 import bank.BankAccount;
+import bank.Goal;
 import bank.User;
 import bank.exceptions.InvalidUserInputException;
 
@@ -15,7 +16,7 @@ public class Main {
             "Withdraw",
             "Transaction History",
             "Set Goal",
-            "Check Progress",
+            "View Goals & Progress",
             "Apply Monthly Interest",
             "View Accounts",
             "Create a new account",
@@ -162,7 +163,7 @@ public class Main {
                 setGoal();
                 break;
             case 6:
-                checkProgress();
+                viewGoals();
                 break;
             case 7:
                 applyInterestRate();
@@ -278,7 +279,7 @@ public class Main {
 
     private static void setGoal() {
         String goalName;
-        double savingsGoal = 0;
+        double savingsGoal;
         LocalDate startDate = LocalDate.now();
 
         if (currentAccount().canSetSavingsGoal()) {
@@ -298,23 +299,32 @@ public class Main {
                     scanner.nextLine();
                 }
             }
-
-
         } else {
             System.out.println("You can only set a savings goal using a savings account!");
         }
     }
 
-    private static void checkProgress() {
-        if (currentAccount().canSetSavingsGoal()) {
-            double progress = currentAccount().calculateGoalProgress();
-            System.out.println("Your goal is: " + currentAccount().getSavingsGoal() +
-                "\nYou are " + progress + "% there " + user.getName() + "!"
-            );
-        } else {
-            System.out.println("No goal available: current account is not a savings account.");
+    private static void viewGoals() {
+        int i = 1;
+        var goals = user.getGoals();
+
+        System.out.println("######## GOALS ########");
+        for(Goal goal: goals) {
+            System.out.println("Goal " + i + ": " + goal.toString());
+            i++;
         }
     }
+
+//    private static void checkProgress() {
+//        if (currentAccount().canSetSavingsGoal()) {
+//            double progress = currentAccount().calculateGoalProgress();
+//            System.out.println("Your goal is: " + currentAccount().getSavingsGoal() +
+//                "\nYou are " + progress + "% there " + user.getName() + "!"
+//            );
+//        } else {
+//            System.out.println("No goal available: current account is not a savings account.");
+//        }
+//    }
 
     private static void viewAccounts(){
         List<BankAccount> list = user.getAccountList();
