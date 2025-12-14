@@ -6,6 +6,8 @@ import bank.exceptions.InvalidUserInputException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Main {
     private static final String QUIT_COMMAND = "quit";
@@ -41,7 +43,7 @@ public class Main {
     private static Scanner scanner;
     private static int userChoice;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         scanner = new Scanner(System.in);
         user = createUser();
 
@@ -147,7 +149,7 @@ public class Main {
         }
     }
 
-    private static void navigateUser () {
+    private static void navigateUser () throws IOException {
         switch (userChoice) {
             case 1:
                 makeDeposit();
@@ -422,7 +424,14 @@ public class Main {
         System.out.println(currentAccount().toString());
     }
 
-    private static void generateStatement() {
-        System.out.println(currentAccount().generateStatement());
+    private static void generateStatement() throws IOException {
+        try {
+            FileWriter fileWriter = new FileWriter("statement.txt");
+            fileWriter.write(currentAccount().generateStatement());
+            fileWriter.close();
+            System.out.println("Statement generated successfully!");
+        } catch (IOException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
     }
 }

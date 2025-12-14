@@ -103,10 +103,11 @@ public abstract class BankAccount {
     }
 
     public String generateStatement() {
-        return "### BANK STATEMENT ###" +
-                "\nAccount: " + this.accountName +
+        return "### BANK STATEMENT ###\n" +
+                "\nAccount Name: " + this.accountName +
+                "\nAccount Type: " + accountType +
                 "\nBalance: $" + balance +
-                "\nTransaction History: \n" + "-" + getTransactionHistoryAsString() +
+                "\nTransaction History: \n" + getTransactionHistoryAsString() +
                 "\nGoals: " + user.getGoals();
     }
 
