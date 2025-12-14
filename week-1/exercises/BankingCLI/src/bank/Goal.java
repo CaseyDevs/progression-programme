@@ -4,13 +4,13 @@ import java.time.LocalDate;
 
 public class Goal {
     private final String name;
-    private double target;
-    private LocalDate startDate;
+    private final double target;
+    private final LocalDate startDate;
 
-    public Goal(String name, double target, LocalDate startDate, String accountName) {
+    public Goal(String name, double target, String accountName) {
         this.name = name;
         this.target = target;
-        this.startDate = startDate;
+        this.startDate = LocalDate.now();
     }
 
     public String getGoalName() {
@@ -21,16 +21,8 @@ public class Goal {
         return this.target;
     }
 
-    public void setGoalTarget(double target) {
-        this.target = target;
-    }
-
     public LocalDate getStartDate() {
-        return LocalDate.now();
-    }
-
-    public void setStartDate() {
-        this.startDate = LocalDate.now();
+        return startDate;
     }
 
     @Override

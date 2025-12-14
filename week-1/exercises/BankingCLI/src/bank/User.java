@@ -27,10 +27,6 @@ public class User {
         return new ArrayList<>(accounts);
     }
 
-    public int getAccountListSize() {
-        return accounts.size();
-    }
-
     public void addAccount(BankAccount newAccount) throws InvalidUserInputException {
         if (newAccount == null) {
             throw new InvalidUserInputException("Account cannot be null");
@@ -67,8 +63,8 @@ public class User {
         this.currentAccount = acc;
     }
 
-    public void createGoal(String name, double target, LocalDate startDate, String accountName) {
-        Goal newGoal = new Goal(name, target, startDate, accountName);
+    public void createGoal(String name, double target, String accountName) {
+        Goal newGoal = new Goal(name, target, accountName);
         goals.add(newGoal);
     }
 

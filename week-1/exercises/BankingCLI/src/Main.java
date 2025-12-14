@@ -280,7 +280,6 @@ public class Main {
     private static void setGoal() {
         String goalName;
         double savingsGoal;
-        LocalDate startDate = LocalDate.now();
 
         if (currentAccount().canSetSavingsGoal()) {
             System.out.println("Name your goal: ");
@@ -292,7 +291,7 @@ public class Main {
                 if (scanner.hasNextDouble()) {
                     savingsGoal = scanner.nextDouble();
                     scanner.nextLine();
-                    user.createGoal(goalName, savingsGoal, startDate, currentAccount().getAccountDisplayName());
+                    user.createGoal(goalName, savingsGoal, currentAccount().getAccountDisplayName());
                     System.out.println("Goal Created");
                 } else {
                     System.out.println("Please input a valid number!");
@@ -319,17 +318,6 @@ public class Main {
             System.out.println("You have not set any goals yet.");
         }
     }
-
-//    private static void checkProgress() {
-//        if (currentAccount().canSetSavingsGoal()) {
-//            double progress = currentAccount().calculateGoalProgress();
-//            System.out.println("Your goal is: " + currentAccount().getSavingsGoal() +
-//                "\nYou are " + progress + "% there " + user.getName() + "!"
-//            );
-//        } else {
-//            System.out.println("No goal available: current account is not a savings account.");
-//        }
-//    }
 
     private static void viewAccounts(){
         List<BankAccount> list = user.getAccountList();
