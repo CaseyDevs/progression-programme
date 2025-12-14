@@ -22,7 +22,8 @@ public class Main {
             "View Accounts",
             "Create a new account",
             "Change account name",
-            "View account info"
+            "View account info",
+            "Generate Statement"
     };
 
     private static final String[] ACCOUNT_TYPE_OPTIONS = {
@@ -184,6 +185,8 @@ public class Main {
             case 12:
                 viewAccountInfo();
                 break;
+            case 13:
+                generateStatement();
             default:
                 break;
         }
@@ -417,5 +420,9 @@ public class Main {
 
     private static void viewAccountInfo() {
         System.out.println(currentAccount().toString());
+    }
+
+    private static void generateStatement() {
+        System.out.println(currentAccount().generateStatement());
     }
 }

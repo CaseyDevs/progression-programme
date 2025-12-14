@@ -82,6 +82,13 @@ public abstract class BankAccount {
         }
     }
 
+    public final String getTransactionHistoryAsString() {
+        if (transactionHistory.isEmpty()) {
+            return "(none)";
+        }
+        return String.join("\n", transactionHistory);
+    }
+
     public String getAccountDisplayName() {
         return this.accountName;
     }
@@ -93,6 +100,14 @@ public abstract class BankAccount {
                 "\nType: " + accountType +
                 "\nOwner: " + user.getName();
 
+    }
+
+    public String generateStatement() {
+        return "### BANK STATEMENT ###" +
+                "\nAccount: " + this.accountName +
+                "\nBalance: $" + balance +
+                "\nTransaction History: \n" + "-" + getTransactionHistoryAsString() +
+                "\nGoals: " + user.getGoals();
     }
 
     public void setSavingsGoal(double savingsGoal) {
