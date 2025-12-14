@@ -308,11 +308,15 @@ public class Main {
         int i = 1;
         var goals = user.getGoals();
 
-        System.out.println("######## GOALS ########");
-        for(Goal goal: goals) {
-            double progress = currentAccount().calculateGoalProgress();
-            System.out.println("Goal " + i + ": " + goal.toString());
-            i++;
+        if (!goals.isEmpty()) {
+            System.out.println("######## GOALS ########");
+            for (Goal goal : goals) {
+                double progress = currentAccount().calculateGoalProgress(goal.getGoalTarget());
+                System.out.println("\nGoal " + i + ": " + goal.toString() + "\n- Progress: " + Math.round(progress) + "%");
+                i++;
+            }
+        } else {
+            System.out.println("You have not set any goals yet.");
         }
     }
 
