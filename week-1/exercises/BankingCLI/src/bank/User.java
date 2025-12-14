@@ -67,8 +67,8 @@ public class User {
         this.currentAccount = acc;
     }
 
-    public void createGoal(String name, double target, LocalDate startDate) {
-        Goal newGoal = new Goal(name, target, startDate);
+    public void createGoal(String name, double target, LocalDate startDate, String accountName) {
+        Goal newGoal = new Goal(name, target, startDate, accountName);
         goals.add(newGoal);
     }
 }

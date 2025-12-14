@@ -276,8 +276,6 @@ public class Main {
     }
 
 
-    // SPAGHETTI CODE, REFACTOR NEXT
-    // ADD ACCOUNT NAME TO GOAL
     private static void setGoal() {
         String goalName;
         double savingsGoal = 0;
@@ -285,18 +283,19 @@ public class Main {
 
         if (currentAccount().canSetSavingsGoal()) {
             System.out.println("Name your goal: ");
-            if(scanner.hasNextLine()) {
+
+            if (scanner.hasNextLine()) {
                 goalName = scanner.nextLine();
                 System.out.println("How much would you like to save " + user.getName() + "?");
+
                 if (scanner.hasNextDouble()) {
                     savingsGoal = scanner.nextDouble();
                     scanner.nextLine();
-                    user.createGoal(goalName, savingsGoal, startDate);
+                    user.createGoal(goalName, savingsGoal, startDate, currentAccount().getAccountDisplayName());
                     System.out.println("Goal Created");
                 } else {
                     System.out.println("Please input a valid number!");
                     scanner.nextLine();
-
                 }
             }
 

@@ -7,7 +7,7 @@ public class Goal {
     private double target;
     private LocalDate startDate;
 
-    public Goal(String name, double target, LocalDate startDate) {
+    public Goal(String name, double target, LocalDate startDate, String accountName) {
         this.name = name;
         this.target = target;
         this.startDate = startDate;
