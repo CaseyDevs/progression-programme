@@ -17,6 +17,7 @@ public class Main {
             "Transaction History",
             "Set Goal",
             "View Goals & Progress",
+            "Delete Goal",
             "Apply Monthly Interest",
             "View Accounts",
             "Create a new account",
@@ -166,18 +167,21 @@ public class Main {
                 viewGoals();
                 break;
             case 7:
-                applyInterestRate();
+                deleteGoal();
                 break;
             case 8:
-                viewAccounts();
+                applyInterestRate();
                 break;
             case 9:
-                createNewAccount();
+                viewAccounts();
                 break;
             case 10:
-                changeAccountName();
+                createNewAccount();
                 break;
             case 11:
+                changeAccountName();
+                break;
+            case 12:
                 viewAccountInfo();
                 break;
             default:
@@ -318,6 +322,45 @@ public class Main {
             System.out.println("You have not set any goals yet.");
         }
     }
+
+    private static void deleteGoal() {
+        var goals = user.getGoals();
+
+        if (goals.isEmpty()) {
+            System.out.println("No goals to delete.");
+            return;
+        }
+
+        System.out.println("Which goal would you like to remove:");
+        for (int i = 0; i < goals.size(); i++) {
+            System.out.println((i + 1) + ": " + goals.get(i).getGoalName());
+        }
+
+        while (true) {
+            System.out.print("Enter a number: ");
+
+            if (!scanner.hasNextInt()) {
+                System.out.println("Please enter a whole number!");
+                scanner.next(); // consume invalid input
+                continue;
+            }
+
+            int choice = scanner.nextInt();
+
+            if (choice < 1 || choice > goals.size()) {
+                System.out.println("Error! Please choose a valid option.");
+                continue;
+            }
+
+            // delete goal
+            user.deleteGoal(goals.get(choice - 1));
+            System.out.println("Goal removed.");
+            break;
+        }
+
+        scanner.nextLine(); // clear newline
+    }
+
 
     private static void viewAccounts(){
         List<BankAccount> list = user.getAccountList();

@@ -68,6 +68,14 @@ public class User {
         goals.add(newGoal);
     }
 
+    public void deleteGoal(Goal goal) {
+        try {
+            goals.remove(goal);
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
     public List<Goal> getGoals() {
         return goals;
     }
