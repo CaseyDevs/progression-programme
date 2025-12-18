@@ -46,4 +46,40 @@ public class BankAccountTest {
         // Assert
         assertTrue(account.getTransactionHistory());
     }
+
+    @Test
+    @DisplayName("Deposit zero amount should throw InvalidUserInputException")
+    void testDepositZeroAmount() {
+        // Act & Assert
+        InvalidUserInputException exception = assertThrows(
+                InvalidUserInputException.class,
+                () -> account.deposit(0.0)
+        );
+
+        // Assert
+        assertEquals("Deposit amount must be positive", exception.getMessage());
+    }
+
+    @Test
+    @DisplayName("Deposit negative amount should throw InvalidUserInputException")
+    void testDepositNegativeAmount() {
+        // Act & Assert
+        InvalidUserInputException exception = assertThrows(
+                InvalidUserInputException.class,
+                () -> account.deposit(-50.0)
+        );
+
+        assertEquals("Deposit amount must be positive", exception.getMessage());
+    }
+
+    @Test
+    @DisplayName("Failed deposit should not change balance")
+    void testFailedDepositDoesNotChangeBalance() {
+        // Arrange
+        double initialBalance = account.getBalance();
+
+        // Act & Assert
+        assertThrows(InvalidUserInputException.class, () -> account.deposit(-10.0));
+        assertEquals(initialBalance, account.getBalance(), 0.01);
+    }
 }
