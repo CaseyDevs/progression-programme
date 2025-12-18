@@ -32,4 +32,18 @@ public class BankAccountTest {
         // Assert
         assertEquals(initialBalance + depositAmount, account.getBalance(), 0.01);
     }
+
+    @Test
+    @DisplayName("Deposit should add transaction to history")
+    void testDepositAddsTransactionHistory() throws InvalidUserInputException {
+        // Arrange
+        double depositAmount = 50.0;
+        int intialHistorySize = account.getTransactionHistory() ? 1 : 0; // returns bool so return true or false
+
+        // Act
+        account.deposit(depositAmount);
+
+        // Assert
+        assertTrue(account.getTransactionHistory());
+    }
 }
