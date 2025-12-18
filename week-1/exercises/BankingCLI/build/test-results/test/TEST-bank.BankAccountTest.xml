@@ -1,9 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="bank.BankAccountTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2025-12-18T23:15:27.799Z" hostname="MBP" time="0.015">
+<testsuite name="BankAccount Tests" tests="19" skipped="0" failures="0" errors="0" timestamp="2025-12-18T23:24:35.152Z" hostname="MBP" time="0.034">
   <properties/>
-  <testcase name="Deposit zero amount should throw InvalidUserInputException" classname="bank.BankAccountTest" time="0.013"/>
-  <testcase name="Deposit should add transaction to history" classname="bank.BankAccountTest" time="0.0"/>
-  <testcase name="Deposit positive amount should increase balance" classname="bank.BankAccountTest" time="0.0"/>
+  <testcase name="[1] 0.01" classname="bank.BankAccountTest" time="0.015"/>
+  <testcase name="[2] 10.0" classname="bank.BankAccountTest" time="0.001"/>
+  <testcase name="[3] 25.5" classname="bank.BankAccountTest" time="0.001"/>
+  <testcase name="[4] 50.0" classname="bank.BankAccountTest" time="0.0"/>
+  <testcase name="[5] 100.0" classname="bank.BankAccountTest" time="0.0"/>
+  <testcase name="[6] 1000.0" classname="bank.BankAccountTest" time="0.0"/>
+  <testcase name="[1] 10.0" classname="bank.BankAccountTest" time="0.0"/>
+  <testcase name="[2] 25.5" classname="bank.BankAccountTest" time="0.0"/>
+  <testcase name="[3] 50.0" classname="bank.BankAccountTest" time="0.0"/>
+  <testcase name="[4] 99.99" classname="bank.BankAccountTest" time="0.0"/>
+  <testcase name="[1] 0.0" classname="bank.BankAccountTest" time="0.002"/>
+  <testcase name="[2] -1.0" classname="bank.BankAccountTest" time="0.001"/>
+  <testcase name="[3] -50.0" classname="bank.BankAccountTest" time="0.0"/>
+  <testcase name="[4] 150.0" classname="bank.BankAccountTest" time="0.0"/>
+  <testcase name="[1] 0.0" classname="bank.BankAccountTest" time="0.0"/>
+  <testcase name="[2] -0.01" classname="bank.BankAccountTest" time="0.0"/>
+  <testcase name="[3] -1.0" classname="bank.BankAccountTest" time="0.001"/>
+  <testcase name="[4] -50.0" classname="bank.BankAccountTest" time="0.0"/>
+  <testcase name="[5] -1000.0" classname="bank.BankAccountTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
