@@ -7,8 +7,6 @@ import java.util.List;
 public abstract class BankAccount {
     protected double balance;
     protected final List<String> transactionHistory;
-    protected String TRANSACTION_TYPE;
-    protected String transactionItem;
     private final User user;
     private final String accountType;
     protected String accountName;
@@ -42,8 +40,7 @@ public abstract class BankAccount {
     }
 
     public final void deposit(double amount) throws InvalidUserInputException {
-        TRANSACTION_TYPE = "DEPOSIT";
-        transactionItem = TRANSACTION_TYPE + ": " + amount;
+        String transactionItem = "DEPOSIT:" + ": " + amount;
 
         if (amount <= 0) {
             throw new InvalidUserInputException("Deposit amount must be positive");
@@ -54,8 +51,7 @@ public abstract class BankAccount {
     }
 
     public final void withdraw(double amount) throws InvalidUserInputException {
-        TRANSACTION_TYPE = "WITHDRAW";
-        transactionItem = TRANSACTION_TYPE + ": " + amount;
+        String transactionItem = "Withdraw" + ": " + amount;
 
         if (amount <= 0) {
             throw new InvalidUserInputException("Withdrawal amount must be positive");
