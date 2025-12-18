@@ -3,7 +3,6 @@ import bank.Goal;
 import bank.User;
 import bank.exceptions.InvalidUserInputException;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 import java.io.FileWriter;
