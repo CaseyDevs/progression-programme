@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Goal Progress Tests" tests="5" skipped="0" failures="0" errors="0" timestamp="2025-12-18T23:30:29.846Z" hostname="MBP" time="0.009">
+<testsuite name="Goal Progress Tests" tests="5" skipped="0" failures="0" errors="0" timestamp="2025-12-19T20:43:46.346Z" hostname="MBP" time="0.006">
   <properties/>
-  <testcase name="&#x1f7e2; Goal progress over 100% should work" classname="bank.BankAccountTest$GoalProgressTests" time="0.006"/>
+  <testcase name="&#x1f7e2; Goal progress over 100% should work" classname="bank.BankAccountTest$GoalProgressTests" time="0.004"/>
   <testcase name="&#x1f7e2; Progress should update after withdrawals" classname="bank.BankAccountTest$GoalProgressTests" time="0.001"/>
-  <testcase name="&#x1f7e2; Goal progress calculation should be accurate" classname="bank.BankAccountTest$GoalProgressTests" time="0.001"/>
-  <testcase name="&#x1f534; Zero or negative goal should return 0% progress" classname="bank.BankAccountTest$GoalProgressTests" time="0.001"/>
+  <testcase name="&#x1f7e2; Goal progress calculation should be accurate" classname="bank.BankAccountTest$GoalProgressTests" time="0.0"/>
+  <testcase name="&#x1f534; Zero or negative goal should return 0% progress" classname="bank.BankAccountTest$GoalProgressTests" time="0.0"/>
   <testcase name="&#x1f7e2; Progress should update after deposits" classname="bank.BankAccountTest$GoalProgressTests" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>

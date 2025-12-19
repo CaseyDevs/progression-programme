@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Deposit Method Tests" tests="10" skipped="0" failures="0" errors="0" timestamp="2025-12-18T23:30:29.832Z" hostname="MBP" time="0.007">
+<testsuite name="Deposit Method Tests" tests="10" skipped="0" failures="0" errors="0" timestamp="2025-12-19T20:43:46.337Z" hostname="MBP" time="0.006">
   <properties/>
-  <testcase name="&#x1f7e2; Failed deposit should not change balance" classname="bank.BankAccountTest$DepositTests" time="0.002"/>
+  <testcase name="&#x1f7e2; Failed deposit should not change balance" classname="bank.BankAccountTest$DepositTests" time="0.001"/>
   <testcase name="&#x1f7e2; Small deposit should work correctly" classname="bank.BankAccountTest$DepositTests" time="0.001"/>
   <testcase name="&#x1f7e2; Decimal deposits should work correctly" classname="bank.BankAccountTest$DepositTests" time="0.0"/>
   <testcase name="&#x1f534; Zero deposit should throw exception" classname="bank.BankAccountTest$DepositTests" time="0.001"/>
-  <testcase name="&#x1f7e2; Deposit should add correct transaction to history" classname="bank.BankAccountTest$DepositTests" time="0.001"/>
+  <testcase name="&#x1f7e2; Deposit should add correct transaction to history" classname="bank.BankAccountTest$DepositTests" time="0.0"/>
   <testcase name="&#x1f7e2; Large deposit should work correctly" classname="bank.BankAccountTest$DepositTests" time="0.0"/>
-  <testcase name="&#x1f7e2; Deposit to empty account should work" classname="bank.BankAccountTest$DepositTests" time="0.0"/>
+  <testcase name="&#x1f7e2; Deposit to empty account should work" classname="bank.BankAccountTest$DepositTests" time="0.001"/>
   <testcase name="&#x1f534; Negative deposit should throw exception" classname="bank.BankAccountTest$DepositTests" time="0.0"/>
-  <testcase name="&#x1f7e2; Multiple deposits should accumulate correctly" classname="bank.BankAccountTest$DepositTests" time="0.0"/>
+  <testcase name="&#x1f7e2; Multiple deposits should accumulate correctly" classname="bank.BankAccountTest$DepositTests" time="0.001"/>
   <testcase name="&#x1f7e2; Valid deposit should increase balance" classname="bank.BankAccountTest$DepositTests" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
