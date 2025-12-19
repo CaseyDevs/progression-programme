@@ -11,16 +11,16 @@ public class Main {
     private static Scanner scanner;
     private static BankingService bankingService;
 
-    static void main(String[] args) throws IOException {
-        user = InputHelpers.createUser();
+    public static void main(String[] args) throws IOException { // Fix: should be public
+        scanner = new Scanner(System.in); // Create scanner first
+        user = InputHelpers.createUser(scanner); // Pass scanner to createUser
         bankingService = new BankingService(user);
-        scanner = new Scanner(System.in);
 
         displayWelcomeMessage();
 
         boolean running = true;
         while (running) {
-            int userChoice = InputHelpers.getUserMenuChoice();
+            int userChoice = InputHelpers.getUserMenuChoice(scanner); // Pass scanner
             if (userChoice == 0) { // 0 indicates quit
                 running = false;
             } else {
@@ -28,7 +28,7 @@ public class Main {
             }
         }
 
-        scanner.close();
+        scanner.close(); // Only close at the very end
         System.out.println("Thank you for banking with us!");
     }
 

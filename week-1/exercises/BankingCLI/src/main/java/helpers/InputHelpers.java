@@ -48,10 +48,9 @@ public class InputHelpers {
         }
     }
 
-    public static int getUserMenuChoice() {
+    public static int getUserMenuChoice(Scanner scanner) { // Pass scanner as parameter
         String inputValue;
-        Scanner scanner = new Scanner(System.in);
-        int userChoice=0;
+        int userChoice = 0;
 
 
         System.out.println("\nMENU OPTIONS:");
@@ -73,21 +72,16 @@ public class InputHelpers {
                         System.out.println("\nInvalid input! Please enter one of the option numbers.");
                     }
                 } else if(inputValue.equalsIgnoreCase(QUIT_COMMAND)) {
-                    break;
+                    return 0; // Return 0 to indicate quit instead of breaking
                 }
                 else {
                     System.out.println("\nInvalid input! Please enter one of the option numbers.");
                 }
             }
         }
-
-        scanner.close();
-        return 0;
     }
 
-    public static User createUser() {
-        Scanner scanner = new Scanner(System.in);
-
+    public static User createUser(Scanner scanner) { // Pass scanner as parameter
         System.out.print("What is your name ?: ");
         if (!scanner.hasNextLine()) {
             return null;
@@ -100,8 +94,8 @@ public class InputHelpers {
         } catch (InvalidUserInputException e) {
             System.out.println("Error: " + e.getMessage());
         }
-
-        scanner.close();
+        
+        // Don't close the scanner here!
         return newUser;
     }
 }
