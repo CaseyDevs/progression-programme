@@ -1,7 +1,7 @@
 import bank.User;
 import bank.exceptions.InvalidUserInputException;
 import bank.BankingService;
-import helpers.helpers;
+import helpers.*;
 
 import java.util.Scanner;
 import java.io.IOException;
@@ -24,17 +24,12 @@ public class Main {
             "Generate Statement"
     };
 
-    private static final String[] ACCOUNT_TYPE_OPTIONS = {
-            "Standard",
-            "Savings"
-    };
-
     private static User user;
     private static Scanner scanner;
     private static int userChoice;
     private static BankingService bankingService;
 
-    public static void main(String[] args) throws IOException {
+    static void main(String[] args) throws IOException {
         scanner = new Scanner(System.in);
         user = createUser();
         bankingService = new BankingService(user);
@@ -61,7 +56,7 @@ public class Main {
             return null;
         }
         String name = scanner.nextLine().trim();
-        String type = promptForAccountType();
+        String type = InputHelpers.promptForAccountType(scanner);
         User newUser = new User(name);
         try {
             newUser.createAccount(0, type);
@@ -69,25 +64,6 @@ public class Main {
             System.out.println("Error: " + e.getMessage());
         }
         return newUser;
-    }
-
-    private static String promptForAccountType() {
-        int choice = 0;
-        while (true) {
-            System.out.println("Choose your account type: ");
-            for (int i = 0; i < ACCOUNT_TYPE_OPTIONS.length; i++) {
-                System.out.println((i + 1) + ": " + ACCOUNT_TYPE_OPTIONS[i]);
-            }
-            if (scanner.hasNextInt()) {
-                choice = scanner.nextInt();
-                scanner.nextLine();
-                if (choice == 1) return "STANDARD";
-                if (choice == 2) return "SAVINGS";
-            } else {
-                scanner.nextLine();
-            }
-            System.out.println("Please enter one of the displayed option numbers!");
-        }
     }
 
     private static void displayWelcomeMessage() {

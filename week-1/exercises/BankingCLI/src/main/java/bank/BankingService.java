@@ -6,8 +6,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import bank.exceptions.InvalidUserInputException;
-import com.sun.tools.javac.Main;
-import helpers.helpers;
+import helpers.*;
 
 public class BankingService {
     private final User user;
@@ -227,7 +226,7 @@ public class BankingService {
     }
 
     public void createNewAccount() {
-        String type = promptForAccountType();
+        String type = InputHelpers.promptForAccountType(scanner);
 
         try {
             user.createAccount(INITIAL_BALANCE, type);
