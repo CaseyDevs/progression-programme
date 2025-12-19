@@ -40,7 +40,7 @@ public abstract class BankAccount {
     }
 
     public final void deposit(double amount) throws InvalidUserInputException {
-        String transactionItem = "DEPOSIT:" + ": " + amount;
+        String transactionItem = "DEPOSIT" + ": " + amount;
 
         if (amount <= 0) {
             throw new InvalidUserInputException("Deposit amount must be positive");

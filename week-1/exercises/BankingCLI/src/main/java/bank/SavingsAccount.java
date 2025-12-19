@@ -18,8 +18,7 @@ public class SavingsAccount extends BankAccount {
     public void setMonthlyInterest(double interestValue) {
         double interest = balance * (interestValue / 100);
         balance += interest;
-        TRANSACTION_TYPE = "INTEREST (" + interestValue + "%)";
-        transactionItem = TRANSACTION_TYPE + ": " + interest; // Log only interest, not total balance
+        String transactionItem = "INTEREST (" + interestValue + "%)" + ": " + interest; // Log only interest, not total balance
         addToTransactionHistory(transactionItem);
     }
 
