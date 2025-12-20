@@ -5,6 +5,10 @@ public class SavingsAccount extends BankAccount implements SavingsCapable {
         super(balance, user, "SAVINGS");  // Inherit constructor param values from BankAccount
     }
 
+    private void record(double amount, double interest) {
+        transactionHistory.add("INTEREST" + ":" + amount + "%: " + interest);
+    }
+
     @Override
     public void setSavingsGoal(String goalName, double target) {
         User user = getUser();
@@ -19,13 +23,11 @@ public class SavingsAccount extends BankAccount implements SavingsCapable {
         return (this.balance / goal) * 100;
     }
 
-
     @Override
     public void setMonthlyInterest(double interestValue) {
         double interest = balance * (interestValue / 100);
         balance += interest;
-        String transactionItem = "INTEREST (" + interestValue + "%)" + ": " + interest; // Log only interest, not total balance
-        addToTransactionHistory(transactionItem);
+        record(interestValue, interest); // Log only interest, not total balance
     }
 
     public double getInterestValue(String rate) {
@@ -45,10 +47,5 @@ public class SavingsAccount extends BankAccount implements SavingsCapable {
     @Override
     public String getInterestRateDescription() {
         return "Choose one of the following interest rate options: \n2.5\n4.5\n6.5";
-    }
-
-    @Override
-    public boolean canSetSavingsGoal() {
-        return true;
     }
 }
