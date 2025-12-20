@@ -107,9 +107,6 @@ public abstract class BankAccount {
                 "\nGoals: " + user.getGoals();
     }
 
-    public void setSavingsGoal(double savingsGoal) {
-        throw new UnsupportedOperationException();
-    }
 
     public String getInterestRateDescription() {
         throw new UnsupportedOperationException();

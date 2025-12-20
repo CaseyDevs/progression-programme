@@ -136,6 +136,33 @@ public class BankingService {
         }
     }
 
+    public void setGoal() {
+        String goalName;
+        double savingsGoal;
+        BankAccount account = currentAccount();
+
+        if (account instanceof SavingsCapable savings) {
+            System.out.println("Name your goal: ");
+
+            if (scanner.hasNextLine()) {
+                goalName = scanner.nextLine();
+                System.out.println("How much would you like to save " + user.getName() + "?");
+
+                if (scanner.hasNextDouble()) {
+                    savingsGoal = scanner.nextDouble();
+                    scanner.nextLine();
+                    user.createGoal(goalName, savingsGoal, account.getAccountDisplayName());
+                    System.out.println("Goal Created");
+                } else {
+                    System.out.println("Please input a valid number!");
+                    scanner.nextLine();
+                }
+            }
+        } else {
+            System.out.println("You can only set a savings goal using a savings account!");
+        }
+    }
+
     public void deleteGoal() {
         var goals = user.getGoals();
 
