@@ -1,6 +1,6 @@
 package bank;
 
-public class SavingsAccount extends BankAccount {
+public class SavingsAccount extends BankAccount implements SavingsCapable {
     public SavingsAccount(double balance, User user) {
         super(balance, user, "SAVINGS");  // Inherit constructor param values from BankAccount
     }

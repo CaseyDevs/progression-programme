@@ -29,13 +29,14 @@ public class BankingService {
     }
 
     public void makeDeposit() {
+        BankAccount account = currentAccount();
         System.out.print("How much would you like to deposit?: ");
         String input = scanner.nextLine();
 
         try {
             double amount = Double.parseDouble(input);
-            currentAccount().deposit(amount);
-            System.out.println("Success! Your new balance is: " + currentAccount().getBalance());
+            account.deposit(amount);
+            System.out.println("Success! Your new balance is: " + account.getBalance());
         } catch (NumberFormatException e) {
             System.out.println("Invalid input! Please enter a valid number.");
         } catch (InvalidUserInputException e) {
@@ -44,13 +45,14 @@ public class BankingService {
     }
 
     public void makeWithdrawal() {
+        BankAccount account = currentAccount();
         System.out.println("How much would you like to withdraw ?: ");
         String input = scanner.nextLine();
 
         try {
             double amount = Double.parseDouble(input);
-            currentAccount().withdraw(amount);
-            System.out.println("Success! New balance: " + currentAccount().getBalance());
+            account.withdraw(amount);
+            System.out.println("Success! New balance: " + account.getBalance());
         } catch (NumberFormatException e) {
             System.out.println("Invalid input! Please enter a valid number.");
         } catch (InvalidUserInputException e) {
@@ -58,51 +60,28 @@ public class BankingService {
         }
     }
 
-    public void setGoal() {
-        String goalName;
-        double savingsGoal;
-
-        if (currentAccount().canSetSavingsGoal()) {
-            System.out.println("Name your goal: ");
-
-            if (scanner.hasNextLine()) {
-                goalName = scanner.nextLine();
-                System.out.println("How much would you like to save " + user.getName() + "?");
-
-                if (scanner.hasNextDouble()) {
-                    savingsGoal = scanner.nextDouble();
-                    scanner.nextLine();
-                    user.createGoal(goalName, savingsGoal, currentAccount().getAccountDisplayName());
-                    System.out.println("Goal Created");
-                } else {
-                    System.out.println("Please input a valid number!");
-                    scanner.nextLine();
-                }
-            }
-        } else {
-            System.out.println("You can only set a savings goal using a savings account!");
-        }
-    }
-
     public void checkBalance() {
-        System.out.println("Your current balance is: " + currentAccount().getBalance());
+        BankAccount account = currentAccount();
+        System.out.println("Your current balance is: " + account.getBalance());
     }
 
     public void displayTransactionHistory() {
-        if (!currentAccount().getTransactionHistory()) {
+        BankAccount account = currentAccount();
+        if (!account.getTransactionHistory()) {
             System.out.println("No transaction history found. Make a deposit / withdrawal!");
         } else {
             System.out.println("\n######## TRANSACTION HISTORY ########\n");
-            currentAccount().printTransactionHistory();
+            account.printTransactionHistory();
             System.out.println("\n#####################################");
         }
     }
 
     public void applyInterestRate() {
+        BankAccount account = currentAccount();
         double rate;
 
-        if (currentAccount().canSetSavingsGoal()) {
-            System.out.println(currentAccount().getInterestRateDescription());
+        if (account instanceof SavingsCapable savings) {
+            System.out.println(account.getInterestRateDescription());
 
             while (true) {
                 boolean valid = false;
@@ -115,7 +94,7 @@ public class BankingService {
                     // Check if the rate is one of the allowed options
                     for (double interestRateOption : INTEREST_RATE_OPTIONS) {
                         if (rate == interestRateOption) {
-                            currentAccount().setMonthlyInterest(rate);
+                            savings.setMonthlyInterest(rate);
                             valid = true;
                             break;
                         }
@@ -143,11 +122,12 @@ public class BankingService {
     public void viewGoals() {
         int i = 1;
         var goals = user.getGoals();
+        BankAccount account = currentAccount();
 
         if (!goals.isEmpty()) {
             System.out.println("######## GOALS ########");
             for (Goal goal : goals) {
-                double progress = currentAccount().calculateGoalProgress(goal.getGoalTarget());
+                double progress = account.calculateGoalProgress(goal.getGoalTarget());
                 System.out.println("\nGoal " + i + ": " + goal.toString() + "\n- Progress: " + Math.round(progress) + "%");
                 i++;
             }
@@ -237,12 +217,13 @@ public class BankingService {
     }
 
     public void changeAccountName() {
+        BankAccount account = currentAccount();
         String newAccountName;
 
         System.out.println("What would you like to name this account?");
         if (scanner.hasNextLine()) {
             newAccountName = scanner.nextLine();
-            currentAccount().setAccountName(newAccountName);
+            account.setAccountName(newAccountName);
             System.out.println("Account name set to: " + newAccountName);
         } else {
             System.out.println("No input found");
@@ -250,13 +231,15 @@ public class BankingService {
     }
 
     public void viewAccountInfo() {
-        System.out.println(currentAccount().toString());
+        BankAccount account = currentAccount();
+        System.out.println(account.toString());
     }
 
     public void generateStatement() throws IOException {
+        BankAccount account = currentAccount();
         try {
             FileWriter fileWriter = new FileWriter("statement.txt");
-            fileWriter.write(currentAccount().generateStatement());
+            fileWriter.write(account.generateStatement());
             fileWriter.close();
             System.out.println("Statement generated successfully!");
         } catch (IOException e) {
