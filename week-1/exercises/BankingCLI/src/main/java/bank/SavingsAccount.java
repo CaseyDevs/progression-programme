@@ -6,6 +6,12 @@ public class SavingsAccount extends BankAccount implements SavingsCapable {
     }
 
     @Override
+    public void setSavingsGoal(String goalName, double target) {
+        User user = getUser();
+        user.createGoal(goalName, target, accountName);
+    }
+
+    @Override
     public double calculateGoalProgress(double goal) {
         if (goal <= 0) {
             return 0;

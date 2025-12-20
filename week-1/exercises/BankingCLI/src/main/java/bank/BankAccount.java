@@ -112,10 +112,6 @@ public abstract class BankAccount {
         throw new UnsupportedOperationException();
     }
 
-    public double calculateGoalProgress() {
-        throw new UnsupportedOperationException();
-    }
-
     public double calculateGoalProgress(double goal) {
         throw new UnsupportedOperationException();
     }
@@ -123,7 +119,4 @@ public abstract class BankAccount {
     public void setMonthlyInterest(double rate) {
         throw new UnsupportedOperationException();
     }
-
-    // Abstract methods
-    public abstract boolean canSetSavingsGoal();
 }

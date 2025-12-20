@@ -142,7 +142,7 @@ public class BankingService {
         double savingsGoal;
         BankAccount account = currentAccount();
 
-        if (account instanceof SavingsCapable) {
+        if (account instanceof SavingsCapable savings) {
             System.out.println("Name your goal: ");
 
             if (scanner.hasNextLine()) {
@@ -152,7 +152,7 @@ public class BankingService {
                 if (scanner.hasNextDouble()) {
                     savingsGoal = scanner.nextDouble();
                     scanner.nextLine();
-                    user.createGoal(goalName, savingsGoal, account.getAccountDisplayName());
+                    savings.setSavingsGoal(goalName, savingsGoal);
                     System.out.println("Goal Created");
                 } else {
                     System.out.println("Please input a valid number!");
