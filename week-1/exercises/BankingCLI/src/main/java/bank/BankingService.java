@@ -124,10 +124,11 @@ public class BankingService {
         var goals = user.getGoals();
         BankAccount account = currentAccount();
 
-        if (!goals.isEmpty()) {
+
+        if (account instanceof SavingsCapable savings && !goals.isEmpty()) {
             System.out.println("######## GOALS ########");
             for (Goal goal : goals) {
-                double progress = account.calculateGoalProgress(goal.getGoalTarget());
+                double progress = savings.calculateGoalProgress(goal.getGoalTarget());
                 System.out.println("\nGoal " + i + ": " + goal.toString() + "\n- Progress: " + Math.round(progress) + "%");
                 i++;
             }
@@ -141,7 +142,7 @@ public class BankingService {
         double savingsGoal;
         BankAccount account = currentAccount();
 
-        if (account instanceof SavingsCapable savings) {
+        if (account instanceof SavingsCapable) {
             System.out.println("Name your goal: ");
 
             if (scanner.hasNextLine()) {
@@ -165,37 +166,42 @@ public class BankingService {
 
     public void deleteGoal() {
         var goals = user.getGoals();
+        BankAccount account = currentAccount();
 
-        if (goals.isEmpty()) {
-            System.out.println("No goals to delete.");
-            return;
-        }
-
-        System.out.println("Which goal would you like to remove:");
-        for (int i = 0; i < goals.size(); i++) {
-            System.out.println((i + 1) + ": " + goals.get(i).getGoalName());
-        }
-
-        while (true) {
-            System.out.print("Enter a number: ");
-
-            if (!scanner.hasNextInt()) {
-                System.out.println("Please enter a whole number!");
-                scanner.next(); // consume invalid input
-                continue;
+        if (account instanceof SavingsCapable) {
+            if (goals.isEmpty()) {
+                System.out.println("No goals to delete.");
+                return;
             }
 
-            int choice = scanner.nextInt();
-
-            if (choice < 1 || choice > goals.size()) {
-                System.out.println("Error! Please choose a valid option.");
-                continue;
+            System.out.println("Which goal would you like to remove:");
+            for (int i = 0; i < goals.size(); i++) {
+                System.out.println((i + 1) + ": " + goals.get(i).getGoalName());
             }
 
-            // delete goal
-            user.deleteGoal(goals.get(choice - 1));
-            System.out.println("Goal removed.");
-            break;
+            while (true) {
+                System.out.print("Enter a number: ");
+
+                if (!scanner.hasNextInt()) {
+                    System.out.println("Please enter a whole number!");
+                    scanner.next(); // consume invalid input
+                    continue;
+                }
+
+                int choice = scanner.nextInt();
+
+                if (choice < 1 || choice > goals.size()) {
+                    System.out.println("Error! Please choose a valid option.");
+                    continue;
+                }
+
+                // delete goal
+                user.deleteGoal(goals.get(choice - 1));
+                System.out.println("Goal removed.");
+                break;
+            }
+        } else {
+            System.out.println("You can only create and delete goals in savings accounts!");
         }
 
         scanner.nextLine(); // clear newline
