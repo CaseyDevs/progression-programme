@@ -11,7 +11,6 @@ public abstract class BankAccount {
     private final String accountType;
     protected String accountName;
 
-
     public BankAccount(double balance, User user, String accountType) {
         if (balance < 0) {
             throw new IllegalArgumentException("Initial balance cannot be negative");
@@ -21,6 +20,10 @@ public abstract class BankAccount {
         this.user = user;
         this.accountType = accountType;
         this.accountName = accountType;
+    }
+
+    private void record(String type, double amount) {
+        transactionHistory.add(type + ":" + amount);
     }
 
     public User getUser() {
@@ -40,14 +43,12 @@ public abstract class BankAccount {
     }
 
     public final void deposit(double amount) throws InvalidUserInputException {
-        String transactionItem = "DEPOSIT" + ": " + amount;
-
         if (amount <= 0) {
             throw new InvalidUserInputException("Deposit amount must be positive");
         }
 
         balance += amount;
-        addToTransactionHistory(transactionItem);
+        record("Deposit", amount);
     }
 
     public final void withdraw(double amount) throws InvalidUserInputException {
@@ -61,7 +62,7 @@ public abstract class BankAccount {
         }
 
         balance -= amount;
-        addToTransactionHistory(transactionItem);
+        record("Withdraw", amount);
     }
 
     public final void addToTransactionHistory(String transactionItem) {
@@ -107,15 +108,8 @@ public abstract class BankAccount {
                 "\nGoals: " + user.getGoals();
     }
 
-    public void setSavingsGoal(double savingsGoal) {
-        throw new UnsupportedOperationException();
-    }
 
     public String getInterestRateDescription() {
-        throw new UnsupportedOperationException();
-    }
-
-    public double calculateGoalProgress() {
         throw new UnsupportedOperationException();
     }
 
@@ -126,7 +120,4 @@ public abstract class BankAccount {
     public void setMonthlyInterest(double rate) {
         throw new UnsupportedOperationException();
     }
-
-    // Abstract methods
-    public abstract boolean canSetSavingsGoal();
 }
