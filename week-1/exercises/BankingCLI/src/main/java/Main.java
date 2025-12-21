@@ -122,8 +122,6 @@ public class Main {
                     System.out.println("Invalid menu option.");
                     break;
             }
-        } catch (IOException e) {
-            System.err.println("File operation error: " + e.getMessage());
         } catch (Exception e) {
             System.err.println("Operation failed: " + e.getMessage());
         }

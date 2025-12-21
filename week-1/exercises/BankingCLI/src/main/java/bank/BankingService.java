@@ -1,11 +1,10 @@
 package bank;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
 import bank.exceptions.InvalidUserInputException;
+import bank.generators.TextStatementGenerator;
 import helpers.*;
 
 public class BankingService {
@@ -268,15 +267,13 @@ public class BankingService {
         System.out.println(account.toString());
     }
 
-    public void generateStatement() throws IOException {
-        BankAccount account = currentAccount();
+    public void generateStatement() {
         try {
-            FileWriter fileWriter = new FileWriter("statement.txt");
-            fileWriter.write(account.generateStatement());
-            fileWriter.close();
-            System.out.println("Statement generated successfully!");
-        } catch (IOException e) {
-            System.out.println("Error: " + e.getMessage());
+            TextStatementGenerator textStatementGenerator = new TextStatementGenerator(currentAccount());
+            textStatementGenerator.generate();
+            System.out.println("Success, check your directory for a statement.");
+        } catch (Exception e) {
+            System.out.println("Error generating text statement");
         }
     }
 
