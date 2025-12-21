@@ -269,8 +269,8 @@ public class BankingService {
 
     public void generateStatement() {
         try {
-            TextStatementGenerator textStatementGenerator = new TextStatementGenerator(currentAccount());
-            textStatementGenerator.generate();
+            TextStatementGenerator textStatementGenerator = new TextStatementGenerator();
+            textStatementGenerator.generator(currentAccount());
             System.out.println("Success, check your directory for a statement.");
         } catch (Exception e) {
             System.out.println("Error generating text statement");

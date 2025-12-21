@@ -4,14 +4,11 @@ import bank.BankAccount;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class TextStatementGenerator {
-    BankAccount account;
+public class TextStatementGenerator implements StatementGenerator {
+    public TextStatementGenerator() {}
 
-    public TextStatementGenerator(BankAccount account) {
-        this.account = account;
-    }
-
-    public void generate() throws IOException {
+    @Override
+    public void generator(BankAccount account) {
         try {
             FileWriter fileWriter = new FileWriter("statement.txt");
             fileWriter.write(account.generateStatement());
