@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import bank.exceptions.InvalidUserInputException;
-import bank.generators.TextStatementGenerator;
+import bank.generators.*;
 import helpers.*;
 
 public class BankingService {
@@ -268,12 +268,44 @@ public class BankingService {
     }
 
     public void generateStatement() {
-        try {
-            TextStatementGenerator textStatementGenerator = new TextStatementGenerator();
-            textStatementGenerator.generator(currentAccount());
-            System.out.println("Success, check your directory for a statement.");
-        } catch (Exception e) {
-            System.out.println("Error generating text statement");
+        int choice;
+        boolean running = true;
+
+        System.out.println("Type '1' for text, '2' for JSON");
+
+        while (running) {
+            if (scanner.hasNextInt()) {
+                choice = scanner.nextInt();
+
+                switch (choice) {
+                    case 1:
+                        try {
+                            TextStatementGenerator textStatementGenerator = new TextStatementGenerator();
+                            textStatementGenerator.generator(currentAccount());
+                            System.out.println("Success, check your directory for a statement.");
+                            running = false;
+                        } catch (Exception e) {
+                            System.out.println("Error generating text statement");
+                        }
+                        break;
+
+                    case 2:
+                        try {
+                            JSONStatementGenerator jsonStatementGenerator = new JSONStatementGenerator();
+                            jsonStatementGenerator.generator(currentAccount());
+                            System.out.println("Success, check your directory for a statement.");
+                            running = false;
+                        } catch (Exception e) {
+                            System.out.println("Error generating text statement");
+                        }
+                        break;
+                    default:
+                        System.out.println("Invalid option, try again!");
+                }
+
+            } else {
+                scanner.next();
+            }
         }
     }
 
