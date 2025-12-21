@@ -1,25 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="BankAccount Tests" tests="19" skipped="0" failures="0" errors="0" timestamp="2025-12-19T20:43:46.306Z" hostname="MBP" time="0.03">
+<testsuite name="BankAccount Tests" tests="4" skipped="0" failures="0" errors="0" timestamp="2025-12-21T13:36:23.022Z" hostname="MBP" time="0.015">
   <properties/>
-  <testcase name="[1] 0.01" classname="bank.BankAccountTest" time="0.014"/>
-  <testcase name="[2] 10.0" classname="bank.BankAccountTest" time="0.001"/>
-  <testcase name="[3] 25.5" classname="bank.BankAccountTest" time="0.001"/>
-  <testcase name="[4] 50.0" classname="bank.BankAccountTest" time="0.001"/>
-  <testcase name="[5] 100.0" classname="bank.BankAccountTest" time="0.0"/>
-  <testcase name="[6] 1000.0" classname="bank.BankAccountTest" time="0.0"/>
-  <testcase name="[1] 10.0" classname="bank.BankAccountTest" time="0.0"/>
-  <testcase name="[2] 25.5" classname="bank.BankAccountTest" time="0.0"/>
-  <testcase name="[3] 50.0" classname="bank.BankAccountTest" time="0.001"/>
-  <testcase name="[4] 99.99" classname="bank.BankAccountTest" time="0.0"/>
-  <testcase name="[1] 0.0" classname="bank.BankAccountTest" time="0.002"/>
-  <testcase name="[2] -1.0" classname="bank.BankAccountTest" time="0.0"/>
-  <testcase name="[3] -50.0" classname="bank.BankAccountTest" time="0.0"/>
-  <testcase name="[4] 150.0" classname="bank.BankAccountTest" time="0.0"/>
-  <testcase name="[1] 0.0" classname="bank.BankAccountTest" time="0.001"/>
-  <testcase name="[2] -0.01" classname="bank.BankAccountTest" time="0.0"/>
-  <testcase name="[3] -1.0" classname="bank.BankAccountTest" time="0.0"/>
-  <testcase name="[4] -50.0" classname="bank.BankAccountTest" time="0.001"/>
-  <testcase name="[5] -1000.0" classname="bank.BankAccountTest" time="0.0"/>
+  <testcase name="Withdraw reduces balance" classname="bank.BankAccountTest" time="0.01"/>
+  <testcase name="Withdraw can not cause negative balance" classname="bank.BankAccountTest" time="0.003"/>
+  <testcase name="Deposit increases balance" classname="bank.BankAccountTest" time="0.001"/>
+  <testcase name="Savings interest increases balance" classname="bank.BankAccountTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

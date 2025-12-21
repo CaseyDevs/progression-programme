@@ -3,34 +3,50 @@ package bank;
 
 import bank.exceptions.InvalidUserInputException;
 import org.junit.jupiter.api.*;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("BankAccount Tests")
 public class BankAccountTest {
-
-    // ============ TEST FIXTURES ============
     private User user;
-    private BankAccount currentAccount;
-    private SavingsAccount savingsAccount;
 
-    @BeforeEach
-    @DisplayName("Set up test data before each test")
-    void setUp() throws InvalidUserInputException {
-        // Fresh setup for each test - this is our TEST FIXTURE
-        user = new User("Test User");
+    @Test
+    @DisplayName("Deposit increases balance")
+    void depositIncreasesBalance() throws InvalidUserInputException {
+        BankAccount currentAccount = new CurrentAccount(0.0, user);
 
-        // Create accounts for testing
-        user.createAccount(100.0, "CURRENT");  // Start with $100
-        currentAccount = user.getCurrentAccount();
+        currentAccount.deposit(50.0); // Bal = 50.00
 
-        user.createAccount(500.0, "SAVINGS");  // Create savings with $500
-        savingsAccount = (SavingsAccount) user.getCurrentAccount();
-
-        // Switch back to current account for most tests
-        user.setCurrentAccount(0);
-        currentAccount = user.getCurrentAccount();
+        assertEquals(50.0, currentAccount.getBalance());
     }
 
+    @Test
+    @DisplayName("Withdraw reduces balance")
+    void withdrawReducesBalance() throws InvalidUserInputException {
+        BankAccount currentAccount = new CurrentAccount(100.0, user);
+        double initialBalance = currentAccount.getBalance();
+
+        currentAccount.withdraw(50.0);
+
+        assertEquals(50.0, currentAccount.getBalance());
+    }
+
+    @Test
+    @DisplayName("Withdraw can not cause negative balance")
+    void withdrawPreventsLessThanZero() throws InvalidUserInputException {
+        BankAccount currentAccount = new CurrentAccount(50.0, user);
+
+        assertThrows(InvalidUserInputException.class, () -> {
+            currentAccount.withdraw(100.0);
+        });
+    }
+
+    @Test
+    @DisplayName("Savings interest increases balance")
+    void savingsInterestIncreasesBalance() {
+        BankAccount savingsAccount = new SavingsAccount(100.0, user);
+
+        savingsAccount.setMonthlyInterest(10);
+
+        assertEquals(110, savingsAccount.getBalance());
+    }
 }
