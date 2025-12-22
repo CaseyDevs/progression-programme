@@ -67,6 +67,7 @@ When the method finishes execution, its corresponding stack frame is flushed, th
 - If this memory is full, Java throws java.lang.StackOverFlowError.
 - Access to this memory is much faster than accessing heap memory.
 - Threadsafe, as each thread runs on its own stack--the fields of an object or class always maintain a valid state, as observed by other objects and classes, even when used concurrently by multiple threads. 
+- Stores local variables
 
 ## Heap
 Heap space is used for dynamic memory allocation of Java Objects and JRE classes at runtime. New objects are always created in heap space, and the references to these objects are stored in stack memory.
@@ -87,6 +88,7 @@ Permanent Generation – this consists of JVM metadata for the runtime classes a
 - Access to heap memory is comparitively slower than stack memory.
 - This memory, in contrast to stack, isn’t automatically deallocated. It needs Garbage Collector to free up unused objects so as to keep the efficiency of the memory usage.
 - Unlike stack, a heap isn’t threadsafe and needs to be guarded by properly synchronizing the code.
+- Stores instance variables
 
 Stack → stores primitive values + references + method calls.
 Fast, automatic, short-lived.

@@ -191,7 +191,7 @@ public class Main() {
 
 # Overriding & Overloading
 
-## What is Overriding ?
+## What is Overriding?
 Overriding refers to a subclass providing its own implementation of a method that is already defined by a parent
 class.  This enables code reusability, but also specific implementations. Let's say a parent method has almost enough,
 but there's one specific thing we need to change, we use overriding.
