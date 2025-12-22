@@ -8,7 +8,7 @@ This program aims to build consistency and disipline, helping prepare for the jo
 ## 📚 Books:
 
 ### Java:
-- [] Head First Java: Fundamentals
+- [x] Head First Java: Fundamentals
 - [] Effective Java (After Basics): Core Java Deeper
 - [] Spring in Action (6th Edition): Spring + Backend
 
@@ -25,7 +25,7 @@ This program aims to build consistency and disipline, helping prepare for the jo
 ## 🎥 YT Learning Tracks:
 
 ### Java / Spring
-- [] Bro Code Full Java Course: Java from scratch
+- [x] Bro Code Full Java Course: Java from scratch
 - [] Amigos Code Spring Boot Course: Spring Boot fundamentals
 - [] Amigos Code JWT Series: Spring + Security + JWT
 - [] Java Brains: Microservices with Spring
