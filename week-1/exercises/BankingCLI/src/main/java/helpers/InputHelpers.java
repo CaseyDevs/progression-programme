@@ -4,7 +4,6 @@ import bank.User;
 import bank.exceptions.InvalidUserInputException;
 
 import java.util.Scanner;
-
 public class InputHelpers {
     private static final String[] ACCOUNT_TYPE_OPTIONS = {
             "Standard",
