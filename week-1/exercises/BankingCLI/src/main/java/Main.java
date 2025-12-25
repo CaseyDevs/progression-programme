@@ -80,43 +80,43 @@ public class Main {
         try {
             switch (userChoice) {
                 case 1:
-                    bankingService.makeDeposit();
+                    bankingService.makeDeposit(scanner);
                     break;
                 case 2:
                     bankingService.checkBalance();
                     break;
                 case 3:
-                    bankingService.makeWithdrawal();
+                    bankingService.makeWithdrawal(scanner);
                     break;
                 case 4:
                     bankingService.displayTransactionHistory();
                     break;
                 case 5:
-                    bankingService.setGoal();
+                    bankingService.setGoal(scanner);
                     break;
                 case 6:
                     bankingService.viewGoals();
                     break;
                 case 7:
-                    bankingService.deleteGoal();
+                    bankingService.deleteGoal(scanner);
                     break;
                 case 8:
-                    bankingService.applyInterestRate();
+                    bankingService.applyInterestRate(scanner);
                     break;
                 case 9:
-                    bankingService.viewAccounts();
+                    bankingService.viewAccounts(scanner);
                     break;
                 case 10:
-                    bankingService.createNewAccount();
+                    bankingService.createNewAccount(scanner);
                     break;
                 case 11:
-                    bankingService.changeAccountName();
+                    bankingService.changeAccountName(scanner);
                     break;
                 case 12:
                     bankingService.viewAccountInfo();
                     break;
                 case 13:
-                    bankingService.generateStatement();
+                    bankingService.generateStatement(scanner);
                     break;
                 default:
                     System.out.println("Invalid menu option.");

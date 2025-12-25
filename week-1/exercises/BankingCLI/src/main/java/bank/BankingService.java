@@ -9,7 +9,6 @@ import helpers.*;
 
 public class BankingService {
     private final User user;
-    private final Scanner scanner;
 
     private static final Double INITIAL_BALANCE = 0.0;
     private static final double[] INTEREST_RATE_OPTIONS = {
@@ -20,14 +19,13 @@ public class BankingService {
 
     public BankingService(User user) {
         this.user = user;
-        this.scanner = new Scanner(System.in);
     }
 
     private BankAccount currentAccount() {
         return user.getCurrentAccount();
     }
 
-    public void makeDeposit() {
+    public void makeDeposit(Scanner scanner) {
         BankAccount account = currentAccount();
         System.out.print("How much would you like to deposit?: ");
         String input = scanner.nextLine();
@@ -43,7 +41,7 @@ public class BankingService {
         }
     }
 
-    public void makeWithdrawal() {
+    public void makeWithdrawal(Scanner scanner) {
         BankAccount account = currentAccount();
         System.out.println("How much would you like to withdraw ?: ");
         String input = scanner.nextLine();
@@ -75,7 +73,7 @@ public class BankingService {
         }
     }
 
-    public void applyInterestRate() {
+    public void applyInterestRate(Scanner scanner) {
         BankAccount account = currentAccount();
         double rate;
 
@@ -136,7 +134,7 @@ public class BankingService {
         }
     }
 
-    public void setGoal() {
+    public void setGoal(Scanner scanner) {
         String goalName;
         double savingsGoal;
         BankAccount account = currentAccount();
@@ -163,7 +161,7 @@ public class BankingService {
         }
     }
 
-    public void deleteGoal() {
+    public void deleteGoal(Scanner scanner) {
         var goals = user.getGoals();
         BankAccount account = currentAccount();
 
@@ -206,8 +204,7 @@ public class BankingService {
         scanner.nextLine(); // clear newline
     }
 
-
-    public void viewAccounts(){
+    public void viewAccounts(Scanner scanner){
         List<BankAccount> list = user.getAccountList();
         if (list.isEmpty()) {
             System.out.println("No accounts found.");
@@ -237,7 +234,7 @@ public class BankingService {
         }
     }
 
-    public void createNewAccount() {
+    public void createNewAccount(Scanner scanner) {
         String type = InputHelpers.promptForAccountType(scanner);
 
         try {
@@ -248,7 +245,7 @@ public class BankingService {
         }
     }
 
-    public void changeAccountName() {
+    public void changeAccountName(Scanner scanner) {
         BankAccount account = currentAccount();
         String newAccountName;
 
@@ -267,7 +264,7 @@ public class BankingService {
         System.out.println(account.toString());
     }
 
-    public void generateStatement() {
+    public void generateStatement(Scanner scanner) {
         int choice;
         boolean running = true;
 
@@ -308,6 +305,4 @@ public class BankingService {
             }
         }
     }
-
-
 }
