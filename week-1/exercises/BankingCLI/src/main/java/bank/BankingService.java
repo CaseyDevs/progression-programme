@@ -268,7 +268,7 @@ public class BankingService {
         int choice;
         boolean running = true;
 
-        System.out.println("Type '1' for text, '2' for JSON");
+        System.out.println("Type '1' for text, '2' for JSON, '3' for CSV");
 
         while (running) {
             if (scanner.hasNextInt()) {
@@ -293,6 +293,16 @@ public class BankingService {
                             System.out.println("Success, check your directory for a statement.");
                             running = false;
                         } catch (Exception e) {
+                            System.out.println("Error generating text statement");
+                        }
+                        break;
+                    case 3:
+                        try {
+                            CSVStatementGenerator csvStatementGenerator = new CSVStatementGenerator();
+                            csvStatementGenerator.generator(currentAccount());
+                            System.out.println("Success, check your directory for a statement.");
+                            running = false;
+                        } catch (RuntimeException e) {
                             System.out.println("Error generating text statement");
                         }
                         break;
