@@ -49,4 +49,15 @@ public class BankAccountTest {
 
         assertEquals(110, savingsAccount.getBalance());
     }
+
+    @Test
+    @DisplayName("Account creation")
+    void accountCreation() throws InvalidUserInputException {
+        user = new User("C");
+
+        user.createAccount(0, "SAVINGS");
+        user.createAccount(0, "STANDARD");
+
+        assertEquals(2, user.getAccountList().size());
+    }
 }
