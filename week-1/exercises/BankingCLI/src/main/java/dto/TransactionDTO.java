@@ -1,4 +1,12 @@
 package dto;
 
-public class TransactionDTO {
-}
+import java.time.LocalDateTime;
+
+public record TransactionDTO(
+    String transactionId,
+    String type,
+    double amount,
+    String description,
+    LocalDateTime timestamp,
+    String accountName
+) {}

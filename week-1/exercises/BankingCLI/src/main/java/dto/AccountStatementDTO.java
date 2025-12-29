@@ -11,11 +11,9 @@ public class AccountStatementDTO {
     private String ownerName;
     private String interestRateDescription;
 
-    // Default constructor
     public AccountStatementDTO() {}
 
-    // Constructor with all fields
-    public AccountStatementDTO(String accountName, String accountType, double balance, 
+    public AccountStatementDTO(String accountName, String accountType, double balance,
                               List<String> transactionHistory, List<GoalDTO> goals, 
                               String ownerName, String interestRateDescription) {
         this.accountName = accountName;
