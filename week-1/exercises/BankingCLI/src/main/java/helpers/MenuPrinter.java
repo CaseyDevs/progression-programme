@@ -8,8 +8,8 @@ public class MenuPrinter {
     }
 
     public void print() {
-        for(int i = 1; i < menu.length; i++) {
-            System.out.println(i + ": " + menu[i]);
+        for(int i = 0; i < menu.length; i++) {
+            System.out.println((i + 1) + ": " + menu[i]);
         }
     }
 
