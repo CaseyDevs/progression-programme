@@ -1,17 +1,15 @@
 package helpers;
 
-import java.util.List;
-
 public class MenuPrinter {
-    private final List<String> menu;
+    private final String[] menu;
 
-    public MenuPrinter(List<String> menu) {
+    public MenuPrinter(String[] menu) {
         this.menu = menu;
     }
 
     public void print() {
-        for(String item: menu) {
-            System.out.println(item);
+        for(int i = 1; i < menu.length; i++) {
+            System.out.println(i + ": " + menu[i]);
         }
     }
 

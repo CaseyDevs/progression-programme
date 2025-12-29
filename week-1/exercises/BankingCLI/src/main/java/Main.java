@@ -4,7 +4,6 @@ import bank.BankingService;
 import helpers.*;
 
 import java.util.Scanner;
-import java.io.IOException;
 
 public class Main {
     private static User user;

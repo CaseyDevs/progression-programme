@@ -30,11 +30,12 @@ public class InputHelpers {
 
     public static String promptForAccountType(Scanner scanner) {
         int choice = 0;
+        MenuPrinter menuPrinter = new MenuPrinter(ACCOUNT_TYPE_OPTIONS);
+
         while (true) {
             System.out.println("Choose your account type: ");
-            for (int i = 0; i < ACCOUNT_TYPE_OPTIONS.length; i++) {
-                System.out.println((i + 1) + ": " + ACCOUNT_TYPE_OPTIONS[i]);
-            }
+            menuPrinter.print();
+
             if (scanner.hasNextInt()) {
                 choice = scanner.nextInt();
                 scanner.nextLine();
@@ -50,12 +51,9 @@ public class InputHelpers {
     public static int getUserMenuChoice(Scanner scanner) { // Pass scanner as parameter
         String inputValue;
         int userChoice = 0;
+        MenuPrinter menuPrinter = new MenuPrinter(MENU_OPTIONS);
 
-
-        System.out.println("\nMENU OPTIONS:");
-        for (int i = 0; i < MENU_OPTIONS.length; i++) {
-            System.out.println(i + 1 + ": " + MENU_OPTIONS[i]);
-        }
+        menuPrinter.print();
 
         while (true) {
             System.out.print("\nPlease enter an option number or enter 'quit': ");
