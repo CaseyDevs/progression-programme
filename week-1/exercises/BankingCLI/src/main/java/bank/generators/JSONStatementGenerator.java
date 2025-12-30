@@ -1,8 +1,8 @@
 
 package bank.generators;
 
-import bank.BankAccount;
-import bank.Goal;
+import dto.AccountStatementDTO;
+import dto.GoalDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
@@ -20,20 +20,20 @@ public class JSONStatementGenerator implements StatementGenerator {
     }
 
     @Override
-    public void generator(BankAccount account) {
+    public void generator(AccountStatementDTO accountStatement) {
         try {
             // Create a simple data structure for JSON serialization
             Map<String, Object> statement = new HashMap<>();
             statement.put("title", "BANK STATEMENT");
-            statement.put("accountName", account.getAccountDisplayName());
-            statement.put("accountType", account.getAccountType());
-            statement.put("balance", account.getBalance());
-            statement.put("transactionHistory", account.getTransactionHistoryAsString());
+            statement.put("accountName", accountStatement.accountName());
+            statement.put("accountType", accountStatement.accountType());
+            statement.put("balance", accountStatement.balance());
+            statement.put("transactionHistory", accountStatement.transactionHistory());
 
             // Convert goals to simple strings to avoid circular references
             List<String> goalStrings =
-                    account.getUser().getGoals().stream()
-                    .map(Goal::toString)
+                    accountStatement.goals().stream()
+                    .map(GoalDTO::toString)
                     .collect(Collectors.toList());
 
             statement.put("goals", goalStrings);
