@@ -2,7 +2,10 @@ package bank;
 
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
+import dto.AccountStatementDTO;
+import dto.GoalDTO;
 import bank.exceptions.InvalidUserInputException;
 import bank.generators.*;
 import helpers.*;
@@ -262,6 +265,26 @@ public class BankingService {
     public void viewAccountInfo() {
         BankAccount account = currentAccount();
         System.out.println(account.toString());
+    }
+
+    private AccountStatementDTO mapToAccountStatementDTO(BankAccount account) {
+        List<GoalDTO> goalDTOs = user.getGoals().stream()
+                .map(goal -> new GoalDTO (
+                        goal.getGoalName(),
+                        goal.getGoalTarget(),
+                        goal.getStartDate()
+                ))
+                .toList();
+
+        return new AccountStatementDTO(
+                account.getAccountDisplayName(),
+                account.getAccountType(),
+                account.getBalance(),
+                List.of(account.getTransactionHistoryAsString().split("\n")),
+                goalDTOs,
+                user.getName(),
+                account.getInterestRateDescription()
+        );
     }
 
     public void generateStatement(Scanner scanner) {
