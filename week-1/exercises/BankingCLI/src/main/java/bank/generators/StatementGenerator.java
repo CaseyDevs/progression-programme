@@ -1,7 +1,8 @@
 package bank.generators;
 
-import bank.BankAccount;
+import dto.AccountStatementDTO;
 
 public interface StatementGenerator {
-    void generator(BankAccount account);
+
+    void generator(AccountStatementDTO accountStatementDTO);
 }

@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="BankAccount Tests" tests="5" skipped="0" failures="0" errors="0" timestamp="2025-12-29T23:19:12.598Z" hostname="MBP" time="0.021">
+<testsuite name="BankAccount Tests" tests="1" skipped="0" failures="0" errors="0" timestamp="2025-12-30T20:08:19.681Z" hostname="MBP" time="0.01">
   <properties/>
-  <testcase name="Withdraw reduces balance" classname="bank.BankAccountTest" time="0.012"/>
-  <testcase name="Account creation" classname="bank.BankAccountTest" time="0.004"/>
-  <testcase name="Withdraw can not cause negative balance" classname="bank.BankAccountTest" time="0.001"/>
-  <testcase name="Deposit increases balance" classname="bank.BankAccountTest" time="0.0"/>
-  <testcase name="Savings interest increases balance" classname="bank.BankAccountTest" time="0.002"/>
+  <testcase name="Account creation" classname="bank.BankAccountTest" time="0.01"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
