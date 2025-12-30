@@ -1,6 +1,6 @@
 package bank.generators;
 
-import bank.BankAccount;
+import dto.AccountStatementDTO;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 
 public class CSVStatementGenerator implements StatementGenerator {
     @Override
-    public void generator(BankAccount account) {
+    public void generator(AccountStatementDTO accountStatement) {
         try {
             FileWriter fileWriter = new FileWriter("statement.csv");
             
@@ -21,21 +21,21 @@ public class CSVStatementGenerator implements StatementGenerator {
             String[] titleRow = {"Title", "BANK STATEMENT"};
             fileWriter.write(convertToCSV(titleRow) + "\n");
             
-            String[] accountNameRow = {"Account Name", account.getAccountDisplayName()};
+            String[] accountNameRow = {"Account Name", accountStatement.accountName()};
             fileWriter.write(convertToCSV(accountNameRow) + "\n");
             
-            String[] accountTypeRow = {"Account Type", account.getAccountType()};
+            String[] accountTypeRow = {"Account Type", accountStatement.accountType()};
             fileWriter.write(convertToCSV(accountTypeRow) + "\n");
             
-            String[] balanceRow = {"Balance", String.valueOf(account.getBalance())};
+            String[] balanceRow = {"Balance", String.valueOf(accountStatement.balance())};
             fileWriter.write(convertToCSV(balanceRow) + "\n");
             
-            String[] transactionRow = {"Transaction History", account.getTransactionHistoryAsString()};
+            String[] transactionRow = {"Transaction History", accountStatement.transactionHistory().stream().toString()};
             fileWriter.write(convertToCSV(transactionRow) + "\n");
             
             // Write goals if available
-            if (account.getUser() != null && account.getUser().getGoals() != null) {
-                String goalsString = account.getUser().getGoals().stream()
+            if (accountStatement.goals() != null) {
+                String goalsString = accountStatement.goals().stream()
                     .map(goal -> goal.toString())
                     .collect(Collectors.joining("; "));
                 String[] goalsRow = {"Goals", goalsString};
