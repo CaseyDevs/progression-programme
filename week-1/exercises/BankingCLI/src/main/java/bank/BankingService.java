@@ -297,11 +297,14 @@ public class BankingService {
             if (scanner.hasNextInt()) {
                 choice = scanner.nextInt();
 
+                // Map the current account to DTO
+                AccountStatementDTO statementDTO = mapToAccountStatementDTO(currentAccount());
+
                 switch (choice) {
                     case 1:
                         try {
                             TextStatementGenerator textStatementGenerator = new TextStatementGenerator();
-                            textStatementGenerator.generator(currentAccount());
+                            textStatementGenerator.generator(statementDTO);
                             System.out.println("Success, check your directory for a statement.");
                             running = false;
                         } catch (Exception e) {
@@ -312,7 +315,7 @@ public class BankingService {
                     case 2:
                         try {
                             JSONStatementGenerator jsonStatementGenerator = new JSONStatementGenerator();
-                            jsonStatementGenerator.generator(currentAccount());
+                            jsonStatementGenerator.generator(statementDTO);
                             System.out.println("Success, check your directory for a statement.");
                             running = false;
                         } catch (Exception e) {
@@ -322,7 +325,7 @@ public class BankingService {
                     case 3:
                         try {
                             CSVStatementGenerator csvStatementGenerator = new CSVStatementGenerator();
-                            csvStatementGenerator.generator(currentAccount());
+                            csvStatementGenerator.generator(statementDTO);
                             System.out.println("Success, check your directory for a statement.");
                             running = false;
                         } catch (RuntimeException e) {
