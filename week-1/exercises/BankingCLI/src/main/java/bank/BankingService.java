@@ -282,7 +282,7 @@ public class BankingService {
                 account.getBalance(),
                 List.of(account.getTransactionHistoryAsString().split("\n")),
                 goalDTOs,
-                user.getName(),
+                account.getUser().getName(),
                 account.getInterestRateDescription()
         );
     }
