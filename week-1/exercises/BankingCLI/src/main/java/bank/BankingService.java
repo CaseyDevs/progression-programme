@@ -267,7 +267,7 @@ public class BankingService {
         System.out.println(account.toString());
     }
 
-    private AccountStatementDTO mapToAccountStatementDTO(BankAccount account) {
+    public AccountStatementDTO mapToAccountStatementDTO(BankAccount account) {
         List<GoalDTO> goalDTOs = user.getGoals().stream()
                 .map(goal -> new GoalDTO (
                         goal.getGoalName(),

@@ -2,6 +2,8 @@
 package bank;
 
 import bank.exceptions.InvalidUserInputException;
+import dto.AccountStatementDTO;
+import dto.GoalDTO;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -59,5 +61,41 @@ public class BankAccountTest {
         user.createAccount(0, "STANDARD");
 
         assertEquals(2, user.getAccountList().size());
+    }
+
+
+    @Test
+    @DisplayName("DTO fields are correct")
+    void mappingLogic() throws InvalidUserInputException {
+        user = new User("John Doe");
+        user.createGoal("Save for vacation", 1000.0, "CURRENT");
+
+        BankAccount account = new SavingsAccount(100.0, user);
+        BankingService service = new BankingService(user);
+
+        // Add a transaction to test transaction history mapping
+        account.deposit(50.0);
+
+        AccountStatementDTO dto = service.mapToAccountStatementDTO(account);
+
+        // Assert all DTO fields are correctly mapped
+        assertEquals(account.getAccountDisplayName(), dto.accountName());
+        assertEquals(account.getAccountType(), dto.accountType());
+        assertEquals(account.getBalance(), dto.balance());
+        assertEquals(user.getName(), dto.ownerName());
+
+        // Test transaction history mapping
+        assertNotNull(dto.transactionHistory());
+        assertFalse(dto.transactionHistory().isEmpty());
+
+        // Test goals mapping
+        assertEquals(user.getGoals().size(), dto.goals().size());
+        if (!user.getGoals().isEmpty()) {
+            GoalDTO firstGoalDTO = dto.goals().get(0);
+            Goal firstGoal = user.getGoals().get(0);
+            assertEquals(firstGoal.getGoalName(), firstGoalDTO.name());
+            assertEquals(firstGoal.getGoalTarget(), firstGoalDTO.target());
+            assertEquals(firstGoal.getStartDate(), firstGoalDTO.startDate());
+        }
     }
 }
