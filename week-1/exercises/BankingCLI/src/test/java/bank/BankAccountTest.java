@@ -2,9 +2,13 @@
 package bank;
 
 import bank.exceptions.InvalidUserInputException;
+import bank.generators.TextStatementGenerator;
 import dto.AccountStatementDTO;
 import dto.GoalDTO;
 import org.junit.jupiter.api.*;
+
+import java.io.File;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("BankAccount Tests")
@@ -65,7 +69,7 @@ public class BankAccountTest {
 
 
     @Test
-    @DisplayName("DTO fields are correct")
+    @DisplayName("Mapping Logic")
     void mappingLogic() throws InvalidUserInputException {
         user = new User("John Doe");
         user.createGoal("Save for vacation", 1000.0, "CURRENT");
@@ -91,11 +95,34 @@ public class BankAccountTest {
         // Test goals mapping
         assertEquals(user.getGoals().size(), dto.goals().size());
         if (!user.getGoals().isEmpty()) {
-            GoalDTO firstGoalDTO = dto.goals().get(0);
-            Goal firstGoal = user.getGoals().get(0);
+            GoalDTO firstGoalDTO = dto.goals().getFirst();
+            Goal firstGoal = user.getGoals().getFirst();
             assertEquals(firstGoal.getGoalName(), firstGoalDTO.name());
             assertEquals(firstGoal.getGoalTarget(), firstGoalDTO.target());
             assertEquals(firstGoal.getStartDate(), firstGoalDTO.startDate());
         }
+    }
+
+    @Test
+    @DisplayName("Generator Boundary")
+    void generatorBoundary() throws InvalidUserInputException {
+        user = new User("Test User");
+
+        TextStatementGenerator generator = new TextStatementGenerator();
+        BankingService service = new BankingService(user);
+        BankAccount account = new SavingsAccount(100.0, user);
+
+        account.deposit(50.0);
+        user.createGoal("Test Goal", 500.0, "SAVINGS");
+
+        AccountStatementDTO dto = service.mapToAccountStatementDTO(account);
+
+        assertDoesNotThrow(() -> {
+            generator.generator(dto);
+        });
+
+        File statementFile = new File("statement.txt");
+        assertTrue(statementFile.exists(), "Statement file should be created");
+        assertTrue(statementFile.length() > 0, "Statement file should not be empty");
     }
 }
