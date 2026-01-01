@@ -26,7 +26,7 @@ This program aims to build consistency and disipline, helping prepare for the jo
 
 ### Java / Spring
 - [x] Bro Code Full Java Course: Java from scratch
-- [] Amigos Code Spring Boot Course: Spring Boot fundamentals
+- [x] Amigos Code Spring Boot Course: Spring Boot fundamentals
 - [] Amigos Code JWT Series: Spring + Security + JWT
 - [] Java Brains: Microservices with Spring
 
