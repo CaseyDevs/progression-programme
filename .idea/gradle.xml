@@ -4,6 +4,14 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/main/projects/banking-api" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/main/projects/banking-api" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/week-1/exercises/BankingCLI" />
         <option name="gradleJvm" value="corretto-24" />
         <option name="modules">
