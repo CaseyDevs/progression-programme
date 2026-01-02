@@ -2,6 +2,7 @@ package com.casey.bankingapi.controller;
 
 import com.casey.bankingapi.dto.AccountResponseDto;
 import com.casey.bankingapi.service.AccountService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,16 +22,21 @@ class AccountController {
     }
 
     @GetMapping("/accounts")
-    public List<AccountResponseDto> getAccounts() {
-        return accountService.getAllAccounts();
+    public ResponseEntity<List<AccountResponseDto>> getAccounts() {
+        List<AccountResponseDto> accounts = accountService.getAllAccounts();
+
+
+        return ResponseEntity.ok(accounts);
     }
 
     @PostMapping("/accounts")
-    public void createAccount(@RequestBody AccountResponseDto request) {
+    public ResponseEntity<Void> createAccount(@RequestBody AccountResponseDto request) {
         accountService.createAccount(
                 request.accountName(),
                 request.accountType(),
                 request.balance()
         );
+
+        return ResponseEntity.ok().build();
     }
 }
