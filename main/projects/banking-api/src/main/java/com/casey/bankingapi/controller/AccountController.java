@@ -5,11 +5,7 @@ import com.casey.bankingapi.dto.CreateAccountRequest;
 import com.casey.bankingapi.service.AccountService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -40,5 +36,12 @@ public class AccountController {
         );
 
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/accounts/{name}")
+    public ResponseEntity<AccountResponseDto> getAccountByName(@PathVariable String name) {
+        AccountResponseDto account = accountService.getAccountByName(name);
+
+        return ResponseEntity.ok(account);
     }
 }
