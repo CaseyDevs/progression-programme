@@ -37,4 +37,20 @@ public class AccountService {
                     ))
                     .collect(Collectors.toList());
     }
+
+    public AccountResponseDto getAccountByName(String name) throws AccountNotFoundException {
+        List<Account> accounts = repo.getAccounts();
+
+        for(Account account : accounts) {
+            if (account.getAccountName().equals(name)) {
+                return new AccountResponseDto(
+                        account.getAccountName(),
+                        account.getAccountType(),
+                        account.getBalance()
+                );
+            }
+        }
+
+        throw new AccountNotFoundException();
+    }
 }
