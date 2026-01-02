@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-class AccountService {
+public class AccountService {
     private final List<String> accounts = new ArrayList<>();
 
 
