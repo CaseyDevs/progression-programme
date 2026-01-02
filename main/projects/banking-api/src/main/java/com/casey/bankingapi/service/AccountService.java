@@ -32,9 +32,9 @@ public class AccountService {
             // Map accounts to dto
             return accounts.stream()
                     .map(account -> new AccountResponseDto(
-                            account.accountName,
-                            account.accountType,
-                            account.balance
+                            account.getAccountName(),
+                            account.getAccountType(),
+                            account.getBalance()
                     ))
                     .collect(Collectors.toList());
         } else {
