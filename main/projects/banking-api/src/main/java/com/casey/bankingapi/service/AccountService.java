@@ -25,10 +25,9 @@ public class AccountService {
     }
 
 
-    public List<AccountResponseDto> getAllAccounts() throws AccountNotFoundException {
+    public List<AccountResponseDto> getAllAccounts() {
         List<Account> accounts = repo.getAccounts();
 
-        if (!accounts.isEmpty()) {
             // Map accounts to dto
             return accounts.stream()
                     .map(account -> new AccountResponseDto(
@@ -37,8 +36,5 @@ public class AccountService {
                             account.getBalance()
                     ))
                     .collect(Collectors.toList());
-        } else {
-            throw new AccountNotFoundException();
-        }
     }
 }

@@ -3,8 +3,8 @@ package com.casey.bankingapi.domain;
 import java.math.BigDecimal;
 
 public class Account {
-    private String accountName;
-    private String accountType;
+    private final String accountName;
+    private final String accountType;
     private BigDecimal balance;
 
     public Account(String accountName, String accountType, BigDecimal balance) {

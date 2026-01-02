@@ -15,6 +15,6 @@ public class AccountRepository {
     }
 
     public List<Account> getAccounts() {
-        return accounts;
+        return List.copyOf(accounts);
     }
 }
