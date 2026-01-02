@@ -15,11 +15,9 @@ import java.util.stream.Collectors;
 @Service
 public class AccountService {
     private final AccountRepository repo;
-    private final Filter filter;
 
-    AccountService(AccountRepository repo, Filter filter) {
+    AccountService(AccountRepository repo) {
         this.repo = repo;
-        this.filter = filter;
     }
 
 
@@ -42,6 +40,8 @@ public class AccountService {
     }
 
     public AccountResponseDto getAccountByName(String name) throws AccountNotFoundException {
+
+        // Filter by name & create new AccountResponseDto
         return repo.getAccounts().stream().
                 filter(account -> account.getAccountName().equals(name))
                 .findFirst()
@@ -50,6 +50,6 @@ public class AccountService {
                         account.getAccountType(),
                         account.getBalance()
                 ))
-                .orElseThrow(AccountNotFoundException::new);
+                .orElseThrow(() -> new AccountNotFoundException("Account with name " + name + " not found."));
     }
 }

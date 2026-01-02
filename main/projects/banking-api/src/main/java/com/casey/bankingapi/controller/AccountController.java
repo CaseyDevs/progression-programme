@@ -21,10 +21,7 @@ public class AccountController {
 
     @GetMapping("/accounts")
     public ResponseEntity<List<AccountResponseDto>> getAccounts() {
-        List<AccountResponseDto> accounts = accountService.getAllAccounts();
-
-
-        return ResponseEntity.ok(accounts);
+        return ResponseEntity.ok(accountService.getAllAccounts());
     }
 
     @PostMapping("/accounts")
@@ -40,8 +37,6 @@ public class AccountController {
 
     @GetMapping("/accounts/{name}")
     public ResponseEntity<AccountResponseDto> getAccountByName(@PathVariable String name) {
-        AccountResponseDto account = accountService.getAccountByName(name);
-
-        return ResponseEntity.ok(account);
+        return ResponseEntity.ok(accountService.getAccountByName(name));
     }
 }
