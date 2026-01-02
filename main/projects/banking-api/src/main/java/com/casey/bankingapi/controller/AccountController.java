@@ -1,7 +1,9 @@
 package com.casey.bankingapi.controller;
 
 import com.casey.bankingapi.dto.AccountResponseDto;
+import com.casey.bankingapi.dto.CreateAccountRequest;
 import com.casey.bankingapi.service.AccountService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,7 +32,7 @@ class AccountController {
     }
 
     @PostMapping("/accounts")
-    public ResponseEntity<Void> createAccount(@RequestBody AccountResponseDto request) {
+    public ResponseEntity<Void> createAccount(@Valid @RequestBody CreateAccountRequest request) {
         accountService.createAccount(
                 request.accountName(),
                 request.accountType(),
