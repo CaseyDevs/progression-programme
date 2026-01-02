@@ -1,20 +1,20 @@
 package com.casey.bankingapi.repository;
 
-import com.casey.bankingapi.dto.AccountResponseDto;
 import org.springframework.stereotype.Repository;
+import com.casey.bankingapi.domain.Account;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Repository
 public class AccountRepository {
-    private final List<AccountResponseDto> accounts = new ArrayList<>();
+    private final List<Account> accounts = new ArrayList<>();
 
-    public void addAccount(AccountResponseDto account) {
+    public void addAccount(Account account) {
         accounts.add(account);
     }
 
-    public List<AccountResponseDto> getAccounts() {
+    public List<Account> getAccounts() {
         return accounts;
     }
 }
