@@ -1,7 +1,7 @@
 package com.casey.bankingapi.controller;
 
 import com.casey.bankingapi.dto.AccountResponseDto;
-import com.casey.bankingapi.dto.CreateAccountRequest;
+import com.casey.bankingapi.dto.CreateAccountRequestDto;
 import com.casey.bankingapi.service.AccountService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +25,9 @@ public class AccountController {
     }
 
     @PostMapping("/accounts")
-    public ResponseEntity<Void> createAccount(@Valid @RequestBody CreateAccountRequest request) {
+    public ResponseEntity<Void> createAccount(
+            @Valid @RequestBody CreateAccountRequestDto request
+    ) {
         accountService.createAccount(
                 request.accountName(),
                 request.accountType(),
@@ -39,4 +41,10 @@ public class AccountController {
     public ResponseEntity<AccountResponseDto> getAccountByName(@PathVariable String name) {
         return ResponseEntity.ok(accountService.getAccountByName(name));
     }
+
+    @PutMapping("/accounts/{name}")
+    public ResponseEntity<AccountResponseDto> updateAccount(@PathVariable String name) {
+        return ResponseEntity.ok();
+    }
+
 }

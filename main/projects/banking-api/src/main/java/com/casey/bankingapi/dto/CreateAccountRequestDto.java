@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
 
-public record CreateAccountRequest(
+public record CreateAccountRequestDto(
         @NotBlank String accountName,
         @NotBlank String accountType,
         @NotNull @Positive BigDecimal balance
