@@ -45,7 +45,7 @@ public class AccountController {
     }
 
     @PutMapping("/accounts/{name}")
-    public ResponseEntity<AccountResponseDto> updateAccount(
+    public ResponseEntity<Void> updateAccount(
             @PathVariable String name,
             @Valid @RequestBody UpdateAccountRequestDto request
     ) {
@@ -56,6 +56,6 @@ public class AccountController {
                 request.balance()
         );
 
-        return ResponseEntity.ok(dto);
+        return ResponseEntity.ok().build();
     }
 }
