@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Locale;
 
 @RestController
 @RequestMapping("/api")
@@ -45,17 +44,12 @@ public class AccountController {
     }
 
     @PutMapping("/accounts/{name}")
-    public ResponseEntity<Void> updateAccount(
+    public ResponseEntity<AccountResponseDto> updateAccount(
             @PathVariable String name,
             @Valid @RequestBody UpdateAccountRequestDto request
-    ) {
-        AccountResponseDto dto = accountService.updateAccount(
-                name,
-                request.accountName(),
-                request.accountType(),
-                request.balance()
-        );
+    ) {≠
 
-        return ResponseEntity.ok().build();
+        AccountResponseDto updated = accountService.updateAccount(name, request);
+        return ResponseEntity.ok(updated);
     }
 }

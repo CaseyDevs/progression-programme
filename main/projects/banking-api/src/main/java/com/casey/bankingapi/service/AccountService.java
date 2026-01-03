@@ -2,6 +2,7 @@ package com.casey.bankingapi.service;
 
 import com.casey.bankingapi.domain.Account;
 import com.casey.bankingapi.dto.AccountResponseDto;
+import com.casey.bankingapi.dto.UpdateAccountRequestDto;
 import com.casey.bankingapi.exceptions.AccountNotFoundException;
 import com.casey.bankingapi.repository.AccountRepository;
 import org.springframework.stereotype.Service;
@@ -51,14 +52,14 @@ public class AccountService {
                 .orElseThrow(() -> new AccountNotFoundException("Account with name " + name + " not found."));
     }
 
-    public AccountResponseDto updateAccount(String name, String accountName, String accountType, BigDecimal balance)
+    public AccountResponseDto updateAccount(String name, UpdateAccountRequestDto request)
             throws AccountNotFoundException {
 
         Account account = repo.getAccountByName(name);
 
-        account.setAccountName(accountName);
-        account.setAccountType(accountType);
-        account.setBalance(balance);
+        account.setAccountName(request.accountName());
+        account.setAccountType(request.accountType());
+        account.setBalance(request.balance());
 
         return new AccountResponseDto(
                 account.getAccountName(),
