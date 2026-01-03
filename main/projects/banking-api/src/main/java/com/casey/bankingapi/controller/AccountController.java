@@ -30,6 +30,7 @@ public class AccountController {
             @Valid @RequestBody CreateAccountRequestDto request
     ) {
         accountService.createAccount(
+                request.accountName(),
                 request.accountType(),
                 request.balance()
         );
