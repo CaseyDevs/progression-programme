@@ -57,7 +57,6 @@ public class AccountService {
 
         Account account = repo.getAccountByName(name);
 
-        account.setAccountName(request.accountName());
         account.setAccountType(request.accountType());
         account.setBalance(request.balance());
 

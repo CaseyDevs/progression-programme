@@ -30,7 +30,6 @@ public class AccountController {
             @Valid @RequestBody CreateAccountRequestDto request
     ) {
         accountService.createAccount(
-                request.accountName(),
                 request.accountType(),
                 request.balance()
         );
@@ -47,7 +46,7 @@ public class AccountController {
     public ResponseEntity<AccountResponseDto> updateAccount(
             @PathVariable String name,
             @Valid @RequestBody UpdateAccountRequestDto request
-    ) {≠
+    ) {
 
         AccountResponseDto updated = accountService.updateAccount(name, request);
         return ResponseEntity.ok(updated);

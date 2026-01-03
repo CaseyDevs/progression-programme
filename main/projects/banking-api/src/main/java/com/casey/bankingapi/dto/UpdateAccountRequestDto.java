@@ -7,7 +7,6 @@ import jakarta.validation.constraints.Positive;
 import java.math.BigDecimal;
 
 public record UpdateAccountRequestDto (
-    @NotBlank String accountName,
     @NotBlank String accountType,
     @NotNull @Positive BigDecimal balance
 ) {}
