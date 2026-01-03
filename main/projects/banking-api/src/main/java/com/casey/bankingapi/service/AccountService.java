@@ -4,11 +4,9 @@ import com.casey.bankingapi.domain.Account;
 import com.casey.bankingapi.dto.AccountResponseDto;
 import com.casey.bankingapi.exceptions.AccountNotFoundException;
 import com.casey.bankingapi.repository.AccountRepository;
-import jakarta.servlet.Filter;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -51,5 +49,21 @@ public class AccountService {
                         account.getBalance()
                 ))
                 .orElseThrow(() -> new AccountNotFoundException("Account with name " + name + " not found."));
+    }
+
+    public AccountResponseDto updateAccount(String name, String accountName, String accountType, BigDecimal balance)
+            throws AccountNotFoundException {
+
+        Account account = repo.getAccountByName(name);
+
+        account.setAccountName(accountName);
+        account.setAccountType(accountType);
+        account.setBalance(balance);
+
+        return new AccountResponseDto(
+                account.getAccountName(),
+                account.getAccountType(),
+                account.getBalance()
+        );
     }
 }

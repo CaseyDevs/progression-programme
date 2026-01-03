@@ -1,5 +1,6 @@
 package com.casey.bankingapi.repository;
 
+import com.casey.bankingapi.exceptions.AccountNotFoundException;
 import org.springframework.stereotype.Repository;
 import com.casey.bankingapi.domain.Account;
 
@@ -16,5 +17,15 @@ public class AccountRepository {
 
     public List<Account> getAccounts() {
         return List.copyOf(accounts);
+    }
+
+    public Account getAccountByName(String name) throws AccountNotFoundException {
+        for (Account acc : accounts) {
+            if (acc.getAccountName().equals(name)) {
+                return acc;
+            }
+        }
+
+        throw new AccountNotFoundException("Account doesn't exist");
     }
 }

@@ -2,12 +2,14 @@ package com.casey.bankingapi.controller;
 
 import com.casey.bankingapi.dto.AccountResponseDto;
 import com.casey.bankingapi.dto.CreateAccountRequestDto;
+import com.casey.bankingapi.dto.UpdateAccountRequestDto;
 import com.casey.bankingapi.service.AccountService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Locale;
 
 @RestController
 @RequestMapping("/api")
@@ -43,8 +45,17 @@ public class AccountController {
     }
 
     @PutMapping("/accounts/{name}")
-    public ResponseEntity<AccountResponseDto> updateAccount(@PathVariable String name) {
-        return ResponseEntity.ok();
-    }
+    public ResponseEntity<AccountResponseDto> updateAccount(
+            @PathVariable String name,
+            @Valid @RequestBody UpdateAccountRequestDto request
+    ) {
+        AccountResponseDto dto = accountService.updateAccount(
+                name,
+                request.accountName(),
+                request.accountType(),
+                request.balance()
+        );
 
+        return ResponseEntity.ok(dto);
+    }
 }
