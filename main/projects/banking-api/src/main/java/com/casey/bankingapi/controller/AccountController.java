@@ -2,6 +2,7 @@ package com.casey.bankingapi.controller;
 
 import com.casey.bankingapi.dto.AccountResponseDto;
 import com.casey.bankingapi.dto.CreateAccountRequestDto;
+import com.casey.bankingapi.dto.UpdateAccountFieldRequestDto;
 import com.casey.bankingapi.dto.UpdateAccountRequestDto;
 import com.casey.bankingapi.service.AccountService;
 import jakarta.validation.Valid;
@@ -50,6 +51,17 @@ public class AccountController {
     ) {
 
         AccountResponseDto updated = accountService.updateAccount(name, request);
+        return ResponseEntity.ok(updated);
+    }
+
+    @PatchMapping("/accounts/{name}")
+    public ResponseEntity<AccountResponseDto> updateAccountField(
+            @PathVariable String name,
+            @Valid @RequestBody UpdateAccountFieldRequestDto request
+            ) {
+
+        AccountResponseDto updated = accountService.updateAccountField(name, request);
+
         return ResponseEntity.ok(updated);
     }
 }

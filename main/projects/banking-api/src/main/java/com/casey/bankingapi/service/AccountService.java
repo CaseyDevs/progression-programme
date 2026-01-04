@@ -2,6 +2,7 @@ package com.casey.bankingapi.service;
 
 import com.casey.bankingapi.domain.Account;
 import com.casey.bankingapi.dto.AccountResponseDto;
+import com.casey.bankingapi.dto.UpdateAccountFieldRequestDto;
 import com.casey.bankingapi.dto.UpdateAccountRequestDto;
 import com.casey.bankingapi.exceptions.AccountNotFoundException;
 import com.casey.bankingapi.repository.AccountRepository;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -59,6 +61,40 @@ public class AccountService {
 
         account.setAccountType(request.accountType());
         account.setBalance(request.balance());
+
+        return new AccountResponseDto(
+                account.getAccountName(),
+                account.getAccountType(),
+                account.getBalance()
+        );
+    }
+
+    public AccountResponseDto updateAccountField(String name, UpdateAccountFieldRequestDto request)
+                throws AccountNotFoundException {
+        Account account = repo.getAccountByName(name);
+
+        for (Map.Entry<String, Object> entry : request.fields().entrySet()) {
+            String fieldName = entry.getKey();
+            Object fieldValue = entry.getValue();
+
+            switch (fieldName.toLowerCase()) {
+                case "accounttype":
+                    account.setAccountType(fieldValue.toString());
+                    break;
+                case "balance":
+                    try {
+                        BigDecimal newBalance = new BigDecimal(fieldValue.toString());
+                        account.setBalance(newBalance);
+                    } catch (NumberFormatException e) {
+                        throw new IllegalArgumentException("Invalid balance formant: " + fieldValue);
+                    }
+                    break;
+                default:
+                    throw new IllegalArgumentException(
+                            "Invalid field: " + fieldName + ". Supported fields are: accountType, balance"
+                    );
+            }
+        }
 
         return new AccountResponseDto(
                 account.getAccountName(),
