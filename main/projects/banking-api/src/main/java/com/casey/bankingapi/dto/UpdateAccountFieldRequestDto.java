@@ -1,7 +1,9 @@
 package com.casey.bankingapi.dto;
 
-import java.util.Map;
+import java.math.BigDecimal;
 
 public record UpdateAccountFieldRequestDto(
-    Map<String, Object> fields
+        // Keep nullable
+        String accountType,
+        BigDecimal balance
 ) {}

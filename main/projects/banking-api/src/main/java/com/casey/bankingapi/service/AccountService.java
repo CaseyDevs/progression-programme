@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -73,27 +72,15 @@ public class AccountService {
                 throws AccountNotFoundException {
         Account account = repo.getAccountByName(name);
 
-        for (Map.Entry<String, Object> entry : request.fields().entrySet()) {
-            String fieldName = entry.getKey();
-            Object fieldValue = entry.getValue();
+        if(request.accountType() != null) {
+            account.setAccountType(request.accountType());
+        }
 
-            switch (fieldName.toLowerCase()) {
-                case "accounttype":
-                    account.setAccountType(fieldValue.toString());
-                    break;
-                case "balance":
-                    try {
-                        BigDecimal newBalance = new BigDecimal(fieldValue.toString());
-                        account.setBalance(newBalance);
-                    } catch (NumberFormatException e) {
-                        throw new IllegalArgumentException("Invalid balance formant: " + fieldValue);
-                    }
-                    break;
-                default:
-                    throw new IllegalArgumentException(
-                            "Invalid field: " + fieldName + ". Supported fields are: accountType, balance"
-                    );
+        if (request.balance() != null) {
+            if (request.balance().signum() < 0) {
+                throw new IllegalArgumentException("Balance cannot be negative");
             }
+            account.setBalance(request.balance());
         }
 
         return new AccountResponseDto(
