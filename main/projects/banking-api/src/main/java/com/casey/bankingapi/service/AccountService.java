@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,18 +38,17 @@ public class AccountService {
                     .collect(Collectors.toList());
     }
 
-    public AccountResponseDto getAccountByName(String name) throws AccountNotFoundException {
+    public AccountResponseDto getAccountByName(String name) {
+        Account account = repo.findByAccountName(name)
+                .orElseThrow(() ->
+                        new AccountNotFoundException("Account with name " + name + " not found")
+                );
 
-        // Filter by name & create new AccountResponseDto
-        return repo.findAll().stream().
-                filter(account -> account.getAccountName().equals(name))
-                .findFirst()
-                .map(account -> new AccountResponseDto(
-                        account.getAccountName(),
-                        account.getAccountType(),
-                        account.getBalance()
-                ))
-                .orElseThrow(() -> new AccountNotFoundException("Account with name " + name + " not found."));
+        return new AccountResponseDto(
+                account.getAccountName(),
+                account.getAccountType(),
+                account.getBalance()
+        );
     }
 
     public AccountResponseDto updateAccount(String name, UpdateAccountRequestDto request)
