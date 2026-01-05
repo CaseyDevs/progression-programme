@@ -1,31 +1,12 @@
 package com.casey.bankingapi.repository;
 
-import com.casey.bankingapi.exceptions.AccountNotFoundException;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import com.casey.bankingapi.domain.Account;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Optional;
 
-@Repository
-public class AccountRepository {
-    private final List<Account> accounts = new ArrayList<>();
 
-    public void addAccount(Account account) {
-        accounts.add(account);
-    }
+public interface AccountRepository extends JpaRepository<Account, Long> {
 
-    public List<Account> getAccounts() {
-        return List.copyOf(accounts);
-    }
-
-    public Account getAccountByName(String name) throws AccountNotFoundException {
-        for (Account acc : accounts) {
-            if (acc.getAccountName().equals(name)) {
-                return acc;
-            }
-        }
-
-        throw new AccountNotFoundException("Account doesn't exist");
-    }
+    Optional<Account> findByAccountName(String accountName);
 }

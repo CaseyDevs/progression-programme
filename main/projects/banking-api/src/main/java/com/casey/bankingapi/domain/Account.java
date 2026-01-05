@@ -19,7 +19,7 @@ public class Account {
     private String accountType;
     private BigDecimal balance;
 
-    protected Account() {}
+    protected Account() {} // For JPA
 
     public Account(String accountName, String accountType, BigDecimal balance) {
         this.accountName = accountName;
