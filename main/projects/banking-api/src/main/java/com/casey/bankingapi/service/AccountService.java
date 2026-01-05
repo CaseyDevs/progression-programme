@@ -10,6 +10,8 @@ import com.casey.bankingapi.domain.User;
 import com.casey.bankingapi.repository.AccountRepository;
 import com.casey.bankingapi.repository.UserRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -41,16 +43,15 @@ public class AccountService {
         userRepo.save(user);
     }
 
-    public List<AccountResponseDto> getAllAccounts() {
+    public Page<AccountResponseDto> getAllAccounts(Pageable pageable) {
         // Map accounts to dto
-            return accountRepo.findAll().stream()
+            return accountRepo.findAll(pageable)
                     .map(account -> new AccountResponseDto(
                             account.getAccountName(),
                             account.getAccountType(),
                             account.getBalance(),
                             new UserResponseDto(account.getUser().getName())
-                    ))
-                    .collect(Collectors.toList());
+                    ));
     }
 
     public AccountResponseDto getAccountByName(String name) {
