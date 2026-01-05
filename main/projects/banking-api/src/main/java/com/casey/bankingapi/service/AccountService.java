@@ -22,15 +22,13 @@ public class AccountService {
 
 
     public void createAccount(String accountName, String accountType, BigDecimal balance) {
-        repo.addAccount(new Account(accountName, accountType, balance));
+        repo.save(new Account(accountName, accountType, balance));
     }
 
 
     public List<AccountResponseDto> getAllAccounts() {
-        List<Account> accounts = repo.getAccounts();
-
             // Map accounts to dto
-            return accounts.stream()
+            return repo.findAll().stream()
                     .map(account -> new AccountResponseDto(
                             account.getAccountName(),
                             account.getAccountType(),
@@ -42,7 +40,7 @@ public class AccountService {
     public AccountResponseDto getAccountByName(String name) throws AccountNotFoundException {
 
         // Filter by name & create new AccountResponseDto
-        return repo.getAccounts().stream().
+        return repo.findAll().stream().
                 filter(account -> account.getAccountName().equals(name))
                 .findFirst()
                 .map(account -> new AccountResponseDto(
@@ -56,7 +54,10 @@ public class AccountService {
     public AccountResponseDto updateAccount(String name, UpdateAccountRequestDto request)
             throws AccountNotFoundException {
 
-        Account account = repo.getAccountByName(name);
+        Account account = repo.findByAccountName(name)
+                .orElseThrow(() ->
+                        new AccountNotFoundException("Account with name: " + name + " does not exist")
+                );
 
         account.setAccountType(request.accountType());
         account.setBalance(request.balance());
@@ -70,7 +71,11 @@ public class AccountService {
 
     public AccountResponseDto updateAccountField(String name, UpdateAccountFieldRequestDto request)
                 throws AccountNotFoundException {
-        Account account = repo.getAccountByName(name);
+
+        Account account = repo.findByAccountName(name)
+                .orElseThrow(() ->
+                        new AccountNotFoundException("Account with name: " + name + " does not exist")
+                );
 
         if(request.accountType() != null) {
             account.setAccountType(request.accountType());
