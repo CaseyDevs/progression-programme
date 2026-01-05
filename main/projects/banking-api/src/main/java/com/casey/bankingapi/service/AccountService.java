@@ -5,7 +5,9 @@ import com.casey.bankingapi.dto.AccountResponseDto;
 import com.casey.bankingapi.dto.UpdateAccountFieldRequestDto;
 import com.casey.bankingapi.dto.UpdateAccountRequestDto;
 import com.casey.bankingapi.exceptions.AccountNotFoundException;
+import com.casey.bankingapi.domain.User;
 import com.casey.bankingapi.repository.AccountRepository;
+import com.casey.bankingapi.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -16,19 +18,27 @@ import java.util.stream.Collectors;
 @Transactional
 @Service
 public class AccountService {
-    private final AccountRepository repo;
+    private final AccountRepository accountRepo;
+    private final UserRepository userRepo;
 
-    AccountService(AccountRepository repo) {
-        this.repo = repo;
+    AccountService(AccountRepository accountRepo, UserRepository userRepo) {
+        this.accountRepo = accountRepo;
+        this.userRepo = userRepo;
     }
 
-    public void createAccount(String accountName, String accountType, BigDecimal balance) {
-        repo.save(new Account(accountName, accountType, balance));
+    public void createAccount(String userName, String accountName, String accountType, BigDecimal balance) {
+        User user = userRepo.findByName(userName)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        Account account = new Account(accountName, accountType, balance);
+        user.addAccount(account);
+
+        userRepo.save(user);
     }
 
     public List<AccountResponseDto> getAllAccounts() {
             // Map accounts to dto
-            return repo.findAll().stream()
+            return accountRepo.findAll().stream()
                     .map(account -> new AccountResponseDto(
                             account.getAccountName(),
                             account.getAccountType(),
@@ -38,7 +48,7 @@ public class AccountService {
     }
 
     public AccountResponseDto getAccountByName(String name) {
-        Account account = repo.findByAccountName(name)
+        Account account = accountRepo.findByAccountName(name)
                 .orElseThrow(() ->
                         new AccountNotFoundException("Account with name " + name + " not found")
                 );
@@ -53,7 +63,7 @@ public class AccountService {
     public AccountResponseDto updateAccount(String name, UpdateAccountRequestDto request)
             throws AccountNotFoundException {
 
-        Account account = repo.findByAccountName(name)
+        Account account = accountRepo.findByAccountName(name)
                 .orElseThrow(() ->
                         new AccountNotFoundException("Account with name: " + name + " does not exist")
                 );
@@ -71,7 +81,7 @@ public class AccountService {
     public AccountResponseDto updateAccountField(String name, UpdateAccountFieldRequestDto request)
                 throws AccountNotFoundException {
 
-        Account account = repo.findByAccountName(name)
+        Account account = accountRepo.findByAccountName(name)
                 .orElseThrow(() ->
                         new AccountNotFoundException("Account with name: " + name + " does not exist")
                 );
