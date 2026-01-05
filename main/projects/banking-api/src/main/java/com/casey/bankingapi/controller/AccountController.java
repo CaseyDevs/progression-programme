@@ -6,6 +6,8 @@ import com.casey.bankingapi.dto.UpdateAccountFieldRequestDto;
 import com.casey.bankingapi.dto.UpdateAccountRequestDto;
 import com.casey.bankingapi.service.AccountService;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,8 +24,8 @@ public class AccountController {
     }
 
     @GetMapping("/accounts")
-    public ResponseEntity<List<AccountResponseDto>> getAccounts() {
-        return ResponseEntity.ok(accountService.getAllAccounts());
+    public ResponseEntity<Page<AccountResponseDto>> getAccounts(Pageable pageable) {
+        return ResponseEntity.ok(accountService.getAllAccounts(pageable));
     }
 
     @PostMapping("/accounts")
