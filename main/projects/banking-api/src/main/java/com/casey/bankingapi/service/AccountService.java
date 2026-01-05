@@ -62,6 +62,8 @@ public class AccountService {
         account.setAccountType(request.accountType());
         account.setBalance(request.balance());
 
+        repo.save(account);
+
         return new AccountResponseDto(
                 account.getAccountName(),
                 account.getAccountType(),
@@ -87,6 +89,8 @@ public class AccountService {
             }
             account.setBalance(request.balance());
         }
+
+        repo.save(account);
 
         return new AccountResponseDto(
                 account.getAccountName(),
