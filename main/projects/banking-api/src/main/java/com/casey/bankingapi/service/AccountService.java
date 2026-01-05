@@ -6,13 +6,14 @@ import com.casey.bankingapi.dto.UpdateAccountFieldRequestDto;
 import com.casey.bankingapi.dto.UpdateAccountRequestDto;
 import com.casey.bankingapi.exceptions.AccountNotFoundException;
 import com.casey.bankingapi.repository.AccountRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Locale;
 import java.util.stream.Collectors;
 
+@Transactional
 @Service
 public class AccountService {
     private final AccountRepository repo;
@@ -21,11 +22,9 @@ public class AccountService {
         this.repo = repo;
     }
 
-
     public void createAccount(String accountName, String accountType, BigDecimal balance) {
         repo.save(new Account(accountName, accountType, balance));
     }
-
 
     public List<AccountResponseDto> getAllAccounts() {
             // Map accounts to dto
@@ -62,8 +61,6 @@ public class AccountService {
         account.setAccountType(request.accountType());
         account.setBalance(request.balance());
 
-        repo.save(account);
-
         return new AccountResponseDto(
                 account.getAccountName(),
                 account.getAccountType(),
@@ -89,8 +86,6 @@ public class AccountService {
             }
             account.setBalance(request.balance());
         }
-
-        repo.save(account);
 
         return new AccountResponseDto(
                 account.getAccountName(),
