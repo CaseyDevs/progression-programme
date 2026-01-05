@@ -1,11 +1,25 @@
 package com.casey.bankingapi.domain;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
 import java.math.BigDecimal;
 
+@Entity
 public class Account {
+
+    // ID generation
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private String accountName;
     private String accountType;
     private BigDecimal balance;
+
+    protected Account() {}
 
     public Account(String accountName, String accountType, BigDecimal balance) {
         this.accountName = accountName;
