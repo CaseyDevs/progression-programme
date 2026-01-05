@@ -5,5 +5,6 @@ import java.math.BigDecimal;
 public record AccountResponseDto(
         String accountName,
         String accountType,
-        BigDecimal balance
+        BigDecimal balance,
+        UserResponseDto user
 ) {}

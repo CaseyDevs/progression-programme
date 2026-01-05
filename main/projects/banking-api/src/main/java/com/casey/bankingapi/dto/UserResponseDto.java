@@ -1,4 +1,5 @@
 package com.casey.bankingapi.dto;
 
-public class UserResponseDto {
-}
+public record UserResponseDto (
+        String name
+) {}

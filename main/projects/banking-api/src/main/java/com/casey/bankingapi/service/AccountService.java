@@ -4,6 +4,7 @@ import com.casey.bankingapi.domain.Account;
 import com.casey.bankingapi.dto.AccountResponseDto;
 import com.casey.bankingapi.dto.UpdateAccountFieldRequestDto;
 import com.casey.bankingapi.dto.UpdateAccountRequestDto;
+import com.casey.bankingapi.dto.UserResponseDto;
 import com.casey.bankingapi.exceptions.AccountNotFoundException;
 import com.casey.bankingapi.domain.User;
 import com.casey.bankingapi.repository.AccountRepository;
@@ -27,6 +28,10 @@ public class AccountService {
     }
 
     public void createAccount(String userName, String accountName, String accountType, BigDecimal balance) {
+        User newUser = new User(userName);
+
+        userRepo.save(newUser);
+
         User user = userRepo.findByName(userName)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
@@ -37,12 +42,13 @@ public class AccountService {
     }
 
     public List<AccountResponseDto> getAllAccounts() {
-            // Map accounts to dto
+        // Map accounts to dto
             return accountRepo.findAll().stream()
                     .map(account -> new AccountResponseDto(
                             account.getAccountName(),
                             account.getAccountType(),
-                            account.getBalance()
+                            account.getBalance(),
+                            new UserResponseDto(account.getUser().getName())
                     ))
                     .collect(Collectors.toList());
     }
@@ -53,10 +59,13 @@ public class AccountService {
                         new AccountNotFoundException("Account with name " + name + " not found")
                 );
 
+        UserResponseDto userDto = new UserResponseDto(account.getUser().getName());
+
         return new AccountResponseDto(
                 account.getAccountName(),
                 account.getAccountType(),
-                account.getBalance()
+                account.getBalance(),
+                userDto
         );
     }
 
@@ -71,10 +80,13 @@ public class AccountService {
         account.setAccountType(request.accountType());
         account.setBalance(request.balance());
 
+        UserResponseDto userDto = new UserResponseDto(account.getUser().getName());
+
         return new AccountResponseDto(
                 account.getAccountName(),
                 account.getAccountType(),
-                account.getBalance()
+                account.getBalance(),
+                userDto
         );
     }
 
@@ -97,10 +109,13 @@ public class AccountService {
             account.setBalance(request.balance());
         }
 
+        UserResponseDto userDto = new UserResponseDto(account.getUser().getName());
+
         return new AccountResponseDto(
                 account.getAccountName(),
                 account.getAccountType(),
-                account.getBalance()
+                account.getBalance(),
+                userDto
         );
     }
 }
