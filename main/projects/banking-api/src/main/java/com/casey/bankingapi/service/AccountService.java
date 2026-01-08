@@ -25,10 +25,12 @@ import java.math.BigDecimal;
 public class AccountService {
     private final AccountRepository accountRepo;
     private final UserRepository userRepo;
+    private final AuditService auditService;
 
-    AccountService(AccountRepository accountRepo, UserRepository userRepo) {
+    AccountService(AccountRepository accountRepo, UserRepository userRepo, AuditService auditService) {
         this.accountRepo = accountRepo;
         this.userRepo = userRepo;
+        this.auditService = auditService;
     }
 
     public void createAccount(String userName, String accountName, String accountType, BigDecimal balance) {
@@ -83,6 +85,12 @@ public class AccountService {
 
         account.setAccountType(request.accountType());
         account.setBalance(request.balance());
+
+        try {
+            auditService.log("updated account.");
+        } catch (Exception e) {
+            // ignore
+        }
 
         UserResponseDto userDto = new UserResponseDto(account.getUser().getName());
 
