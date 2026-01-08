@@ -20,3 +20,8 @@ When a transactional method ends:
 - Detects the differences in state ("dirty fields").
 - Generates the required "UPDATE" SQL.
 - Commits the transaction.
+
+### Read-only Transactions
+To cut overhead (SQL Flushes), we can set read-only transactions in Spring for non-write methods.
+
+`@Transactional(readOnly = true)`
