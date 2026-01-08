@@ -9,7 +9,7 @@ import com.casey.bankingapi.exceptions.AccountNotFoundException;
 import com.casey.bankingapi.domain.User;
 import com.casey.bankingapi.repository.AccountRepository;
 import com.casey.bankingapi.repository.UserRepository;
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -39,6 +39,7 @@ public class AccountService {
         userRepo.save(user);
     }
 
+    @Transactional(readOnly = true)
     public Page<AccountResponseDto> getAllAccounts(String type, BigDecimal minBalance, Pageable pageable) {
         // Map accounts to dto
         Specification<Account> spec =
@@ -55,6 +56,7 @@ public class AccountService {
                     ));
     }
 
+    @Transactional(readOnly = true)
     public AccountResponseDto getAccountByName(String name) {
         Account account = accountRepo.findByAccountName(name)
                 .orElseThrow(() ->
