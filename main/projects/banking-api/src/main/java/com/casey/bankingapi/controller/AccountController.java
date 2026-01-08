@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -24,8 +25,12 @@ public class AccountController {
     }
 
     @GetMapping("/accounts")
-    public ResponseEntity<Page<AccountResponseDto>> getAccounts(Pageable pageable) {
-        return ResponseEntity.ok(accountService.getAllAccounts(pageable));
+    public ResponseEntity<Page<AccountResponseDto>> getAccounts(
+            @RequestParam(required = false) String type,
+            @RequestParam(required = false)BigDecimal minBalance,
+            Pageable pageable
+    ) {
+        return ResponseEntity.ok(accountService.getAllAccounts(type, minBalance, pageable));
     }
 
     @PostMapping("/accounts")

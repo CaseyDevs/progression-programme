@@ -43,7 +43,7 @@ public class AccountService {
         userRepo.save(user);
     }
 
-    public Page<AccountResponseDto> getAllAccounts(Pageable pageable) {
+    public Page<AccountResponseDto> getAllAccounts(String type, BigDecimal minBalance, Pageable pageable) {
         // Map accounts to dto
             return accountRepo.findAll(pageable)
                     .map(account -> new AccountResponseDto(
