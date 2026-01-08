@@ -32,16 +32,10 @@ public class AccountService {
     }
 
     public void createAccount(String userName, String accountName, String accountType, BigDecimal balance) {
-        User newUser = new User(userName);
-
-        userRepo.save(newUser);
-
-        User user = userRepo.findByName(userName)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-
+        User user = new User(userName);
         Account account = new Account(accountName, accountType, balance);
-        user.addAccount(account);
 
+        user.addAccount(account);
         userRepo.save(user);
     }
 
