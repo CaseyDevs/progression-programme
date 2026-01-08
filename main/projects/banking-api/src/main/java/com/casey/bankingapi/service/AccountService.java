@@ -12,11 +12,13 @@ import com.casey.bankingapi.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import static com.casey.bankingapi.repository.AccountSpecifications.hasMinBalance;
+import static com.casey.bankingapi.repository.AccountSpecifications.hasType;
 
 import java.math.BigDecimal;
-import java.util.List;
-import java.util.stream.Collectors;
+
 
 @Transactional
 @Service
@@ -45,7 +47,12 @@ public class AccountService {
 
     public Page<AccountResponseDto> getAllAccounts(String type, BigDecimal minBalance, Pageable pageable) {
         // Map accounts to dto
-            return accountRepo.findAll(pageable)
+        Specification<Account> spec =
+                Specification.where(hasType(type))
+                        .and(hasMinBalance(minBalance));
+
+
+        return accountRepo.findAll(spec, pageable)
                     .map(account -> new AccountResponseDto(
                             account.getAccountName(),
                             account.getAccountType(),
