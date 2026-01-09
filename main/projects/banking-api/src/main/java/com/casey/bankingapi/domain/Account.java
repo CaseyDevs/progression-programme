@@ -12,7 +12,7 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // Optimistic locking
+    // Optimistic locking (concurrency safety)
     @Version
     private Long version;
 
