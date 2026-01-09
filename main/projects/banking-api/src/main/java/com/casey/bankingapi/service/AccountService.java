@@ -88,10 +88,9 @@ public class AccountService {
 
         try {
             auditService.log("updated account.");
-        } catch (Exception e) {
-            // ignore
+        } catch (RuntimeException e) {
+            // TODO: add proper logging
         }
-
         UserResponseDto userDto = new UserResponseDto(account.getUser().getName());
 
         return new AccountResponseDto(
