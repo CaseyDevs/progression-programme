@@ -30,7 +30,7 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.DELETE, "/api/**").hasRole("ADMIN")
                         .anyRequest().permitAll()
                 )
-                .httpBasic(Customizer.withDefaults()) // simplest starter auth
+                .httpBasic(Customizer.withDefaults()) // temp: replace with JWT
                 .build();
     }
 
