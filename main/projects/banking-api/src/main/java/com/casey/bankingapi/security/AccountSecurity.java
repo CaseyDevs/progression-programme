@@ -15,6 +15,7 @@ public class AccountSecurity {
         this.accountRepository = accountRepository;
     }
 
+    // Check user passed through auth matches account owners name
     public boolean isOwner(String accountName, Authentication authentication) {
         return accountRepository.findByAccountName(accountName).map(account -> 
             account.getUser().getName().equals(authentication.getName())

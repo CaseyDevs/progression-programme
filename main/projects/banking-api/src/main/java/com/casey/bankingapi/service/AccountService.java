@@ -79,14 +79,11 @@ public class AccountService {
         );
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("@accountSecurity.isOwner(#name, authentication)") // Compare request username against account owner name
     public AccountResponseDto updateAccount(
             String name,
-            UpdateAccountRequestDto request,
-            Authentication authentication
+            UpdateAccountRequestDto request
     ) throws AccountNotFoundException {
-
-        String username = authentication.getName(); // Get the username through basic Spring auth
 
         Account account = accountRepo.findByAccountName(name)
                 .orElseThrow(() ->

@@ -56,10 +56,9 @@ public class AccountController {
     public ResponseEntity<AccountResponseDto> updateAccount(
             @PathVariable String name,
             @Valid @RequestBody UpdateAccountRequestDto request,
-            Authentication authentication // Spring handles auth here
     ) {
 
-        AccountResponseDto updated = accountService.updateAccount(name, request, authentication);
+        AccountResponseDto updated = accountService.updateAccount(name, request);
         return ResponseEntity.ok(updated);
     }
 

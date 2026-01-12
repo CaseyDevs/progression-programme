@@ -39,11 +39,17 @@ public class SecurityConfiguration {
     // Create a fake user for auth
     @Bean
     UserDetailsService users() {
-        UserDetails user = User.withUsername("casey")
+        UserDetails user1 = User.withUsername("casey")
                 .password("{noop}password")
                 .roles("USER")
                 .build();
-        return new InMemoryUserDetailsManager(user);
+
+        UserDetails user2 = User.withUsername("jamie")
+        .password("{noop}password")
+        .roles("USER")
+        .build();
+
+        return new InMemoryUserDetailsManager(user1, user2);
     }
 
 }
