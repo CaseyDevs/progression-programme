@@ -10,6 +10,7 @@ import com.casey.bankingapi.domain.User;
 import com.casey.bankingapi.repository.AccountRepository;
 import com.casey.bankingapi.repository.UserRepository;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.parameters.P;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.domain.Page;
@@ -78,9 +79,14 @@ public class AccountService {
         );
     }
 
-    @PreAuthorize("hasRole('USER')")
-    public AccountResponseDto updateAccount(String name, UpdateAccountRequestDto request)
-            throws AccountNotFoundException {
+    @PreAuthorize("hasRole('ADMIN')")
+    public AccountResponseDto updateAccount(
+            String name,
+            UpdateAccountRequestDto request,
+            Authentication authentication
+    ) throws AccountNotFoundException {
+
+        String username = authentication.getName(); // Get the username through basic Spring auth
 
         Account account = accountRepo.findByAccountName(name)
                 .orElseThrow(() ->

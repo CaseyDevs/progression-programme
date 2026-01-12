@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -54,10 +55,11 @@ public class AccountController {
     @PutMapping("/accounts/{name}")
     public ResponseEntity<AccountResponseDto> updateAccount(
             @PathVariable String name,
-            @Valid @RequestBody UpdateAccountRequestDto request
+            @Valid @RequestBody UpdateAccountRequestDto request,
+            Authentication authentication // Spring handles auth here
     ) {
 
-        AccountResponseDto updated = accountService.updateAccount(name, request);
+        AccountResponseDto updated = accountService.updateAccount(name, request, authentication);
         return ResponseEntity.ok(updated);
     }
 
