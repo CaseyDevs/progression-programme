@@ -9,6 +9,8 @@ import com.casey.bankingapi.exceptions.AccountNotFoundException;
 import com.casey.bankingapi.domain.User;
 import com.casey.bankingapi.repository.AccountRepository;
 import com.casey.bankingapi.repository.UserRepository;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.parameters.P;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -33,6 +35,7 @@ public class AccountService {
         this.auditService = auditService;
     }
 
+    @PreAuthorize("hasRole('USER')")
     public void createAccount(String userName, String accountName, String accountType, BigDecimal balance) {
         User user = new User(userName);
         Account account = new Account(accountName, accountType, balance);
@@ -75,6 +78,7 @@ public class AccountService {
         );
     }
 
+    @PreAuthorize("hasRole('USER')")
     public AccountResponseDto updateAccount(String name, UpdateAccountRequestDto request)
             throws AccountNotFoundException {
 
@@ -101,6 +105,7 @@ public class AccountService {
         );
     }
 
+    @PreAuthorize("hasRole('USER')")
     public AccountResponseDto updateAccountField(String name, UpdateAccountFieldRequestDto request)
                 throws AccountNotFoundException {
 
