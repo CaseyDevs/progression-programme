@@ -2,7 +2,6 @@ package com.casey.bankingapi;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -18,30 +17,26 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfiguration {
 
-    @Bean
-    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        return http
-                .csrf(csrf -> csrf.disable()) // APIs usually disable CSRF
-                .authorizeHttpRequests(auth -> auth
-                        // User Routes
-                        .requestMatchers(HttpMethod.GET, "/api/**").hasRole("USER")
-                        .requestMatchers(HttpMethod.PUT, "/api/**").hasRole("USER")
-                        .requestMatchers(HttpMethod.PATCH, "/api/**").hasRole("USER")
-
-                        // Admin Routes
-                        .requestMatchers(HttpMethod.DELETE, "/api/**").hasRole("ADMIN")
-                        .anyRequest().permitAll()
-                )
-                .httpBasic(Customizer.withDefaults()) // temp: replace with JWT
-                .build();
-    }
+@Bean
+SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    return http
+            .csrf(csrf -> csrf.disable())
+            .authorizeHttpRequests(auth -> auth
+                    .requestMatchers("/api/**").authenticated()
+                    .anyRequest().permitAll()
+            )
+            .oauth2ResourceServer(oauth2 ->
+                    oauth2.jwt(Customizer.withDefaults())
+            )
+            .build();
+}
 
     // Create a fake user for auth
     @Bean
     UserDetailsService users() {
         UserDetails user1 = User.withUsername("casey")
                 .password("{noop}password")
-                .roles("USER")
+                .roles("")
                 .build();
 
         UserDetails user2 = User.withUsername("jamie")
