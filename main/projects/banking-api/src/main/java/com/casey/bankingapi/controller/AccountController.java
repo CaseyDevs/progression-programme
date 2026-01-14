@@ -55,7 +55,7 @@ public class AccountController {
     @PutMapping("/accounts/{name}")
     public ResponseEntity<AccountResponseDto> updateAccount(
             @PathVariable String name,
-            @Valid @RequestBody UpdateAccountRequestDto request,
+            @Valid @RequestBody UpdateAccountRequestDto request
     ) {
 
         AccountResponseDto updated = accountService.updateAccount(name, request);

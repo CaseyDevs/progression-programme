@@ -45,12 +45,11 @@ public class SecurityConfiguration {
                 .build();
 
         UserDetails user2 = User.withUsername("jamie")
-        .password("{noop}password")
-        .roles("USER")
-        .build();
+                .password("{noop}password")
+                .roles("USER")
+                .build();
 
         return new InMemoryUserDetailsManager(user1, user2);
     }
 
 }
-

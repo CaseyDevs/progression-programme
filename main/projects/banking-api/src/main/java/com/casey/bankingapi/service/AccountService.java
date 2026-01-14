@@ -10,8 +10,6 @@ import com.casey.bankingapi.domain.User;
 import com.casey.bankingapi.repository.AccountRepository;
 import com.casey.bankingapi.repository.UserRepository;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.parameters.P;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
