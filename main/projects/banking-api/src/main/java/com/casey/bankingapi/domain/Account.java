@@ -20,12 +20,12 @@ public class Account {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-
     private String accountName;
     private String accountType;
     private BigDecimal balance;
 
-    protected Account() {} // For JPA
+    protected Account() {
+    } // For JPA
 
     public Account(String accountName, String accountType, BigDecimal balance) {
         this.accountName = accountName;
